@@ -1,0 +1,20 @@
+Cross-browser testing is the process of testing our website on different browsers
+and operating systems. With cross-browser testing, we make sure that the site is rendered
+the same in every browser. We can perform cross-browser testing either manually or
+in an automated way, but the manual method is very tedious.
+The reason being that while performing cross-browser testing,
+we do not only care about the browsers but their different versions and the operating systems too.
+So just imagine the permutations of so many browsers with so many versions (Chrome is on 83)
+and operating systems. Thus, a better way is to choose an automated way.
+
+We perform the automated cross-browser testing with the help of Selenium and TestNG,
+but before learning the code, it's better to understand why we perform cross-browser testing.
+
+Need for Cross-Browser Testing
+As I mentioned above, nobody knows what browser user loves to open the websites.
+It can be Google Chrome, Safari, or Opera Mini. Consider you, as a developer,
+have Google Chrome on your desktop on which you are developing the website.
+Since you have been developing the website concerning Chrome, it will render correctly on the browser.
+But now, when you publish the site, you are assuming that every one of your users is on Google Chrome.
+You must keep in mind that Google Chrome has a 62% share in browser statistics.
+So, you just lost 38% of your users without even letting them see the product.

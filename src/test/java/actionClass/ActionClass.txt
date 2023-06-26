@@ -1,0 +1,47 @@
+There are complex interactions like Drag-n-Drop and Double-click which cannot be done
+by simple WebElement commands. To handle those types of advance actions we have
+the Actions class in Selenium.
+we can perform complex user interaction using the Actions class.
+Action Class, actually it is not a class but an Interface
+
+What is the difference between Actions Class and Action Class in Selenium?
+With the above explanations of Actions Class & Action Class,
+we can now conclude that Actions is a class that is based on a builder design pattern.
+This is a user-facing API for emulating complex user gestures.
+
+Whereas Action is an Interface which represents a single user-interaction action.
+It contains one of the most widely used methods perform().
+ build method is called inside the perform method automatically.
+
+TODO  Link :- https://www.toolsqa.com/selenium-webdriver/actions-class-in-selenium/
+
+TODO  There are a lot of methods in this class which can be categorized into two main categories:
+Keyboard Events
+Mouse Events
+
+TODO Different Methods for performing Keyboard Events:
+keyDown(modifier key): Performs a modifier key press.
+sendKeys(keys to send ): Sends keys to the active web element.
+keyUp(modifier key): Performs a modifier key release.
+
+TODO  Different Methods for performing Mouse Events:
+click(): Clicks at the current mouse location.
+doubleClick(): Performs a double-click at the current mouse location.
+contextClick() : Performs a context-click at middle of the given element.
+clickAndHold(): Clicks (without releasing) in the middle of the given element.
+dragAndDrop(source, target): Click-and-hold at the location of the source element, moves to the location of the target element
+dragAndDropBy(source, xOffset, yOffset):  Click-and-hold at the location of the source element, moves by a given offset
+moveByOffset(Test_Concept.x-offset, y-offset): Moves the mouse from its current position (or 0,0) by the given offset
+moveToElement(toElement): Moves the mouse to the middle of the element
+release(): Releases the depressed left mouse button at the current mouse location
+
+
+Let's see what happens internally when invoke the TODO perform() method above:
+
+Move to Element:  contextClick() method first performs mouseMove to the middle of the element location. This function performs the right click at the middle of the web element.
+Build: build() method is used to generate a composite action containing all actions. But if you observe, we have not invoked it in our above command. The build is executed in the perform method internally.
+Perform: perform() method performs the actions we have specified. But before that, it internally invokes build() method first. After the build, the action is performed.
+
+
+dragAndDrop: Here, we saw how to use Drag and Drop Action in Selenium where we need to drag and drop the source element to target
+dragAndDropBy: Here, we saw how to drag and drop the source element in a horizontal and vertical direction by the specified offset

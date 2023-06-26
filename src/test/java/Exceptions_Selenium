@@ -1,0 +1,4 @@
+SessionNotCreatedException :- when we use old driver version, resolve by WebDriverManager
+                                        WebDriverManager.chromedriver().arch64().setup();
+                                       WebDriver driver = new ChromeDriver();
+
