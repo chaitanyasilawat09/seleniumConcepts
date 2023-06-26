@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Test-Suite">
+    <test name="ToolsQA">
+        <!--        we can define this Parameter on suite level, copy n past both line before <suite>-->
+        <parameter name="userName" value="csilawat"/>
+        <parameter name="password" value="cse"/>
+        <classes>
+            <class name="dataProvider_priority_parameters.testNG_parameterTest">
+            </class>
+        </classes>
+    </test>
+
+    <test name="optionalParameter">
+        <!--        If we not define this value so it will select default value/ not mandatory-->
+        <parameter name="message" value="Parameter send from xml file"></parameter>
+        <parameter name="userName" value="csilawat"/>
+        <parameter name="password" value="cse"/>
+        <classes>
+            <class name="dataProvider_priority_parameters.testNG_parameterTest"></class>
+        </classes>
+    </test>
+</suite>

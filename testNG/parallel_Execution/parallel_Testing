@@ -1,0 +1,40 @@
+Parallel testing or parallel execution, as the name suggests, is a process of running the test case parallelly rather than one after the other.
+As an example, you can think of having software with two different versions and running them in parallel with the help of TestNG.
+++ Reduces Time: , Allow Multi-Threaded Tests:
+-- Fails On Dependent Modules:, Knowledge Of Program Flow:
+
+The TestNG has a default value of thread = 5 for parallel testing
+
+TODO  parallel with methods inside a class
+<suite name = "Parallel Testing Suite">
+   <test name = "Parallel Tests" parallel = "methods" thread-count = "2">
+      <classes>
+         <class name = "ParallelTest" />
+      </classes>
+   </test>
+</suite>
+
+TODO  parallel with Classes inside xml file
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name = "Parallel Testing Suite">
+   <test name = "Parallel Tests" parallel = "classes" thread-count = "2">
+      <classes>
+         <class name = "ChromeTest" />
+         <class name = "FirefoxTest" />
+      </classes>
+   </test>
+</suite>
+
+TODO  parallel with Test tag inside xml file
+<suite name = "Parallel Testing Suite" parallel = "tests" thread-count = "2">
+   <test name = "Parallel Tests1">
+      <classes>
+         <class name = "ChromeTest" />
+      </classes>
+   </test>
+   <test name = "Parallel Tests2">
+      <classes>
+         <class name = "ChromeTest" />
+      </classes>
+   </test>
+</suite>

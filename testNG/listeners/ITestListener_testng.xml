@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Parallel Testing Suite" data-provider-thread-count="2">
+    <listeners>
+        <listener class-name="Listeners.ITestListener_Override_Methods"></listener>
+    </listeners>
+    <test name="Parallel Tests">
+        <classes>
+            <class name="Listeners.Implement_ITestListener"/>
+        </classes>
+    </test>
+</suite>

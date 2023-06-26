@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Test-Suite">
+    <test name="ToolsQA">
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="dataProvider_priority_parameters.TestNG_Group_N_DependsOnMethodsTest">
+            </class>
+        </classes>
+    </test>
+</suite>
