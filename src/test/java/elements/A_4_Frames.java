@@ -19,6 +19,9 @@ public class A_4_Frames extends BaseTest {
         //Switch back to main page
         driver.switchTo().defaultContent();
 
+        //Switch back to parent frame
+        driver.switchTo().parentFrame();
+
         //switch to next frame
         driver.switchTo().frame("frame2");
         WebElement element1 = findElementFunction("//h1[@id='sampleHeading']");

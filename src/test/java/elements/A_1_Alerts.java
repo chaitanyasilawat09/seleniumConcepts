@@ -23,6 +23,7 @@ public class A_1_Alerts extends BaseTest {
         Alert wait_5_second = driver.switchTo().alert();
         sleep(4000);
         wait_5_second.accept();
+        wait_5_second.getText();
         sleep(4000);
 
         // Dismiss alert

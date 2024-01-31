@@ -2,3 +2,27 @@ SessionNotCreatedException :- when we use old driver version, resolve by WebDriv
                                         WebDriverManager.chromedriver().arch64().setup();
                                        WebDriver driver = new ChromeDriver();
 
+UnexpectedTagNameException: Element should have been "select" but was "div"
+//                              when we pass non select tag element in select Class,
+//                              For select class tag name should be Select
+
+ElementNotInteractableException: This exception is thrown when an element is present in DOM,
+                                but it is not interactable, like unable to perform any action on it
+                                 such as clicking or sending keys
+                                 Solution:
+                                 Wait until the element is visible or clickable using Explicit wait.
+                                 Scroll until the element gets in display using the Actions class.
+                                 Use JS Executor to interact directly with the DOM.
+
+ElementNotVisibleException: Selenium throws ElementNotVisibleException when an element is present in the DOM,
+                            but it is not visible to the user.Solution:
+                            Solution:
+                            Try to write unique locators that match with a single element only.
+                            Wait until the element is visible or clickable using explicit wait.
+
+NoSuchElementException:
+SessionNotFoundException: SessionNotFoundException will occur when the Webdriver is trying to perform actions
+                          on the web application after the browser is closed or
+                          when the browser session is not available.
+TimeoutException: TimeOutException occurs when a command takes longer than the wait time to avoid
+                    the ElementNotVisible Exception

@@ -1,6 +1,10 @@
-You must have always craved for more logs from the Webdriver so that you can debug your scripts or maybe log more information about your tests. Here is your answer to it, EventFiringWebDriver and the WebDriverEventListner. EventFiringWebDriver is a class and is used to wrap your webdriver around to throw events and WebDriverEventListner is an interface that you have to implement to catch the webdriver events.
+You must have always craved for more logs from the Webdriver so that you can debug your scripts or maybe log more information about your tests.
+Here is your answer to it, EventFiringWebDriver and the WebDriverEventListner.
+EventFiringWebDriver is a class and is used to wrap your webdriver around to throw events and WebDriverEventListner is an interface
+that you have to implement to catch the webdriver events.
 
-The first thing to understand is your EventFiringWebDriver class. This is a class that implements the WebDriver interface. What the hell does that mean? It means that you will get all your regular webdriver methods like
+The first thing to understand is your EventFiringWebDriver class. This is a class that implements the WebDriver interface.
+What the hell does that mean? It means that you will get all your regular webdriver methods like
 
 findElementById
 findElementByTagName
@@ -9,7 +13,8 @@ In addition to this, you will have two methods
 - register(WebDriverEventListener eventListener)
 unregister(WebDriverEventListener eventListener)
 
-Register method will let you register our implementation of WebDriverEventListner to listen to the WebDriver events and with unregister you will be able to detach.
+Register method will let you register our implementation of WebDriverEventListner to listen to the WebDriver events and with unregister y
+ou will be able to detach.
 
 created a class called EventHandler and implemented WebDriverEventListner.
 Once you have implemented WebDriverEventListner you will have to implement

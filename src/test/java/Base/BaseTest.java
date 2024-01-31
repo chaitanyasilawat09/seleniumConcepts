@@ -27,9 +27,9 @@ public class BaseTest {
     @BeforeTest
     public void setUp() throws InterruptedException {
 
-//        System.setProperty("webdriver.chrome.driver","chromedriver");
-//        System.setProperty("webdriver.chrome.logfile", "TestLog.txt");
-        WebDriverManager.chromedriver().arch64().setup();
+        System.setProperty("webdriver.chrome.driver","chromedriver1.exe");
+        System.setProperty("webdriver.chrome.logfile", "TestLog.txt");
+//        WebDriverManager.chromedriver().arch64().setup();
         driver = new ChromeDriver();
         driver.get("https://demoqa.com/elements");
         implicateWait();

@@ -11,7 +11,7 @@ public class RetryTest  {
     @Test(retryAnalyzer = FailedTestRun_Using_IRetryAnalyzer.class)
     public void test(){
         System.out.println("11111111");
-        assertThat("true",true);
+        assertThat("true",false);
     }
 
     @Test(retryAnalyzer = FailedTestRun_Using_IRetryAnalyzer.class)

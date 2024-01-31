@@ -36,7 +36,7 @@ public class ExtentReport_BaseTest {
                 .addSystemInfo("User Name", "Rajkumar SM");
 //        reports.loadConfig(new File(System.getProperty("user.dir") + "\\extent-config.xml"));
 
-        WebDriverManager.chromedriver().arch64().setup();
+//        WebDriverManager.chromedriver().arch64().setup();
         driver = new ChromeDriver();
 //        driver.get("https://demoqa.com/elements");
         try {
@@ -65,8 +65,8 @@ public class ExtentReport_BaseTest {
                 + ".png");
         String errflpath = Dest.getAbsolutePath();
         try {
-            FileUtils.copyFile(scrFile, Dest);
-        } catch (IOException e) {
+//            FileUtils.copyFile(scrFile, Dest);
+        } catch (Exception e) {
             test.log(LogStatus.FAIL,test.addScreenCapture(capture(driver))+ "Test Failed");
             e.printStackTrace();
         }

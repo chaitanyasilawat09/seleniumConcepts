@@ -1,5 +1,8 @@
 TestNG listeners are the piece of code that listens to the events occurring in the TestNG.
-To save the unnecessary utilization of the resources, we cannot let the listeners listen to the code all the time. Therefore, the listeners in TestNG are activated either before the test execution or before (noticing that test execution takes the majority share of testing time). TestNG Listeners are applied as interfaces in the code because "Listeners" is a "class" in TestNG. TestNG provides us with loads of listeners.
+To save the unnecessary utilization of the resources, we cannot let the listeners listen to the code all the time.
+Therefore, the listeners in TestNG are activated either before the test execution or before
+(noticing that test execution takes the majority share of testing time). TestNG Listeners are applied as interfaces in the code
+because "Listeners" is a "class" in TestNG. TestNG provides us with loads of listeners.
 
 TODO Types Of Listeners In TestNG
 1. ITestListener
@@ -8,7 +11,9 @@ TODO Types Of Listeners In TestNG
 
 TODO 1. ITestListener In TestNG
 ITestListener is the most used listener in TestNG with Selenium webdriver.
-TestListener listens to specific events (depending on its methods) and executes the code written inside the method.  With ITestListener in TestNG, we can also log the events onto the reports using the Selenium web driver. The ITestListener contains the following methods:
+TestListener listens to specific events (depending on its methods) and executes the code written inside the method.
+With ITestListener in TestNG, we can also log the events onto the reports using the Selenium web driver.
+The ITestListener contains the following methods:
 
 onStart: This method invokes when the test class is instantiated and before executing any test method.
 Syntax: void onStart(ITestContext context);

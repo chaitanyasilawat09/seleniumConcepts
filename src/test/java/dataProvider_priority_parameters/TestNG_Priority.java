@@ -21,7 +21,7 @@ public class TestNG_Priority {
     public void B_Test() {
     }
 
-    @Test
+    @Test(priority = -1)
     public void C_Test() {
     }
 

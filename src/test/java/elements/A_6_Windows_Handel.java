@@ -56,6 +56,16 @@ public class A_6_Windows_Handel extends BaseTest {
         System.out.println("all windows=====" + tabs2);
 
 
+
+//        // Opens a new tab and switches to new tab
+//        driver.switchTo().newWindow(WindowType.TAB);
+//
+//// Opens a new window and switches to new window
+//        driver.switchTo().newWindow(WindowType.WINDOW);
+
+        //Switch back to the old tab or window
+        driver.switchTo().window(mainWindow);
+
     }
 
 
