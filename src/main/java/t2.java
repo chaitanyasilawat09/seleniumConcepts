@@ -23,7 +23,24 @@ public class t2 {
 //        short_An_ArrayList();
 //        find_Prime_Number();
         palindrom_No();
+        swap_Two_No_Without_Using_Third_variable();
 
+    }
+
+
+    public static void swap_Two_No_Without_Using_Third_variable()
+    {
+        System.out.println("Enter the value of x and y");
+        Scanner sc = new Scanner(System.in);
+        /*Define variables*/
+        int x = sc.nextInt();
+        int y = sc.nextInt();
+        System.out.println("before swapping numbers: "+x +" "+ y);
+        /*Swapping*/
+        x = x + y;
+        y = x - y;
+        x = x - y;
+        System.out.println("After swapping: "+x +"  " + y);
     }
 
     public static boolean numberIsEvenOrOdd(int no){
@@ -189,8 +206,8 @@ public class t2 {
         int number = 998877661;
         int reverse =0;
         while (number!=0){
-            int reminder = number%10;
-            reverse = reverse *10 + reminder;
+            int reminder = number % 10;
+            reverse = reverse * 10 + reminder;
             number = number/10;
 
         }
@@ -219,7 +236,7 @@ public class t2 {
 
     private static void find_Special_Charactr_And_Number_In_Given_String_Using_Patter() {
 
-        String st = "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";
+        String st = "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";
         char[] ch = st.toCharArray();
         Map<Character, Integer> map = new HashMap();
 
