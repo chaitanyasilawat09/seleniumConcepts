@@ -23,24 +23,7 @@ public class t2 {
 //        short_An_ArrayList();
 //        find_Prime_Number();
         palindrom_No();
-        swap_Two_No_Without_Using_Third_variable();
 
-    }
-
-
-    public static void swap_Two_No_Without_Using_Third_variable()
-    {
-        System.out.println("Enter the value of x and y");
-        Scanner sc = new Scanner(System.in);
-        /*Define variables*/
-        int x = sc.nextInt();
-        int y = sc.nextInt();
-        System.out.println("before swapping numbers: "+x +" "+ y);
-        /*Swapping*/
-        x = x + y;
-        y = x - y;
-        x = x - y;
-        System.out.println("After swapping: "+x +"  " + y);
     }
 
     public static boolean numberIsEvenOrOdd(int no){
@@ -54,7 +37,7 @@ public class t2 {
 
     public static void numberIsEvenOrOdd1(){
 
-            System.out.println("No.is------ ");
+        System.out.println("No.is------ ");
 
 
     }
@@ -85,14 +68,14 @@ public class t2 {
 
 //        which divided by only 1 and it and by it self
         int n =989;
-            if (n <= 1) {
+        if (n <= 1) {
+            System.out.println("not prime");
+        }
+        for (int i = 2; i < Math.sqrt(n); i++) {
+            if (n % i == 0) {
                 System.out.println("not prime");
             }
-            for (int i = 2; i < Math.sqrt(n); i++) {
-                if (n % i == 0) {
-                    System.out.println("not prime");
-                }
-            }
+        }
         System.out.println("prime");
 
     }
@@ -101,7 +84,7 @@ public class t2 {
         int [] ar = {1,3,2,4,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67};
 
         ArrayList<Integer> list = (ArrayList<Integer>) Arrays.stream(ar).boxed().collect(Collectors.toList());
-            for (int i=0;i<list.size(); i++){
+        for (int i=0;i<list.size(); i++){
 
             for (int j=0; j<list.size(); j++){
 
@@ -119,7 +102,7 @@ public class t2 {
     private static void print_Duplicate_Element_From_List_and_Print_it() {
 
         int [] ar = {1,3,2,4,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67};
-       ArrayList<Integer> list = (ArrayList<Integer>) Arrays.stream(ar).boxed().collect(Collectors.toList());
+        ArrayList<Integer> list = (ArrayList<Integer>) Arrays.stream(ar).boxed().collect(Collectors.toList());
         List<Integer> newList = new ArrayList<>();
         for (int i : list){
             if (!newList.contains(i)){
@@ -162,10 +145,10 @@ public class t2 {
 
             for (int i :first){
                 if (max<i){
-                        min = max;
-                        max = i;
+                    min = max;
+                    max = i;
                 }
-                   else {
+                else {
                     if(min<i){
                         min = i;
                     }
@@ -186,7 +169,7 @@ public class t2 {
         int fac = 3;
         List<Integer> list = new ArrayList<>();
         for(int i =fac;i<ia.length;i++){
-           list.add(ia[i]);
+            list.add(ia[i]);
         }
         for (int j =0;j<fac;j++){
             list.add(ia[j]);
@@ -206,8 +189,8 @@ public class t2 {
         int number = 998877661;
         int reverse =0;
         while (number!=0){
-            int reminder = number % 10;
-            reverse = reverse * 10 + reminder;
+            int reminder = number%10;
+            reverse = reverse *10 + reminder;
             number = number/10;
 
         }
@@ -235,8 +218,9 @@ public class t2 {
     }
 
     private static void find_Special_Charactr_And_Number_In_Given_String_Using_Patter() {
-
-        String st = "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";
+// Main "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"
+//        24 feb "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"
+        String st = "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";
         char[] ch = st.toCharArray();
         Map<Character, Integer> map = new HashMap();
 
@@ -245,7 +229,7 @@ public class t2 {
             Matcher matcher = pattern.matcher(st);
             int count = 0;
             while(matcher.find()){
-               count++;
+                count++;
             }
             map.put(c,count);
         }
@@ -340,33 +324,33 @@ public class t2 {
         }
         System.out.println(rev);
 
-        }
+    }
 
 
 
-public void findCommaonString(){
-    // Input: strs = ["flower","flow","flight"]
-    // Output: "fl"
-    String [] st = {"flower","flow","flight"};
+    public void findCommaonString(){
+        // Input: strs = ["flower","flow","flight"]
+        // Output: "fl"
+        String [] st = {"flower","flow","flight"};
 //        String [] st = {"abc","ab","a"};
-    String s = "";
-    for(int i =0; i<st.length; i++) { //flower
+        String s = "";
+        for(int i =0; i<st.length; i++) { //flower
 
-        String  s1 = st[i];
-        char [] ch = s1.toCharArray();
+            String  s1 = st[i];
+            char [] ch = s1.toCharArray();
 
-        for(int j =1; j<st.length; j++) {
+            for(int j =1; j<st.length; j++) {
 
 //                if(st[j].contains(String.valueOf(ch[i]))) {
-            if(st[j].contains(String.valueOf(ch[i]))) {
-                s = s + ch[i];
-                continue;
-            }
+                if(st[j].contains(String.valueOf(ch[i]))) {
+                    s = s + ch[i];
+                    continue;
+                }
 
+            }
+            System.out.println("s inside "+ s );
         }
-        System.out.println("s inside "+ s );
-    }
-    System.out.println("s outside "+ s );
+        System.out.println("s outside "+ s );
 
 
 
@@ -393,7 +377,7 @@ public void findCommaonString(){
 
 
 
-}
+    }
 
 
 }
