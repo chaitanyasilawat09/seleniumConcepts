@@ -12,12 +12,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class BaseTest {
 
-//    public ApplicationProperties applicationProperties = ApplicationProperties.INSTANCE;
+    public ApplicationProperties applicationProperties = ApplicationProperties.INSTANCE;
     public RequestSpecification requestSpecification ;
     @BeforeMethod
     public void beforeTest(){
 
-        RestAssured.baseURI = "https://swapi.dev/api/people";
+        RestAssured.baseURI = applicationProperties.getBaseURL();
         RestAssured.useRelaxedHTTPSValidation();
         RequestSpecification requestSpecification = RestAssured.given();
 //        RequestSpecification requestSpecification = RestAssured.given().contentType(ContentType.JSON);

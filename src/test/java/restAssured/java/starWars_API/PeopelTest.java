@@ -1,6 +1,4 @@
 package restAssured.java.starWars_API;
-
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
@@ -15,7 +13,6 @@ import org.testng.annotations.Test;
 import restAssured.POM.People;
 import restAssured.POM.Results;
 import restAssured.java.base.BaseTest;
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
