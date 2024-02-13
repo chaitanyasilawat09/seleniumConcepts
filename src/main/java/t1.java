@@ -21,7 +21,7 @@ public class t1 {
             for (int j =i+1;j<=s1L;j++){
 
                 String subStirng  = s1.substring(i,j);
-                int k =1;
+                int k ;
                 for (k=1; k<arlength;k++){
                     if(!(arr[k].contains(subStirng))){
                         break;
@@ -38,11 +38,9 @@ public class t1 {
        String s = "w12aaddaamadamaadaads232";
 //       String s = "abcab";
 
-       char[] ch = s.toCharArray();
        int strLength = s.length();
         boolean plndrCheck = false;
        String rep = "";
-        Map<String, Integer> map = new HashMap<>();
        for(int i =0; i<strLength; i++){
 
            for (int j =i+1; j<=strLength; j++){
@@ -50,25 +48,27 @@ public class t1 {
 //               System.out.println(subString);
                // TODO to find Longest repetitive string
 
-//               Pattern p = Pattern.compile(subString);
-//               Matcher m = p.matcher(s);
-//               int count =0;
-//               while (m.find()){
-//                   count++;
-//               }
-//                if (count>1 &&rep.length()<subString.length()){
-//                    rep = subString;
-//                }
+               Pattern p = Pattern.compile(subString);
+               Matcher m = p.matcher(s);
+               int count =0;
+               while (m.find()){
+                   count++;
+               }
+                if (count>1 &&rep.length()<subString.length()){
+                    rep = subString;
+                }
                 // TODO to find Longest Palandram stirng from given string
 //               if(subString.length()>1){
-//                   plndrCheck = plndrCheck(subString);
-//                   if(plndrCheck && rep.length()<subString.length())
-//                       rep= subString;
-//                       System.out.println(rep);
-//               }
+                   plndrCheck = plndrCheck(subString);
+                   if(plndrCheck && rep.length()<subString.length())
+                       rep= subString;
+
+                   System.out.println(rep);
+
+               }
            }
 
-       }
+
 
         System.out.println("rep...........");
         System.out.println(rep);
