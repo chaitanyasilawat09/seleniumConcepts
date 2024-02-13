@@ -1,8 +1,4 @@
 package restAssured.java.starWars_API;
-
-import POM.People;
-import POM.Results;
-import base.BaseTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
@@ -10,12 +6,13 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
-
+import restAssured.POM.People;
+import restAssured.POM.Results;
+import restAssured.java.base.BaseTest;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;

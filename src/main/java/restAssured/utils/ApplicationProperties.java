@@ -1,4 +1,4 @@
-package restAssured.src.utils;
+package restAssured.utils;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -11,7 +11,7 @@ public enum ApplicationProperties {
     ApplicationProperties(){
         properties = new Properties();
         try {
-            properties.load(getClass().getClassLoader().getResourceAsStream("application.properties"));
+            properties.load(getClass().getClassLoader().getResourceAsStream("src/main/java/application.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }

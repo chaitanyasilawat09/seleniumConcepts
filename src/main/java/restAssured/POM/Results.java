@@ -1,4 +1,4 @@
-package restAssured.src.POM;
+package restAssured.POM;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
