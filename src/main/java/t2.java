@@ -22,8 +22,66 @@ public class t2 {
 //        print_Duplicate_Element_From_List_and_Print_it();
 //        short_An_ArrayList();
 //        find_Prime_Number();
-        palindrom_No();
+//        palindrom_No();
+//        find_Continious_Accurency_Of_Integer_In_Array();
+        print_String_and_maintain_space();
 
+    }
+
+
+
+    public static void print_String_and_maintain_space() {
+        String s  = "Today is     Sunday";
+        //        = "yadoT si     yadnuS"
+        String[] strArr =  s.split("\\s");
+        String rev = "";
+
+        for(String s1 : strArr){
+            String word = "";
+            if(s1.length()!=0) {
+                char[] ch = s1.toCharArray();
+
+                for (int i = ch.length - 1; i >= 0; i--) {
+                    word = word + ch[i];
+
+                }
+                rev = rev + word + " ";
+
+            }
+            else {
+                rev = rev+" ";
+            }
+        }
+
+        System.out.println(rev);
+
+    }
+
+
+    public static void find_Continious_Accurency_Of_Integer_In_Array()
+    {
+        int [] arr = {0,1,1,0,0,1,1,0,0};
+        int zere = 1;
+        int one = 1;
+        boolean flag = false;
+        for (int i =0;i< arr.length;i++){
+
+            if(i<arr.length-1) {
+                if (arr[i] == arr[i + 1]) {
+
+                    if (arr[i] == 0) {
+                        zere++;
+                    } else {
+                        one++;
+                    }
+                } else {
+                    zere = 1;
+                    one = 1;
+                }
+            }
+        }
+        System.out.println(zere);
+        System.out.println(one);
     }
 
     public static boolean numberIsEvenOrOdd(int no){
@@ -51,8 +109,9 @@ public class t2 {
 //        System.out.println(i);
 
 
-//        int no = 123456789;
-        String no = "chaitanya";
+        int no = 123456789;
+//        String no = "chaitanya";
+        int[] digits = Integer.toString(no).chars().map(c -> c-'0').toArray();
 
         char[] ch = String.valueOf(no).toCharArray();
 
@@ -92,6 +151,7 @@ public class t2 {
                     Integer temp = list.get(i);
                     list.set(i, list.get(j));
                     list.set(j,temp);
+
                 }
             }
         }
@@ -135,7 +195,7 @@ public class t2 {
     }
 
     private static void print_Largest_Smallest_value_from_Two_Dimentiol_Array() {
-        int [][] arr = {{44,6,8},{3,2,65,78,76}};
+        int [][] arr = {{44,6,8},{3,2,65,78,79}};
 
         int min = arr[0][0];
         int max = arr[0][1];
