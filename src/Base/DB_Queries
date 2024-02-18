@@ -1,7 +1,7 @@
 Write a query to fetch the number of employees working in the department ‘HR’.
 SELECT COUNT(*) FROM EmployeeInfo WHERE Department = 'HR';
 
-Write a query to retrieve the first four characters of  EmpLname from the EmployeeInfo table.
+Write a query to retrieve the first four characters of EmpLname from the EmployeeInfo table.
 SELECT SUBSTRING(EmpLname, 1, 4) FROM EmployeeInfo;
 
 Q6. Write a query to create a new table which consists of data and structure copied from the other table.

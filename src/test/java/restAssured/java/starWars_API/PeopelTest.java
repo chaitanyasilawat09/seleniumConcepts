@@ -97,6 +97,7 @@ public class PeopelTest extends BaseTest {
         RestAssured.baseURI = old;
         Response response1 = getPeopleData();
         System.out.println(response1.asString());
+
     }
 
 
@@ -167,6 +168,15 @@ public void validate_People_Json_Schema(){
     public Response getPeopleData(){
         Response response = given().when().get("/").then().extract().response();
        return response;
+    }
 
+
+    public void authorizationTypes(){
+
+
+        given().auth().preemptive().basic("username","Password");
+        given().header("authorization","Bearer token");
+        given().auth().oauth2("access Token");
+        given().auth().oauth("consumerKey", "consumerSecret", "accessToken", "tokenSecret");
     }
 }
