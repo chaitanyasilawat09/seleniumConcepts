@@ -49,6 +49,7 @@ public class A_3_Elements extends BaseTest {
         sleep(3000);
 //      Vertical scroll - down by 500  pixels
         js.executeScript("window.scrollBy(0,500)");
+        js.executeScript("arguments[0].scrollIntoView();", permanentAddress);
 
     }
 }
