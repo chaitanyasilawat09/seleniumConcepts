@@ -54,7 +54,7 @@ given().pathParams("owner", "eugenp", "repo", "tutorials")
 Add Cookies In API:
 given().cookie("session_id", "1234").when().get("/users/eugenp")
 
-customize our cookie using cookie Builder:
+customize our cookie using cookie Builder:
 Cookie myCookie = new Cookie.Builder("session_id", "1234")
       .setSecured(true)
       .setComment("session id cookie")
@@ -93,3 +93,11 @@ Child to parent
 To handel SVG tag
 //*[name()='svg']//*[name()='span']
 
+UI Automation
+//         FirefoxOptions options = new FirefoxOptions();
+            options.setAcceptInsecureCerts(true);
+
+API Automation
+        RestAssured.useRelaxedHTTPSValidation();
+        javax.net.ssl.SSLHandshakeException:
+        sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target

@@ -12,20 +12,24 @@ public class TestNG_Priority {
 //    @Test(priority = 1) public void B_Test(){}
 //    @Test(priority = -1) public void C_Test(){}
 //    @Test public void D_Test(){}
-
+// Output :-- C D A B
     @Test(priority = 1)
     public void A_Test() {
+        System.out.println("A");
     }
 
     @Test(priority = 2)
     public void B_Test() {
+        System.out.println("B");
     }
 
     @Test(priority = -1)
     public void C_Test() {
+        System.out.println("C");
     }
 
     @Test
     public void D_Test() {
+        System.out.println("D");
     }
 }

@@ -74,7 +74,9 @@ public class BaseTest {
     public void fluentWait(WebElement element) {
         Wait wait = (Wait) new FluentWait(driver)
                 .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(element));
+                .pollingEvery(Duration.ofSeconds(5))
+                .ignoreAll(Collections.singleton(NoSuchElementException.class)).
+                until(ExpectedConditions.visibilityOf(element));
 //                .ignoreAll(Collections.singleton(NoSuchElementException.class));
     }
 
