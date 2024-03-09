@@ -1,29 +1,26 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.List;
+import java.util.Set;
 
 public class SimpleTest  {
-    public static void print_String_and_maintain_space(String[] args) {
-        String s  = "Today is     Sunday";
-        //        = "yadoT si     yadnuS"
-     String[] strArr =  s.split("\\s");
-     String rev = "";
+    public static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver","chromedriver121/chromedriver");
+        WebDriver driver = new ChromeDriver();
+            driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+        List<WebElement> trLIst = driver.findElements(By.xpath("(//table//tbody)[2]//tr"));
 
-     for(String s1 : strArr){
-         String word = "";
-         if(s1.length()!=0) {
-             char[] ch = s1.toCharArray();
+        for(WebElement td : trLIst){
 
-             for (int i = ch.length - 1; i >= 0; i--) {
-                 word = word + ch[i];
+            List<WebElement> tbLIst  =  td.findElements(By.tagName("td"));
 
-             }
-             rev = rev + word + " ";
+            System.out.println(tbLIst.get(3).getText());
 
-         }
-         else {
-             rev = rev+" ";
-         }
-     }
+        }
 
-        System.out.println(rev);
 
     }
 }
