@@ -1,9 +1,13 @@
+
+import org.openqa.selenium.WebElement;
+
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Java_8_Code {
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
 //        String str = "ChaitanyaSilawat";
         int [] ar = {1,3,2,4,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67};
         String [] strArr = {"abc", "bcab","ascdab","dsabab","eabbrgh","we3Urabtht"};
@@ -17,9 +21,9 @@ public class Java_8_Code {
 
         System.out.println(list.stream().filter(a -> a%2==0).collect(Collectors.toList()));;
 
-//        System.out.println(list.stream().filter(a -> t2.numberIsEvenOrOdd(a)).collect(Collectors.toList()));
+        System.out.println(list.stream().filter(a -> t2.numberIsEvenOrOdd(a)).collect(Collectors.toList()));
 
-//        System.out.println(list.stream().anyMatch(t2::numberIsEvenOrOdd));
+        System.out.println(list.stream().anyMatch(t2::numberIsEvenOrOdd));
 //        System.out.println(list.stream().allMatch(t2::numberIsEvenOrOdd));
 //        System.out.println(list.stream().noneMatch(t2::numberIsEvenOrOdd));
 
@@ -47,5 +51,45 @@ public class Java_8_Code {
 //                .map(Address::getStreet)
 //                .orElse("not specified");
 
+    }
+
+    public static void main(String[] args){
+        String [] arr = {"automatic","aautozone","showauto","moboleauto","myautoriksha","yourautoShoq","automation"};
+        List<String> arrayList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
+        List<WebElement> elementList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
+
+
+        elementList.stream().collect(Collectors.toMap(WebElement::getText,WebElement::isDisplayed));
+
+
+        elementList.stream().collect(Collectors.toMap(WebElement::getText, Function.identity()));
+
+
+
+
+
+
+
+    }
+
+    public static void find_Common_Stirng_8(){
+
+        String [] arr = {"automatic","aautozone","showauto","moboleauto","myautoriksha","yourautoShoq","automation"};
+        List<String> arrayList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
+        int arlength = arr.length;
+        Arrays.sort(arr, Comparator.comparing(String::length));
+        System.out.println(Arrays.toString(arr));
+        String rep = "";
+        String s1 = arr[0];
+        int s1L = s1.length();
+        for (int i = 0; i<s1L;i++){
+            for (int j =i+1;j<=s1L;j++){
+                String subStirng  = s1.substring(i,j);
+                int k    =    arrayList.stream().filter(a -> a.contains(subStirng)).collect(Collectors.toList()).size();
+                if (k==arlength && rep.length()<subStirng.length())
+                    rep=subStirng;
+            }
+        }
+        System.out.println(rep);
     }
 }
