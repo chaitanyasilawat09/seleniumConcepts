@@ -4,17 +4,6 @@ Selenium_concepts
 api-tests —LUMETA
 cucumber_project-master
 
-
-
-
-Send Request body In APIs
-RequestBody body = new FormBody.Builder()
-	.add("secret", "IH225HMVWDS3XJVY")
-	.add("account", "User1")
-	.add("issuer", "HomeCorp")
-	.build();
-
-
 Send File via API:-
 Response getResponse = given()
         .header("Connection", "keep-alive")
@@ -81,7 +70,7 @@ Cookie myCookie = new Cookie.Builder("session_id", "1234")
 Child to parent
 <div class="aio UKr6le">
 	<span class="nU n1">
-		<a href="https://mail.google.com/mail/u/0/#inbox" target="_top" class="J-Ke n0" aria-label="Inbox 2437 unread">Inbox</a>
+		<a href="https://mail.google.com/x" target="_top" class="J-Ke n0" >Inbox</a>
 	</span>
 	<div class="bsU">2,437</div></div>
 
@@ -101,3 +90,10 @@ API Automation
         RestAssured.useRelaxedHTTPSValidation();
         javax.net.ssl.SSLHandshakeException:
         sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+
+//
+given().log().all()
+       .pathParam("agreementId", "1234")
+       .queryParam("agreementType", "CHQ")
+       .when()
+       .get("https://localhost/v1/agreement/{agreementId}");

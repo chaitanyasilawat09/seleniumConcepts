@@ -17,14 +17,14 @@ public class t2 {
 //        find_largest_and_Smallest_number();
 //        rverse_Number();
 //        print_Circular_Array();
-//        print_Largest_Smallest_value_from_Two_Dimentiol_Array();
+        print_Largest_Smallest_value_from_Two_Dimentiol_Array();
 //        print_Star();
 //        print_Duplicate_Element_From_List_and_Print_it();
 //        short_An_ArrayList();
 //        find_Prime_Number();
 //        palindrom_No();
 //        find_Continious_Accurency_Of_Integer_In_Array();
-        print_String_and_maintain_space();
+//        print_String_and_maintain_space();
 
     }
 
@@ -209,7 +209,7 @@ public class t2 {
                     max = i;
                 }
                 else {
-                    if(min<i){
+                    if(min>i){
                         min = i;
                     }
                 }
