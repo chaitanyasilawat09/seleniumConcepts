@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class ExtentReportTes extends ExtentReport_BaseTest{
 
-    @Test
+    @Test(description = "")
     public void extentReportsDemo()
     {
         test = reports.startTest("extentReportsDemoTest");

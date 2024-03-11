@@ -15,7 +15,7 @@ public class Java_8_Code {
         ArrayList<Integer> list = (ArrayList<Integer>) Arrays.stream(ar).boxed().collect(Collectors.toList());
         ArrayList<String> strList = (ArrayList<String>) Arrays.stream(strArr).collect(Collectors.toList());
 
-//        System.out.println(list.stream().filter(a -> a%2==0).collect(Collectors.toList()));;
+        System.out.println(list.stream().filter(a -> a%2==0).collect(Collectors.toList()));;
 
 //        System.out.println(list.stream().filter(a -> t2.numberIsEvenOrOdd(a)).collect(Collectors.toList()));
 
