@@ -1,3 +1,4 @@
+import org.checkerframework.checker.units.qual.A;
 import org.jsoup.select.Collector;
 
 import java.util.*;
@@ -60,28 +61,28 @@ public class t2 {
 
     public static void find_Continious_Accurency_Of_Integer_In_Array()
     {
-        int [] arr = {0,1,1,0,0,1,1,0,0};
-        int zere = 1;
-        int one = 1;
-        boolean flag = false;
-        for (int i =0;i< arr.length;i++){
+        int [] arr = {0,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0};
+        int first = arr[0];
+        int rep= 1;
+        int count = 1;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i =1;i< arr.length;i++){
 
-            if(i<arr.length-1) {
-                if (arr[i] == arr[i + 1]) {
-
-                    if (arr[i] == 0) {
-                        zere++;
-                    } else {
-                        one++;
-                    }
-                } else {
-                    zere = 1;
-                    one = 1;
-                }
+            if(first==arr[i]){
+                System.out.println(arr[i]);
+                count++;
+            }
+            else {
+                first = arr[i];
+                count = 1;
+            }
+            if (rep<count){
+                System.out.println("count-"+ count);
+                rep=count;
+                map.put(arr[i],count);
             }
         }
-        System.out.println(zere);
-        System.out.println(one);
+        System.out.println(map);
     }
 
     public static boolean numberIsEvenOrOdd(int no){
@@ -92,26 +93,23 @@ public class t2 {
 
     }
 
-
-    public static void numberIsEvenOrOdd1(){
-
-        System.out.println("No.is------ ");
-
-
-    }
     public static void palindrom_No() {
 
 //        TODO Generate Random Number
-//        Random random = new Random();
+        Random random = new Random();
 //        int max=10000900;
 //        int min=1000000;
 //        int i = random.nextInt((max - min) + 1) + min;
 //        System.out.println(i);
+        System.out.println(random.ints(1000,2000).filter(a -> a%2!=0).findAny().getAsInt());
+        System.out.println(random.ints(100,200).findAny().getAsInt());
 
 
         int no = 123456789;
 //        String no = "chaitanya";
         int[] digits = Integer.toString(no).chars().map(c -> c-'0').toArray();
+
+        Integer.toString(no).chars().map(c -> c-'0').toArray();
 
         char[] ch = String.valueOf(no).toCharArray();
 

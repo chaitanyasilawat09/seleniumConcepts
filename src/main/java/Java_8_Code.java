@@ -52,7 +52,7 @@ public class Java_8_Code {
 
     }
 
-    public static void main(String[] args){
+    public static void main11(String[] args){
         String [] arr = {"automatic","aautozone","showauto","moboleauto","myautoriksha","yourautoShoq","automation"};
         List<String> arrayList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
         List<WebElement> elementList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
@@ -71,9 +71,9 @@ public class Java_8_Code {
 
     }
 
-    public static void find_Common_Stirng_8(){
+    public static void main(String[] args){
 
-        String [] arr = {"automatic","aautozone","showauto","moboleauto","myautoriksha","yourautoShoq","automation"};
+        String [] arr = {"automatic","aautozone","showauto","moboleauto","myautoriksha","yourautoShoq","aut1omation"};
         List<String> arrayList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
         int arlength = arr.length;
         Arrays.sort(arr, Comparator.comparing(String::length));
@@ -84,7 +84,7 @@ public class Java_8_Code {
         for (int i = 0; i<s1L;i++){
             for (int j =i+1;j<=s1L;j++){
                 String subStirng  = s1.substring(i,j);
-                int k    =    arrayList.stream().filter(a -> a.contains(subStirng)).collect(Collectors.toList()).size();
+                int k    =    Arrays.stream(arr).filter(a -> a.contains(subStirng)).collect(Collectors.toList()).size();
                 if (k==arlength && rep.length()<subStirng.length())
                     rep=subStirng;
             }
