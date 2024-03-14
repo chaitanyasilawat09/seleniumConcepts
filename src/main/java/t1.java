@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class t1 {
 
@@ -11,6 +12,7 @@ public class t1 {
     public static void checkCommanSubStringGivenArraycheckCommanSubStringGivenArray(){
 
         String [] arr = {"automatic","aautozone","showauto","moboleauto","myautoriksha","yourautoShoq","automation"};
+        List<String> arrayList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
         int arlength = arr.length;
         Arrays.sort(arr, Comparator.comparing(String::length));
         System.out.println(Arrays.toString(arr));
@@ -25,6 +27,7 @@ public class t1 {
                 for (k=1; k<arlength;k++){
                     if(!(arr[k].contains(subStirng))){
                         break;
+
                     }
                 }
                 if (k==arlength && rep.length()<subStirng.length())

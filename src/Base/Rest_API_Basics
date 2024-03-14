@@ -78,6 +78,27 @@ Child to parent
 2 method :- //a[text()='Inbox']/parent::span//following-sibling::div
 3 method     //a[text()='Inbox']//..//following-sibling::div
 
+4 method (//input[text()='Inbox']/descendant::span) [ to get all 'span' of 'input' ]
+5 method :- //div[@class='sort']/preceding-sibling::input  [ sibling element preceding to the current context node ]
+
+
+div p	  ----//div//p
+ul > li	----- //ul/li
+ul > li > a	------ //ul/li/a
+div > *	-------//div/*
+.class	-------//*[@class="class"]
+.filter	------- //*[@class="filter"]
+h1 ~ ul	--------//h1/following-sibling::ul	?
+h1 + ul	---------//h1/following-sibling::ul[1]
+h1 ~ #id	---------//h1/following-sibling::[@id="id"]
+//button[child::span[@class="MuiIconButton-label"]]   find button which child is span
+//button[child::span]
+//label[span]  ------ # find a <label> with an <span> inside it
+
+//a | //span ----- Use | to join two expressions and output will be find element by //a and //span
+//a[@id="favourites"] | //span[@class="checkmark"]
+
+
 
 To handel SVG tag
 //*[name()='svg']//*[name()='span']

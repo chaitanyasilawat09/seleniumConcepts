@@ -17,6 +17,7 @@ public class SimpleTest  {
 
             List<WebElement> tbLIst  =  td.findElements(By.tagName("td"));
 
+
             System.out.println(tbLIst.get(3).getText());
 
         }
