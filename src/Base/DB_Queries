@@ -1,24 +1,32 @@
 Write a query to fetch the number of employees working in the department ‘HR’.
+Select count(*) from Employee where dept name = 'HR'
 SELECT COUNT(*) FROM EmployeeInfo WHERE Department = 'HR';
 
 Write a query to retrieve the first four characters of EmpLname from the EmployeeInfo table.
+select substring(empname, 1,4) from emp
 SELECT SUBSTRING(EmpLname, 1, 4) FROM EmployeeInfo;
 
 Q6. Write a query to create a new table which consists of data and structure copied from the other table.
+CREATE TABLE NewEmp AS select * from emp
 CREATE TABLE NewTable AS SELECT * FROM EmployeeInfo;
 
 Write q query to find all the employees whose salary is between 50000 to 100000.
+select * from emp where salary BETWEEN '1000' and '15000'
 SELECT * FROM EmployeePosition WHERE Salary BETWEEN '50000' AND '100000';
 
 Write a query to fetch top N records.
+select top 1 * from (select top 3 from emp order bu salary DESC) order by salary Ase
+
 SELECT TOP N * FROM EmployeePosition ORDER BY Salary DESC;
 SELECT * FROM EmpPosition ORDER BY Salary DESC LIMIT N
 
 Write a query to retrieve the EmpFname and EmpLname in a single column as “FullName”. The first name and the last name must be separated with space.
+select concat(EmpName,' ', EmaLName) as full name from emp
 SELECT CONCAT(EmpFname, ' ', EmpLname) AS 'FullName' FROM EmployeeInfo;
 
 
 Write a query to fetch all the records from the EmployeeInfo table ordered by EmpLname in descending order and Department in the ascending order.
+select * from emp order by empLname, dept asc
 SELECT * FROM EmployeeInfo ORDER BY EmpFname desc, Department asc;
 
 Write a query to fetch details of all employees excluding the employees with first names, “Sanjay” and “Sonia” from the EmployeeInfo table.
