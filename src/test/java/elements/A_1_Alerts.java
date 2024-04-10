@@ -3,6 +3,8 @@ package elements;
 import Base.BaseTest;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class A_1_Alerts extends BaseTest {
@@ -40,5 +42,9 @@ public class A_1_Alerts extends BaseTest {
         sendKeys.sendKeys("Chaitanya");
         sleep(4000);
 
+
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+//        alert.authenticateUsing(new UserAndPassword(**username**, **password**));
     }
 }
