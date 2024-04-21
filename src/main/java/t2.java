@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class t2 {
 
@@ -26,7 +27,65 @@ public class t2 {
 //        palindrom_No();
 //        find_Continious_Accurency_Of_Integer_In_Array();
 //        print_String_and_maintain_space();
+//        print_Reverse_String_and_maintain_space();
+//        print_String_Which_Char_Accurance_is_moreThanOne();
 
+    }
+
+    public static void print_Reverse_String_and_maintain_space() {
+        String s  = "Today is Sunday";
+//                   yadnu Ss iyadoT
+        String s1 = s.replace(" ", "");
+        char c1 = ' ';
+        String rev = "";
+        List<Integer> indexes = IntStream.range(0, s.length())
+                .filter(i -> s.charAt(i)==c1).boxed()
+                .collect(Collectors.toList());
+//          TODO With StringBuffer
+//        StringBuffer sb = new StringBuffer(s1).reverse();
+//        for (int i : indexes){
+//            sb.insert(i," ");
+//        }
+//        sb.insert(5," ");
+//        sb.insert(8," ");
+//        System.out.println(sb);
+
+        //          TODO With String
+        char[] ch = s1.toCharArray();
+        int count=0;
+        for(int j = ch.length-1;j>=0;j--){
+
+                if(indexes.contains(count)) {
+                    rev = rev + " " + ch[j];
+                    count++;
+                    count++;
+                }
+                else {
+                    rev = rev+ch[j];
+                    count++;
+                }
+        }
+        System.out.println(rev);
+    }
+
+    public static void print_String_Which_Char_Accurance_is_moreThanOne() {
+        String s  = "my name is chaitanya";
+//                   my nae is chty
+
+        String[] str = s.split("\\s");
+        String rev = "";
+        for(String s1 : str){
+
+            char[] ch = s1.toCharArray();
+            String word = "";
+            for (char c : ch){
+                if(!rev.contains(String.valueOf(c))){
+                    word = word +c;
+                }
+            }
+            rev = rev+ word+" ";
+        }
+        System.out.println(rev);
     }
 
 
@@ -62,28 +121,34 @@ public class t2 {
     public static void find_Continious_Accurency_Of_Integer_In_Array()
     {
         int [] arr = {0,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0};
-        int first = arr[0];
-        int rep= 1;
-        int count = 1;
+        int last = 2;
+        int count =1;
+        int finalCont = 0;
+        int finalInt = 0;
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i =1;i< arr.length;i++){
+        for (int i =0;i< arr.length;i++){
 
-            if(first==arr[i]){
-                System.out.println(arr[i]);
-                count++;
+            if(last==2){
+                last = arr[i];
             }
             else {
-                first = arr[i];
-                count = 1;
+                if(last==arr[i]){
+                  count++;
+                }
+                else {
+                    count = 1;
+                    last = arr[i];
+                }
             }
-            if (rep<count){
-                System.out.println("count-"+ count);
-                rep=count;
-                map.put(arr[i],count);
+
+            if(finalCont<count){
+                finalCont = count;
+                finalInt = arr[i];
             }
         }
-        System.out.println(map);
+        System.out.println(finalInt +"....."+finalCont);
     }
+
 
     public static boolean numberIsEvenOrOdd(int no){
         if(no%2==0){
@@ -138,7 +203,7 @@ public class t2 {
     }
 
     private static void short_An_ArrayList() {
-        int [] ar = {1,3,2,4,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67};
+        int [] ar = {1,93,2,42,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67,0};
 
         ArrayList<Integer> list = (ArrayList<Integer>) Arrays.stream(ar).boxed().collect(Collectors.toList());
         for (int i=0;i<list.size(); i++){
@@ -193,7 +258,7 @@ public class t2 {
     }
 
     private static void print_Largest_Smallest_value_from_Two_Dimentiol_Array() {
-        int [][] arr = {{44,6,8},{3,2,65,78,79}};
+        int [][] arr = {{44,6,1},{100,2,65,132,79}};
 
         int min = arr[0][0];
         int max = arr[0][1];
@@ -207,7 +272,7 @@ public class t2 {
                     max = i;
                 }
                 else {
-                    if(min>i){
+                    if(min<i){
                         min = i;
                     }
                 }

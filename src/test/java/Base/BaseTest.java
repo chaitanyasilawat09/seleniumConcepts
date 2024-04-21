@@ -2,6 +2,7 @@ package Base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -75,9 +76,8 @@ public class BaseTest {
         Wait wait = (Wait) new FluentWait(driver)
                 .withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(5))
-                .ignoreAll(Collections.singleton(NoSuchElementException.class)).
-                until(ExpectedConditions.visibilityOf(element));
-//                .ignoreAll(Collections.singleton(NoSuchElementException.class));
+                .ignoring(NoSuchElementException.class)
+                .until(ExpectedConditions.visibilityOf(element));
     }
 
     public WebElement findElementFunction(String path) {
