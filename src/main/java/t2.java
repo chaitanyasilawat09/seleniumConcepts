@@ -19,7 +19,7 @@ public class t2 {
 //        find_largest_and_Smallest_number();
 //        rverse_Number();
 //        print_Circular_Array();
-//        print_Largest_Smallest_value_from_Two_Dimentiol_Array();
+        print_Largest_Smallest_value_from_Two_Dimentiol_Array();
 //        print_Star();
 //        print_Duplicate_Element_From_List_and_Print_it();
 //        short_An_ArrayList();
@@ -27,7 +27,7 @@ public class t2 {
 //        palindrom_No();
 //        find_Continious_Accurency_Of_Integer_In_Array();
 //        print_String_and_maintain_space();
-        print_Reverse_String_and_maintain_space();
+//        print_Reverse_String_and_maintain_space();
 //        print_String_Which_Char_Accurance_is_moreThanOne();
 
     }
@@ -121,28 +121,34 @@ public class t2 {
     public static void find_Continious_Accurency_Of_Integer_In_Array()
     {
         int [] arr = {0,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0};
-        int first = arr[0];
-        int rep= 1;
-        int count = 1;
+        int last = 2;
+        int count =1;
+        int finalCont = 0;
+        int finalInt = 0;
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i =1;i< arr.length;i++){
+        for (int i =0;i< arr.length;i++){
 
-            if(first==arr[i]){
-                System.out.println(arr[i]);
-                count++;
+            if(last==2){
+                last = arr[i];
             }
             else {
-                first = arr[i];
-                count = 1;
+                if(last==arr[i]){
+                  count++;
+                }
+                else {
+                    count = 1;
+                    last = arr[i];
+                }
             }
-            if (rep<count){
-                System.out.println("count-"+ count);
-                rep=count;
-                map.put(arr[i],count);
+
+            if(finalCont<count){
+                finalCont = count;
+                finalInt = arr[i];
             }
         }
-        System.out.println(map);
+        System.out.println(finalInt +"....."+finalCont);
     }
+
 
     public static boolean numberIsEvenOrOdd(int no){
         if(no%2==0){
@@ -252,7 +258,7 @@ public class t2 {
     }
 
     private static void print_Largest_Smallest_value_from_Two_Dimentiol_Array() {
-        int [][] arr = {{44,6,98},{3,2,65,78,79}};
+        int [][] arr = {{44,6,1},{100,2,65,132,79}};
 
         int min = arr[0][0];
         int max = arr[0][1];
