@@ -48,7 +48,6 @@ public class t1 {
 
            for (int j =i+1; j<=strLength; j++){
                String subString = s.substring(i,j);
-//               System.out.println(subString);
                // TODO to find Longest repetitive string
 
                Pattern p = Pattern.compile(subString);

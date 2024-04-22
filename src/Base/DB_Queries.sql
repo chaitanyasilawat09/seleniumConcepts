@@ -54,10 +54,12 @@ ORDER BY salary ASC;
 
 
 Q26. Write a query to display the first and the last record from the EmployeeInfo table.
-To display the first record from the EmployeeInfo table, you can write a query as follows:
+        To display the first record from the EmployeeInfo table, you can write a query as follows:
 SELECT * FROM EmployeeInfo WHERE EmpID = (SELECT MIN(EmpID) FROM EmployeeInfo);
 
+
 To display the last record from the EmployeeInfo table, you can write a query as follows:
+        To display the last record from the EmployeeInfo table, you can write a query as follows:
 SELECT * FROM EmployeeInfo WHERE EmpID = (SELECT MAX(EmpID) FROM EmployeeInfo);
 
 Q27. Write a query to add email validation to your database
