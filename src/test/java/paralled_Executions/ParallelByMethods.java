@@ -9,28 +9,28 @@ public class ParallelByMethods {
 
     @Test
     public void test1() {
-        WebDriverManager.chromedriver().arch64().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://demoqa.com/elements");
+//        WebDriverManager.chromedriver().arch64().setup();
+//        WebDriver driver = new ChromeDriver();
+//        driver.get("https://demoqa.com/elements");
         try {
             Thread.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        driver.quit();
+//        driver.quit();
     }
 
     @Test
     public void test2() {
-        WebDriverManager.chromedriver().arch64().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://demoqa.com/elements");
+//        WebDriverManager.chromedriver().arch64().setup();
+//        WebDriver driver = new ChromeDriver();
+//        driver.get("https://demoqa.com/elements");
         try {
             Thread.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        driver.quit();
+//        driver.quit();
     }
 
 

@@ -15,7 +15,7 @@ select * from emp where salary BETWEEN '1000' and '15000'
 SELECT * FROM EmployeePosition WHERE Salary BETWEEN '50000' AND '100000';
 
 Write a query to fetch top N records.
-select top 1 * from (select top 3 from emp order bu salary DESC) order by salary Ase
+select top 1 * from (select top 3 from emp order by salary DESC) order by salary Ase
 
 SELECT TOP N * FROM EmployeePosition ORDER BY Salary DESC;
 SELECT * FROM EmpPosition ORDER BY Salary DESC LIMIT N
@@ -56,6 +56,9 @@ ORDER BY salary ASC;
 Q26. Write a query to display the first and the last record from the EmployeeInfo table.
         To display the first record from the EmployeeInfo table, you can write a query as follows:
 SELECT * FROM EmployeeInfo WHERE EmpID = (SELECT MIN(EmpID) FROM EmployeeInfo);
+
+
+To display the last record from the EmployeeInfo table, you can write a query as follows:
         To display the last record from the EmployeeInfo table, you can write a query as follows:
 SELECT * FROM EmployeeInfo WHERE EmpID = (SELECT MAX(EmpID) FROM EmployeeInfo);
 

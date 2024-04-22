@@ -26,7 +26,7 @@ public class TestNG_Group_N_DependsOnMethodsTest {
     @Test(groups = {"regression"})
     public void group2() {
         System.out.println("Regression Group");
-        Assert.assertEquals(true, true);
+        Assert.assertEquals(true, false);
     }
 
     @Test(groups = {"smoke", "regression"})

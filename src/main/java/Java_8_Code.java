@@ -55,18 +55,30 @@ public class Java_8_Code {
 
     public static void main11(String[] args){
         String [] arr = {"automatic","aautozone","showauto","moboleauto","myautoriksha","yourautoShoq","automation"};
+        int [] ar = {1,3,2,4,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67};
+
         List<String> arrayList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
-        List<WebElement> elementList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
+//        List<WebElement> elementList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());
+//
+//
+//        elementList.stream().collect(Collectors.toMap(WebElement::getText,WebElement::isDisplayed));
+//
+//
+//        elementList.stream().collect(Collectors.toMap(WebElement::getText, Function.identity()));
+
+//        System.out.println( arrayList.stream().
+//                filter(a -> a.contains("auto"))
+////                .map(a -> a+"_updated")
+//                .reduce("",(a,b)-> a+"5"+b+"\n")
+//                .toUpperCase()
+//        );
 
 
-        elementList.stream().collect(Collectors.toMap(WebElement::getText,WebElement::isDisplayed));
 
+        int [] arInt = {1,3,2,4,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67};
 
-        elementList.stream().collect(Collectors.toMap(WebElement::getText, Function.identity()));
-
-
-
-
+        System.out.println(Arrays.stream(arInt).boxed().collect(Collectors.toList()).stream()
+                .reduce((a,b) -> a<b? a:b).stream().collect(Collectors.toList()));
 
 
 

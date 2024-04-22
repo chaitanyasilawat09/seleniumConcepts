@@ -30,6 +30,9 @@ public class PeopelTest extends BaseTest {
     public void verifyPeopleCount(){
 
         Response response = given().when().get("/").then().extract().response();
+
+//        response.time();  to get response time
+
 //        given().when().get("/").then().extract().as(People.class);
 //        DataFileInJSON/people.json  response_Data
         System.out.println(response.asString());

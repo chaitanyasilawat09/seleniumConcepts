@@ -4,18 +4,37 @@
     <!--    parallel with methods inside a class-->
     <test name="Parallel Tests1">
         <classes>
-            <class name="paralled_Executions.ParallelByMethods"/>
+            <class name="paralled_Executions.ParallelByMethods">
+                <methods>
+                    <include name="test1">
+
+                    </include>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+    <test enabled="false" name="Parallel Tests2">
+        <classes>
+            <class name="paralled_Executions.ParallelByMethods">
+                <methods>
+                    <include name="test2">
+
+                    </include>
+                </methods>
+            </class>
+
         </classes>
     </test>
 
-    <test name="Parallel Tests2">
-        <classes>
-            <class name="paralled_Executions.ParallelByClass"/>
-        </classes>
-    </test>
-    <test name="Parallel Tests3">
-        <classes>
-            <class name="paralled_Executions.Using_Test_Annotation"/>
-        </classes>
-    </test>
+<!--    <test name="Parallel Tests2">-->
+<!--        <classes>-->
+<!--            <class name="paralled_Executions.ParallelByClass"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Parallel Tests3">-->
+<!--        <classes>-->
+<!--            <class name="paralled_Executions.Using_Test_Annotation"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
