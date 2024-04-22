@@ -1,10 +1,11 @@
-import org.checkerframework.checker.units.qual.A;
 import org.jsoup.select.Collector;
 
 import java.util.*;
+import java.util.function.IntPredicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class t2 {
 
@@ -18,11 +19,11 @@ public class t2 {
 //        find_largest_and_Smallest_number();
 //        rverse_Number();
 //        print_Circular_Array();
-        print_Largest_Smallest_value_from_Two_Dimentiol_Array();
+//        print_Largest_Smallest_value_from_Two_Dimentiol_Array();
 //        print_Star();
 //        print_Duplicate_Element_From_List_and_Print_it();
 //        short_An_ArrayList();
-//        find_Prime_Number();
+        find_Prime_Number();
 //        palindrom_No();
 //        find_Continious_Accurency_Of_Integer_In_Array();
 //        print_String_and_maintain_space();
@@ -109,7 +110,7 @@ public class t2 {
 //        String no = "chaitanya";
         int[] digits = Integer.toString(no).chars().map(c -> c-'0').toArray();
 
-        Integer.toString(no).chars().map(c -> c-'0').toArray();
+       Integer.toString(no).chars().map(c -> c-'0').toArray();
 
         char[] ch = String.valueOf(no).toCharArray();
 
@@ -124,16 +125,18 @@ public class t2 {
     private static void find_Prime_Number() {
 
 //        which divided by only 1 and it and by it self
-        int n =989;
+        int n =12;
         if (n <= 1) {
             System.out.println("not prime");
         }
-        for (int i = 2; i < Math.sqrt(n); i++) {
+        int i;
+//        for ( i = 2; i < Math.sqrt(n); i++) {
+        for ( i = 2; i < n; i++) {
             if (n % i == 0) {
                 System.out.println("not prime");
+                break;
             }
         }
-        System.out.println("prime");
 
     }
 
