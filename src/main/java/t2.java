@@ -29,8 +29,26 @@ public class t2 {
 //        print_String_and_maintain_space();
 //        print_Reverse_String_and_maintain_space();
 //        print_String_Which_Char_Accurance_is_moreThanOne();
-
+//        fibonacci();
     }
+
+
+    public  void fibonacci() {
+        int i =0;
+        int j =1;
+        List <Integer> list = new ArrayList<>();
+        list.add(i);
+        list.add(j);
+        int main = 0;
+        for(int k = 0; k<=10; k++){
+            main = i + j;
+            i = j;
+            j = main;
+            list.add(main);
+        }
+        System.out.println(list);
+    }
+
 
     public static void print_Reverse_String_and_maintain_space() {
         String s  = "Today is Sunday";
@@ -125,7 +143,6 @@ public class t2 {
         int count =1;
         int finalCont = 0;
         int finalInt = 0;
-        Map<Integer, Integer> map = new HashMap<>();
         for (int i =0;i< arr.length;i++){
 
             if(last==2){
