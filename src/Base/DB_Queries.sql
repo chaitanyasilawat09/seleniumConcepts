@@ -1,20 +1,20 @@
-Write a query to fetch the number of employees working in the department ‘HR’.
+--Write a query to fetch the number of employees working in the department ‘HR’.
 Select count(*) from Employee where dept name = 'HR'
 SELECT COUNT(*) FROM EmployeeInfo WHERE Department = 'HR';
 
-Write a query to retrieve the first four characters of EmpLname from the EmployeeInfo table.
+--Write a query to retrieve the first four characters of EmpLname from the EmployeeInfo table.
 select substring(empname, 1,4) from emp
 SELECT SUBSTRING(EmpLname, 1, 4) FROM EmployeeInfo;
 
-Q6. Write a query to create a new table which consists of data and structure copied from the other table.
+--Write a query to create a new table which consists of data and structure copied from the other table.
 CREATE TABLE NewEmp AS select * from emp
 CREATE TABLE NewTable AS SELECT * FROM EmployeeInfo;
 
-Write q query to find all the employees whose salary is between 50000 to 100000.
+--Write q query to find all the employees whose salary is between 50000 to 100000.
 select * from emp where salary BETWEEN '1000' and '15000'
 SELECT * FROM EmployeePosition WHERE Salary BETWEEN '50000' AND '100000';
 
-Write a query to fetch top N records.
+--Write a query to fetch top N records.
 select top 1 * from (select top 3 from emp order by salary DESC) order by salary Ase
 
 SELECT TOP N * FROM EmployeePosition ORDER BY Salary DESC;
@@ -53,19 +53,19 @@ ORDER BY salary DESC) AS emp
 ORDER BY salary ASC;
 
 
-Q26. Write a query to display the first and the last record from the EmployeeInfo table.
+--Q26. Write a query to display the first and the last record from the EmployeeInfo table.
         To display the first record from the EmployeeInfo table, you can write a query as follows:
 SELECT * FROM EmployeeInfo WHERE EmpID = (SELECT MIN(EmpID) FROM EmployeeInfo);
 
 
-To display the last record from the EmployeeInfo table, you can write a query as follows:
+--To display the last record from the EmployeeInfo table, you can write a query as follows:
         To display the last record from the EmployeeInfo table, you can write a query as follows:
 SELECT * FROM EmployeeInfo WHERE EmpID = (SELECT MAX(EmpID) FROM EmployeeInfo);
 
-Q27. Write a query to add email validation to your database
+--Write a query to add email validation to your database
 SELECT Email FROM EmployeeInfo WHERE NOT REGEXP_LIKE(Email, ‘[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}’, ‘i’);
 
-Q28. Write a query to retrieve Departments who have less than 2 employees working in it.
+--Write a query to retrieve Departments who have less than 2 employees working in it.
 SELECT DEPARTMENT, COUNT(EmpID) as 'EmpNo' FROM EmployeeInfo GROUP BY DEPARTMENT HAVING COUNT(EmpD) < 2;
 
 Q29. Write a query to retrieve EmpPostion along with total salaries paid for each of them.
