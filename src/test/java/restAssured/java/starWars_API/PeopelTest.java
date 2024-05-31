@@ -7,6 +7,9 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
@@ -158,9 +161,38 @@ public void validate_People_Json_Schema(){
 //        People people = mapper.readValue(jsonObject.toString(),People.class);
 
 //        List<Results> resultsList = people.getResults();
-        File file = new File("Store_People_Data_From_API.xlsx");
-        FileInputStream fis = new FileInputStream(file);
-        FileOutputStream fos = new FileOutputStream(file);
+//        File file = new File("Store_People_Data_From_API.xlsx");
+//        FileInputStream fis = new FileInputStream(file);
+//        FileOutputStream fos = new FileOutputStream(file);
+
+        //Create an object of File class to open xlsx file
+        File file =    new File("\\TestData\\TestData.xls");
+
+        //Create an object of FileInputStream class to read excel file
+        FileInputStream inputStream = new FileInputStream(file);
+
+        //creating workbook instance that refers to .xls file
+        HSSFWorkbook wb=new HSSFWorkbook(inputStream);
+
+        //creating a Sheet object using the sheet Name
+        HSSFSheet sheet=wb.getSheet("STUDENT_DATA");
+//        HSSFSheet sheetwb.createSheet("STUDENT_DATA")
+
+        //Create a row object to retrieve row at index 3
+        HSSFRow row2=sheet.createRow(3);
+
+        //create a cell object to enter value in it using cell Index
+        row2.createCell(0).setCellValue("Diana");
+        row2.createCell(1).setCellValue("Jane");
+        row2.createCell(2).setCellValue("djanes@gmail.com");
+        row2.createCell(3).setCellValue("Female");
+        row2.createCell(4).setCellValue("8786858432");
+        row2.createCell(5).setCellValue("Park Lane, Flat C1 , New Jersey");
+
+        //write the data in excel using output stream
+        FileOutputStream outputStream = new FileOutputStream("E:\\TestData\\TestData.xls");
+        wb.write(outputStream);
+        wb.close();
 
 
 

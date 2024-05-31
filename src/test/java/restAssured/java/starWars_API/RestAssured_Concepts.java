@@ -37,6 +37,7 @@ public class RestAssured_Concepts {
 
 //        TODO  Return body log
         given().when().get("/users/eugenp").then().log().body().statusCode(200);
+        given().when().get("/users/eugenp").then().log().all();
 
 
 
