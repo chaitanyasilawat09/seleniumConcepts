@@ -21,6 +21,7 @@ ElementNotVisibleException: Selenium throws ElementNotVisibleException when an e
                             Wait until the element is visible or clickable using explicit wait.
 
 NoSuchElementException:
+NotFoundException:  Raised when it cannot locate the element on the web page based on the specified selector or criteria. This exception typically occurs when we use the Selenium methods like “findElement” or “findElements” to locate and interact with elements such as buttons, input fields, links, etc.1
 SessionNotFoundException: SessionNotFoundException will occur when the Webdriver is trying to perform actions
                           on the web application after the browser is closed or
                           when the browser session is not available.

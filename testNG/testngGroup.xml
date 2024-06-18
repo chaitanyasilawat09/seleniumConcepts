@@ -3,7 +3,8 @@
     <test name="ToolsQA">
         <groups>
             <run>
-                <include name="regression"/>
+<!--                <include name="regression"/>-->
+                <include name="smoke"/>
             </run>
         </groups>
         <classes>

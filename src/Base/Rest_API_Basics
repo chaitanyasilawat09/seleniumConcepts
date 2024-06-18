@@ -118,3 +118,27 @@ given().log().all()
        .queryParam("agreementType", "CHQ")
        .when()
        .get("https://localhost/v1/agreement/{agreementId}");
+
+
+Key Difference Between Test Plan and Test Strategy
+Test Plan is a document that describes the scope, objective and weight on software testing task whereas Test Strategy describes how testing needs to be done.
+Test Plan is used at the project level whereas Test Strategy is used at the organization level.
+Test Plan has the primary goal of how to test, when to test and who will verify whereas Test Strategy has the primary goal of what technique to follow and which module to check.
+Test Plan can be changed whereas Test Strategy can’t change.
+Test Plan is carried out by the test manager whereas the Test Strategy is carried out by the project manager.
+
+What is Test Plan?
+The test plan is a base of software testing. It is a detailed document, which includes several testing attributes such as test objectives, scope, test schedule, template, required resources (human resources, software, and hardware), test estimation and test deliverables, risk, mitigation plan, defect tracking, entry and exit criteria, test environment, etc., which defines software testing areas and activities.
+
+What is a Test Strategy?
+The test strategy is a high-level document used to validate the test levels to be executed for the product. And it also describes what kind of technique has to be used and which module will be tested.
+It contains various components like documentation formats, objectives, test processes, scope, customer communication strategy, etc.
+The Test Strategy's main purpose is to deliver a systematic approach to the software testing process to ensure reliability, quality, traceability, and better planning.
+
+
+TODO What is Chrome Options Class?
+The Chromeoptions Class is a concept in Selenium WebDriver for manipulating various properties of the Chrome driver. The Chrome options class is generally used in conjunction with Desired Capabilities for customizing Chrome driver sessions. It helps you perform various operations like opening Chrome in maximized mode, disable existing extensions, disable pop-ups, etc
+
+TODO DesiredCapabilities
+Desired Capabilities Class is used to modify multiple properties of web drivers. It provides key-value pairs to change individual properties of web drivers such as browser name, browser platform, etc. A common method of Desired Capabilities class is the setCapability method. It is mostly used with Selenium Grid, where the same test case needs to be executed on different browsers.
+

@@ -22,8 +22,8 @@ public class A_3_Elements extends BaseTest {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String fullName = "Chaitanya";
         String email = "abc@gmail.com";
-        js.executeScript("document.getElementById('userName').value='" + fullName + "';");
-//        js.executeScript("arguments[0].value='"+ fullName +"';", fullNameField);
+//        js.executeScript("document.getElementById('userName').value='" + fullName + "';");
+        js.executeScript("arguments[0].value='"+ fullName +"';", fullNameField);
         js.executeScript("document.getElementById('userEmail').value='" + email + "'");
 
 

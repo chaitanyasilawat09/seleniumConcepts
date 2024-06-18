@@ -1,5 +1,9 @@
 import org.jsoup.select.Collector;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.IntPredicate;
 import java.util.regex.Matcher;
@@ -11,7 +15,10 @@ public class t2 {
 
 
     public static void main(String[] args) {
-//
+//          TODO Read text file line by line
+//          TODO Read text file  from URL line by line
+//          TODO Create text file and add data line by line
+//          TODO Create excel file and add data row by row
 //        reverseString();
 //        charCountInString();
 //        find_Special_Charactr_And_Number_In_Given_String();
@@ -33,20 +40,82 @@ public class t2 {
     }
 
 
+    public void print_missing_number_in_array(){
+        int [] number = {1,4,7,9,2};
+        List<Integer> list = Arrays.stream(number).boxed().collect(Collectors.toList());
+
+        Arrays.sort(number);
+        int maxValue = number[number.length-1];
+
+        for (int i=0; i<=maxValue;i++){
+            if (!(list.contains(i)))
+                System.out.println(i);
+
+        }
+    }
+
+    public void read_text_file() throws IOException {
+        //TODO create txt file
+        File file = new File("myFile.text");
+//            file.d
+        file.createNewFile();
+        System.out.println(file.exists());
+        file.deleteOnExit();
+        System.out.println(file.exists());
+        //TODO read txt file
+        List<String> content = Files.readAllLines(Paths.get("TestLog.txt"));
+        String []s = content.get(0).split(System.getProperty("line.separator"));
+        System.out.println(s[0]);
+        System.out.println(content.get(0).split("\\s")[0]);
+
+    }
+
+    public void binartSearch(){
+        int [] i =  {1,2,3,4,5};
+//      2  1,2,3
+//        4/5  4,5
+//        3
+        int key = 2;
+        List<Integer> list = Arrays.stream(i).boxed().collect(Collectors.toList());
+
+        int avg = list.get(i.length/2);
+        if (avg>key && list.contains(key))
+        {
+            System.out.println( list.subList(0,avg));
+        }
+        else if(avg<key  && list.contains(key)){
+            System.out.println( list.subList(avg, list.size()));
+        }
+        else {
+            System.out.println("-1");
+        }
+
+    }
+
+    public void swap_two_no_without_third(){
+
+        int a = 10;
+        int b = 20;
+        a = a+b; //30
+        b = a-b;  //30-20=10
+        a = a-b;  //30-10=20
+
+        System.out.println(a);
+        System.out.println(b);
+
+    }
+
     public  void fibonacci() {
         int i =0;
         int j =1;
-        List <Integer> list = new ArrayList<>();
-        list.add(i);
-        list.add(j);
         int main = 0;
         for(int k = 0; k<=10; k++){
             main = i + j;
             i = j;
             j = main;
-            list.add(main);
+//            list.add(main);
         }
-        System.out.println(list);
+//        System.out.println(list);
     }
 
 
@@ -56,6 +125,7 @@ public class t2 {
         String s1 = s.replace(" ", "");
         char c1 = ' ';
         String rev = "";
+        Arrays.stream(s.split("\\s")).map(ss -> ss.length()).collect(Collectors.toList());
         List<Integer> indexes = IntStream.range(0, s.length())
                 .filter(i -> s.charAt(i)==c1).boxed()
                 .collect(Collectors.toList());

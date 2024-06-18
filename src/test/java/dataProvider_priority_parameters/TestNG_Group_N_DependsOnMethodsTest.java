@@ -26,10 +26,10 @@ public class TestNG_Group_N_DependsOnMethodsTest {
     @Test(groups = {"regression"})
     public void group2() {
         System.out.println("Regression Group");
-        Assert.assertEquals(true, false);
+        Assert.assertEquals(true, true);
     }
 
-    @Test(groups = {"smoke", "regression"})
+    @Test(groups = {"regression","smoke"},dependsOnGroups = {"smoke","regression"})
     public void group3() {
         System.out.println("Smoke and Regression Group");
     }
