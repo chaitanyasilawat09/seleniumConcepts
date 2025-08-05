@@ -13,7 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 @Setter
 @Getter
 @ToString
-//@NoArgsConstructor
+@NoArgsConstructor
 public class ElementPage{
 
     @FindBy(xpath = "//*[@id=\"firstName\"]")

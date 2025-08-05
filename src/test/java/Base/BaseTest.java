@@ -77,13 +77,23 @@ public class BaseTest {
     }
 
     //    TODO Fluent wait
-    public void fluentWait(WebElement element) {
+    public void fluentWait1(WebElement element) {
         Wait wait = (Wait) new FluentWait(driver)
                 .withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(5))
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.visibilityOf(element));
     }
+
+    public void fluentWait(WebElement element) {
+        Wait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(10))
+                .pollingEvery(Duration.ofMillis(500))
+                .ignoring(NoSuchElementException.class);
+
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
 
     public WebElement findElementFunction(String path) {
         WebElement element = driver.findElement(By.xpath(path));

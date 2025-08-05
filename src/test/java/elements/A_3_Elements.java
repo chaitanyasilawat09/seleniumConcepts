@@ -10,7 +10,7 @@ public class A_3_Elements extends BaseTest {
 
     @Test
     public void verifyElementsTab() {
-        //        css selector tag + class name  TODO (tag.ClassName)
+//        css selector tag + class name  TODO (tag.ClassName)
         WebElement TextBox = driver.findElement(By.cssSelector("span.text"));
         TextBox.click();
 
@@ -40,6 +40,7 @@ public class A_3_Elements extends BaseTest {
 
 //        TODO click()  by JS
         js.executeScript("document.getElementById('submit').click();");
+        js.executeScript("arguments[0].click();", permanentAddress);
         sleep(4000);
 
 
@@ -56,5 +57,8 @@ public class A_3_Elements extends BaseTest {
 
 //        Scroll up
         js.executeScript("scroll(0, -250);");
+//.     Scroll up to top
+        js.executeScript("window.scrollTo(0, 0);");
+
     }
 }

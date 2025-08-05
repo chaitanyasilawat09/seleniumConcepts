@@ -60,12 +60,13 @@ public class ExtentReport_BaseTest {
 //        Screenshot s=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
 //        ImageIO.write(s.getImage(),"PNG",new File("C:\\projectScreenshots\\fullPageScreenshot.png"));
 //
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        TakesScreenshot takesScreenshot = ((TakesScreenshot) driver);
+        File scrFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
         File Dest = new File("src/../ErrImages/" + System.currentTimeMillis()
                 + ".png");
         String errflpath = Dest.getAbsolutePath();
         try {
-//            FileUtils.copyFile(scrFile, Dest);
+            FileUtils.copyFile(scrFile, Dest);
         } catch (Exception e) {
             test.log(LogStatus.FAIL,test.addScreenCapture(capture(driver))+ "Test Failed");
             e.printStackTrace();

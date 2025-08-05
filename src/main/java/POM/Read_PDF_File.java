@@ -11,14 +11,13 @@ public class Read_PDF_File {
 
 //    Import   <groupId>org.apache.pdfbox</groupId>
     public static void main(String[] args) throws Exception {
-        PDDocument document = PDDocument.load(new File("3-6 Years - 10-Oct.pdf"));
+        PDDocument document = PDDocument.load(new File("3-6 Years - 18-Mar.pdf"));
         PDFTextStripper stripper = new PDFTextStripper();
         String text = stripper.getText(document);
         lines = text.split(System.getProperty("line.separator"));
         for(String s : lines){
             if(s.contains("Email: "))
-
-            System.out.println(s.replace("Email: ",""));
+              System.out.println(s.replace("Email: ",""));
         }
 //        System.out.println(lines[0].toString());
         document.close();

@@ -1,32 +1,39 @@
 --Write a query to fetch the number of employees working in the department ‘HR’.
-Select count(*) from Employee where dept name = 'HR'
+Select count(*) from Employee
+where dept name = 'HR'
 
 --Write a query to retrieve the first four characters of EmpLname from the EmployeeInfo table.
-select substring(empname, 1,4) from emp
+select substring(empname, 1,4)
+from emp
 
 --Write a query to create a new table which consists of data and structure copied from the other table.
-CREATE TABLE NewEmp AS select * from emp
+CREATE TABLE NewEmp AS
+select * from emp
 
 --Write q query to find all the employees whose salary is between 50000 to 100000.
-select * from emp where salary BETWEEN '1000' and '15000'
+select * from emp
+where salary BETWEEN '1000' and '15000'
 
 --Write a query to fetch top N records.
 select top 1 * from
 (select top 3 from emp order by salary DESC)
 order by salary Ase
 
-SELECT TOP N * FROM EmployeePosition ORDER BY Salary DESC;
-SELECT * FROM EmpPosition ORDER BY Salary DESC LIMIT N
+SELECT * FROM EmpPosition
+ORDER BY Salary DESC LIMIT N
 
 --Write a query to retrieve the EmpFname and EmpLname in a single column as “FullName”. The first name and the last name must be separated with space.
-select concat(EmpName,' ', EmaLName) as full name from emp
+select concat(EmpName,' ', EmaLName) as full name
+from emp
 
 
 --Write a query to fetch all the records from the EmployeeInfo table ordered by EmpLname in descending order and Department in the ascending order.
-select * from emp order by empLname, dept asc
+select * from emp
+order by empLname, dept asc
 
 --Write a query to fetch details of all employees excluding the employees with first names, “Sanjay” and “Sonia” from the EmployeeInfo table.
-SELECT * FROM EmployeeInfo WHERE EmpFname NOT IN ('Sanjay','Sonia');
+SELECT * FROM EmployeeInfo
+WHERE EmpFname NOT IN ('Sanjay','Sonia');
 
 --Write a query to fetch the department-wise count of employees sorted by department’s count in ascending order.
 SELECT Department, count(EmpID) AS EmpDeptCount
@@ -81,76 +88,6 @@ SELECT *
 FROM EmployeeInfo WHERE
 EmpID <= (SELECT COUNT(EmpID)/2 from EmployeeInfo);
 
-
-1st Choice
-
-Date (18.06.2024):
-
-Start Time (12:00 PM):
-
-End Time (01:00 PM):
-
-Time Zone: IST (+5:30)
-
-2st Choice
-
-Date (19.06.2024):
-
-Start Time (12:00 PM):
-
-End Time (01:00 PM):
-
-Time Zone: IST (+5:30)
-
-3st Choice
-
-Date (20.06.2024):
-
-Start Time (12:00 PM):
-
-End Time (01:00 PM):
-
-Time Zone: IST (+5:30)
-
-4st Choice
-
-Date (21.06.2024):
-
-Start Time (12:00 PM):
-
-End Time (01:00 PM):
-
-Time Zone: IST (+5:30)
-
-5st Choice
-
-Date (24.06.2024):
-
-Start Time (12:00 PM):
-
-End Time (01:00 PM):
-
-Time Zone: IST (+5:30)
-
-6st Choice
-
-Date (25.06.2024):
-
-Start Time (12:00 PM):
-
-End Time (01:00 PM):
-
-Time Zone: IST (+5:30)
-
-7st Choice
-
-Date (26.06.2024):
-
-Start Time (12:00 PM):
-
-End Time (01:00 PM):
-
-Time Zone: IST (+5:30)
 
 
 

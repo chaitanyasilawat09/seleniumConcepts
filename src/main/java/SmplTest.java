@@ -13,9 +13,11 @@ public class SmplTest  {
 //
 ////        convert Int to Int[]
         Integer.toString(123).chars().map(c-> c-'0').toArray();
-        String s = "";
+//      Find Space index in given string
+        String s = "nb hbv hg ";
         List<Integer> l = IntStream.range(0,s.length())
                             .filter(i -> s.charAt(i)==' ')
                                 .boxed().collect(Collectors.toList());
+        System.out.println(l);
     }
 }

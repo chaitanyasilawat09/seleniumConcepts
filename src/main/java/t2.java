@@ -44,7 +44,6 @@ public class t2 {
         int [] number = {1,4,7,9,2};
         List<Integer> list = Arrays.stream(number).boxed().collect(Collectors.toList());
 
-
         Arrays.sort(number);
         int maxValue = number[number.length-1];
 

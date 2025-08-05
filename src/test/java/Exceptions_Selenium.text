@@ -27,3 +27,11 @@ SessionNotFoundException: SessionNotFoundException will occur when the Webdriver
                           when the browser session is not available.
 TimeoutException: TimeOutException occurs when a command takes longer than the wait time to avoid
                     the ElementNotVisible Exception
+
+StaleElementReferenceException:-
+| Cause                    | Solution            |
+| ------------------------ | ------------------- |
+| DOM changed or refreshed | Re-locate element   |
+| JavaScript updates DOM   | Use wait conditions |
+| Clicked too soon         | Use `WebDriverWait` |
+

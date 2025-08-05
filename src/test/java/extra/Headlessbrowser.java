@@ -19,7 +19,7 @@ public class Headlessbrowser {
 //    TODO What is Chrome Options Class?
 //    The Chromeoptions Class is a concept in Selenium WebDriver for manipulating various properties
 //    of the Chrome driver.
-//    The Chrome options class is generally used in conjunction with Desired Capabilities for customizing Chrome driver sessions.
+//    The Chrome options class is generally used with Desired Capabilities for customizing Chrome driver sessions.
 //    It helps you perform various operations
 //    like opening Chrome in maximized mode, disable existing extensions, disable pop-ups, etc
 

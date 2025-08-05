@@ -112,8 +112,10 @@ public class PeopelTest extends BaseTest {
     // If Response is large and not possible to validate each and every Value
 @Test
 public void validate_People_Json_Schema(){
-    given().when().get("/").then().assertThat()
-            .body(JsonSchemaValidator.matchesJsonSchema(new File("/Users/chaitanyasilawat/Documents/GitHub/RestAssured_API_Concepts/src/main/java/DataFileInJSON/people_Json_Schema.json")));
+    given().when().get("/").then()
+            .assertThat()
+            .body(JsonSchemaValidator.
+                    matchesJsonSchema(new File("/Users/chaitanyasilawat/Documents/GitHub/RestAssured_API_Concepts/src/main/java/DataFileInJSON/people_Json_Schema.json")));
     }
 
 
@@ -124,6 +126,7 @@ public void validate_People_Json_Schema(){
         List<String> nameList = response.getBody().jsonPath().getList("results.name");
         System.out.println();
         HashSet<String> nameSet = (HashSet<String>) nameList.stream().collect(Collectors.toSet());
+//        HashSet<String> nameSet1 = new HashSet<String> (nameList);
 
         assertThat("List contain Duplicate name for people: ",nameList.size(),is(nameSet.size()));
     }
@@ -209,10 +212,18 @@ public void validate_People_Json_Schema(){
 
     public void authorizationTypes(){
 
-
         given().auth().preemptive().basic("username","Password");
         given().header("authorization","Bearer token");
         given().auth().oauth2("access Token");
         given().auth().oauth("consumerKey", "consumerSecret", "accessToken", "tokenSecret");
+    }
+
+    @Test
+    public void testUserAPI() {
+        given()
+                .when()
+                .get("https://api.example.com/user/123")
+                .then()
+                .spec(responseSpec);
     }
 }
