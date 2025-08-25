@@ -1,10 +1,7 @@
 package Base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -35,6 +32,10 @@ public class BaseTest {
         driver.get("https://demoqa.com/elements");
         implicateWait();
         pageLoadWait();
+
+        Cookie ck = new Cookie("name", "value");
+        driver.manage().addCookie(ck);
+
         driver.manage().window().maximize();
         sleep(1000);
         assertThat(driver.getTitle(), is("ToolsQA"));
@@ -62,6 +63,9 @@ public class BaseTest {
     public void explicateWaitVisibleElement(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOf(element));
+
+//        wait.until(ExpectedConditions.visibilityOfAllElements(element,element,element));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("")));
     }
 
     //    TODO Explicate Wait element Clickable
@@ -69,16 +73,27 @@ public class BaseTest {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.elementToBeClickable(element));
+        wait.until(ExpectedConditions.alertIsPresent());
     }
 
     //    TODO Fluent wait
-    public void fluentWait(WebElement element) {
+    public void fluentWait1(WebElement element) {
         Wait wait = (Wait) new FluentWait(driver)
                 .withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(5))
                 .ignoring(NoSuchElementException.class)
                 .until(ExpectedConditions.visibilityOf(element));
     }
+
+    public void fluentWait(WebElement element) {
+        Wait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(10))
+                .pollingEvery(Duration.ofMillis(500))
+                .ignoring(NoSuchElementException.class);
+
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
 
     public WebElement findElementFunction(String path) {
         WebElement element = driver.findElement(By.xpath(path));

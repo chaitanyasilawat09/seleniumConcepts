@@ -8,12 +8,13 @@ import java.util.Random;
 public class myClass{
 
 
+
     public static void main(String[] args) {
         int test = 12345;
-        int[] testArray = new int[Integer.parseInt(String.valueOf(test))];
-        System.out.println(Arrays.stream(testArray).toArray().length);
+        int[] testArray = Integer.toString(test).chars().map(c -> c-'0').toArray();
+        System.out.println(Arrays.toString(Arrays.stream(testArray).toArray()));
+        System.out.println(Arrays.stream(testArray).toArray());
     }
-
 
 //
 //    {

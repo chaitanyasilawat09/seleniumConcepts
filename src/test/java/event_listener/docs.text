@@ -1,5 +1,7 @@
 You must have always craved for more logs from the Webdriver so that you can debug your scripts or maybe log more information about your tests.
-Here is your answer to it, EventFiringWebDriver and the WebDriverEventListner.
+Here is your answer to it,
+:- EventFiringWebDriver and the
+:- WebDriverEventListner.
 EventFiringWebDriver is a class and is used to wrap your webdriver around to throw events and WebDriverEventListner is an interface
 that you have to implement to catch the webdriver events.
 

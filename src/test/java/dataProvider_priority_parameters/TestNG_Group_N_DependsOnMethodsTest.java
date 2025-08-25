@@ -22,14 +22,16 @@ public class TestNG_Group_N_DependsOnMethodsTest {
 //   			<group depends-on= "smoke" name= "regression"></group>
 //   		</dependencies>
 //   		</groups>
+//You want the regression group to depend on the smoke group — meaning:
+//    Tests in smoke should run before any regression tests.
 
     @Test(groups = {"regression"})
     public void group2() {
         System.out.println("Regression Group");
-        Assert.assertEquals(true, false);
+        Assert.assertEquals(true, true);
     }
 
-    @Test(groups = {"smoke", "regression"})
+    @Test(groups = {"regression","smoke"},dependsOnGroups = {"smoke","regression"})
     public void group3() {
         System.out.println("Smoke and Regression Group");
     }

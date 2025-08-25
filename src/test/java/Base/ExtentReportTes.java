@@ -19,6 +19,7 @@ public class ExtentReportTes extends ExtentReport_BaseTest{
         else
         {
             test.log(LogStatus.FAIL, "Test Failed");
+            test.addScreenCapture(capture(driver));
         }
     }
 

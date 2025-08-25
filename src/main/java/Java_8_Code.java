@@ -16,6 +16,7 @@ public class Java_8_Code {
         map.put("bcd","cc");
         map.put("cde","dd");
         map.put("def","ee");
+        //TODO Create List using Array
         ArrayList<Integer> list = (ArrayList<Integer>) Arrays.stream(ar).boxed().collect(Collectors.toList());
         ArrayList<String> strList = (ArrayList<String>) Arrays.stream(strArr).collect(Collectors.toList());
 
@@ -76,9 +77,10 @@ public class Java_8_Code {
 
 
         int [] arInt = {1,3,2,4,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67};
-
-        System.out.println(Arrays.stream(arInt).boxed().collect(Collectors.toList()).stream()
-                .reduce((a,b) -> a<b? a:b).stream().collect(Collectors.toList()));
+//TODO find higest and lowest no. from array
+        System.out.println(Arrays.stream(arInt).boxed().collect(Collectors.toList())
+                .stream().reduce((a,b) -> a<b? a:b)
+                .stream().collect(Collectors.toList()));
 
 
 

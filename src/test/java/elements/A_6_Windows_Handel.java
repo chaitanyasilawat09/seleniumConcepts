@@ -4,6 +4,7 @@ import Base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -58,10 +59,10 @@ public class A_6_Windows_Handel extends BaseTest {
 
 
 //        // Opens a new tab and switches to new tab
-//        driver.switchTo().newWindow(WindowType.TAB);
+        driver.switchTo().newWindow(WindowType.TAB);
 //
 //// Opens a new window and switches to new window
-//        driver.switchTo().newWindow(WindowType.WINDOW);
+        driver.switchTo().newWindow(WindowType.WINDOW);
 
         //Switch back to the old tab or window
         driver.switchTo().window(mainWindow);

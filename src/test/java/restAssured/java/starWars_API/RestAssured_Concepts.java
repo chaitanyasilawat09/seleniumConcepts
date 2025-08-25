@@ -30,13 +30,15 @@ public class RestAssured_Concepts {
 
 
 //        TODO  return all logs
-        given().log().all()
+        given()
                 .when().get("/users/eugenp")
-                .then().statusCode(200);
+                .then().log().all().
+                statusCode(200);
 
 
 //        TODO  Return body log
         given().when().get("/users/eugenp").then().log().body().statusCode(200);
+        given().when().get("/users/eugenp").then().log().all();
 
 
 

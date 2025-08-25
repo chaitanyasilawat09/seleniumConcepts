@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 
 public class Using_Test_Annotation {
 
+//            | `invocationCount = 4` | Run the method **4 times** total.         |
+//            | `threadPoolSize = 4`  | Run them in **parallel using 4 threads**. |
 
     //    for this single test case 4 browser will open
     @Test(invocationCount = 4, threadPoolSize = 4)

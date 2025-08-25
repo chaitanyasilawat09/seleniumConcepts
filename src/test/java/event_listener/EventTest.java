@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 public class EventTest {
     @Test
 public void test() {
-    WebDriverManager.chromedriver().arch64().setup();
+    //WebDriverManager.chromedriver().arch64().setup();
     WebDriver driver = new ChromeDriver();
     EventFiringWebDriver eventDriver = new EventFiringWebDriver(driver);
 

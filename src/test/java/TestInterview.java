@@ -29,7 +29,7 @@ public class TestInterview {
 
         WebElement element = driver.findElement(By.xpath("Account"));
         Actions actions = new Actions(driver);
-        actions.moveToElement(element).build().perform();
+        actions.moveToElement(element).perform();
         WebElement element1= driver.findElement(By.xpath("MyAccount"));
         element1.click();
 

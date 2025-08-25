@@ -5,14 +5,13 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class testNG_parameterTest {
-//
-//    @Test
-//    @Parameters({"userName", "password"})
-////    testNG/testngGroup.xml
-//    public void parameter(String uName, String pass){
-//        System.out.println("UserName is :"+uName);
-//        System.out.println("password is :"+pass);
-//    }
+//testNG/testNG_parameter.xml
+    @Test
+    @Parameters({"userName", "password"})
+    public void parameter(String uName, String pass){
+        System.out.println("UserName is :"+uName);
+        System.out.println("password is :"+pass);
+    }
 
     @Test
     @Parameters({"message"})
