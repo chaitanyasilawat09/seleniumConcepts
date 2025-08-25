@@ -15,6 +15,7 @@ public class Read_PDF_File {
         PDFTextStripper stripper = new PDFTextStripper();
         String text = stripper.getText(document);
         lines = text.split(System.getProperty("line.separator"));
+//        lines = text.split("\n");
         for(String s : lines){
             if(s.contains("Email: "))
               System.out.println(s.replace("Email: ",""));

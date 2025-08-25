@@ -61,7 +61,7 @@ ORDER BY salary DESC) AS emp
 ORDER BY salary ASC;
 
 
---Q26. Write a query to display the first and the last record from the EmployeeInfo table.
+--Q26. Write a query to display the first record from the EmployeeInfo table.
 SELECT * FROM EmployeeInfo
 WHERE EmpID = (SELECT MIN(EmpID) FROM EmployeeInfo);
 

@@ -70,7 +70,7 @@ Cookie myCookie = new Cookie.Builder("session_id", "1234")
 Child to parent
 <div class="aio UKr6le">
 	<span class="nU n1">
-		<a href="https://mail.google.com/x" target="_top" class="J-Ke n0" >Inbox</a>
+		<a href="https://mail.google.com/x" > Inbox </a>
 	</span>
 	<div class="bsU">2,437</div></div>
 

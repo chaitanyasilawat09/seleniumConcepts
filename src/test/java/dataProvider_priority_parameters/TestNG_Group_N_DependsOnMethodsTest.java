@@ -22,6 +22,8 @@ public class TestNG_Group_N_DependsOnMethodsTest {
 //   			<group depends-on= "smoke" name= "regression"></group>
 //   		</dependencies>
 //   		</groups>
+//You want the regression group to depend on the smoke group — meaning:
+//    Tests in smoke should run before any regression tests.
 
     @Test(groups = {"regression"})
     public void group2() {

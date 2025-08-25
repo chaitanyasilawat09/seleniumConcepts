@@ -15,6 +15,7 @@ public class t2 {
 
 
     public static void main(String[] args) {
+//        compare to list and store all distinct value, and common value
 //          TODO Read text file line by line
 //          TODO Read text file  from URL line by line
 //          TODO Create text file and add data line by line
@@ -40,14 +41,40 @@ public class t2 {
     }
 
 
-    public void print_missing_number_in_array(){
-        int [] number = {1,4,7,9,2};
+    public static void CompareAnfGetDistinctAndCommonValue() {
+        // Sample lists
+        List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> list2 = Arrays.asList(4, 5, 6, 7, 8);
+
+        // Get common and distinct values
+        List<Integer> commonValues = new ArrayList<>(list1);
+        commonValues.retainAll(list2);  // Keeps only elements also in list2
+
+        List<Integer> distinctValues = new ArrayList<>();
+        for (Integer num : list1) {
+            if (!list2.contains(num)) {
+                distinctValues.add(num);
+            }
+        }
+        for (Integer num : list2) {
+            if (!list1.contains(num)) {
+                distinctValues.add(num);
+            }
+        }
+
+        // Output
+        System.out.println("Common Values: " + commonValues);
+        System.out.println("Distinct Values: " + distinctValues);
+    }
+
+    public void print_missing_number_in_array() {
+        int[] number = {1, 4, 7, 9, 2};
         List<Integer> list = Arrays.stream(number).boxed().collect(Collectors.toList());
 
         Arrays.sort(number);
-        int maxValue = number[number.length-1];
+        int maxValue = number[number.length - 1];
 
-        for (int i=0; i<=maxValue;i++){
+        for (int i = 0; i <= maxValue; i++) {
             if (!(list.contains(i)))
                 System.out.println(i);
 
@@ -64,52 +91,49 @@ public class t2 {
         System.out.println(file.exists());
         //TODO read txt file
         List<String> content = Files.readAllLines(Paths.get("TestLog.txt"));
-        String []s = content.get(0).split(System.getProperty("line.separator"));
+        String[] s = content.get(0).split(System.getProperty("line.separator"));
         System.out.println(s[0]);
         System.out.println(content.get(0).split("\\s")[0]);
 
     }
 
-    public void binartSearch(){
-        int [] i =  {1,2,3,4,5};
+    public void binartSearch() {
+        int[] i = {1, 2, 3, 4, 5};
 //      2  1,2,3
 //        4/5  4,5
 //        3
         int key = 2;
         List<Integer> list = Arrays.stream(i).boxed().collect(Collectors.toList());
 
-        int avg = list.get(i.length/2);
-        if (avg>key && list.contains(key))
-        {
-            System.out.println( list.subList(0,avg));
-        }
-        else if(avg<key  && list.contains(key)){
-            System.out.println( list.subList(avg, list.size()));
-        }
-        else {
+        int avg = list.get(i.length / 2);
+        if (avg > key && list.contains(key)) {
+            System.out.println(list.subList(0, avg));
+        } else if (avg < key && list.contains(key)) {
+            System.out.println(list.subList(avg, list.size()));
+        } else {
             System.out.println("-1");
         }
 
     }
 
-    public void swap_two_no_without_third(){
+    public void swap_two_no_without_third() {
 
         int a = 10;
         int b = 20;
-        a = a+b; //30
-        b = a-b;  //30-20=10
-        a = a-b;  //30-10=20
+        a = a + b; //30
+        b = a - b;  //30-20=10
+        a = a - b;  //30-10=20
 
         System.out.println(a);
         System.out.println(b);
 
     }
 
-    public  void fibonacci() {
-        int i =0;
-        int j =1;
+    public void fibonacci() {
+        int i = 0;
+        int j = 1;
         int main = 0;
-        for(int k = 0; k<=10; k++){
+        for (int k = 0; k <= 10; k++) {
             main = i + j;
             i = j;
             j = main;
@@ -120,14 +144,14 @@ public class t2 {
 
 
     public static void print_Reverse_String_and_maintain_space() {
-        String s  = "Today is Sunday";
+        String s = "Today is Sunday";
 //                   yadnu Ss iyadoT
         String s1 = s.replace(" ", "");
         char c1 = ' ';
         String rev = "";
         Arrays.stream(s.split("\\s")).map(ss -> ss.length()).collect(Collectors.toList());
         List<Integer> indexes = IntStream.range(0, s.length())
-                .filter(i -> s.charAt(i)==c1).boxed()
+                .filter(i -> s.charAt(i) == c1).boxed()
                 .collect(Collectors.toList());
 //          TODO With StringBuffer
 //        StringBuffer sb = new StringBuffer(s1).reverse();
@@ -140,53 +164,51 @@ public class t2 {
 
         //          TODO With String
         char[] ch = s1.toCharArray();
-        int count=0;
-        for(int j = ch.length-1;j>=0;j--){
+        int count = 0;
+        for (int j = ch.length - 1; j >= 0; j--) {
 
-                if(indexes.contains(count)) {
-                    rev = rev + " " + ch[j];
-                    count++;
-                    count++;
-                }
-                else {
-                    rev = rev+ch[j];
-                    count++;
-                }
+            if (indexes.contains(count)) {
+                rev = rev + " " + ch[j];
+                count++;
+                count++;
+            } else {
+                rev = rev + ch[j];
+                count++;
+            }
         }
         System.out.println(rev);
     }
 
     public static void print_String_Which_Char_Accurance_is_moreThanOne() {
-        String s  = "my name is chaitanya";
+        String s = "my name is chaitanya";
 //                   my nae is chty
 
         String[] str = s.split("\\s");
         String rev = "";
-        for(String s1 : str){
+        for (String s1 : str) {
 
             char[] ch = s1.toCharArray();
             String word = "";
-            for (char c : ch){
-                if(!rev.contains(String.valueOf(c))){
-                    word = word +c;
+            for (char c : ch) {
+                if (!rev.contains(String.valueOf(c))) {
+                    word = word + c;
                 }
             }
-            rev = rev+ word+" ";
+            rev = rev + word + " ";
         }
         System.out.println(rev);
     }
 
 
-
     public static void print_String_and_maintain_space() {
-        String s  = "Today is     Sunday";
+        String s = "Today is     Sunday";
         //        = "yadoT si     yadnuS"
-        String[] strArr =  s.split("\\s");
+        String[] strArr = s.split("\\s");
         String rev = "";
 
-        for(String s1 : strArr){
+        for (String s1 : strArr) {
             String word = "";
-            if(s1.length()!=0) {
+            if (s1.length() != 0) {
                 char[] ch = s1.toCharArray();
 
                 for (int i = ch.length - 1; i >= 0; i--) {
@@ -195,9 +217,8 @@ public class t2 {
                 }
                 rev = rev + word + " ";
 
-            }
-            else {
-                rev = rev+" ";
+            } else {
+                rev = rev + " ";
             }
         }
 
@@ -206,42 +227,39 @@ public class t2 {
     }
 
 
-    public static void find_Continious_Accurency_Of_Integer_In_Array()
-    {
-        int [] arr = {0,1,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0};
+    public static void find_Continious_Accurency_Of_Integer_In_Array() {
+        int[] arr = {0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0};
         int last = 2;
-        int count =1;
+        int count = 1;
         int finalCont = 0;
         int finalInt = 0;
-        for (int i =0;i< arr.length;i++){
+        for (int i = 0; i < arr.length; i++) {
 
-            if(last==2){
+            if (last == 2) {
                 last = arr[i];
-            }
-            else {
-                if(last==arr[i]){
-                  count++;
-                }
-                else {
+            } else {
+                if (last == arr[i]) {
+                    count++;
+                } else {
                     count = 1;
                     last = arr[i];
                 }
             }
 
-            if(finalCont<count){
+            if (finalCont < count) {
                 finalCont = count;
                 finalInt = arr[i];
             }
         }
-        System.out.println(finalInt +"....."+finalCont);
+        System.out.println(finalInt + "....." + finalCont);
     }
 
 
-    public static boolean numberIsEvenOrOdd(int no){
-        if(no%2==0){
-            System.out.println("No.is------ "+no);
-            return true;}
-        else return false;
+    public static boolean numberIsEvenOrOdd(int no) {
+        if (no % 2 == 0) {
+            System.out.println("No.is------ " + no);
+            return true;
+        } else return false;
 
     }
 
@@ -253,21 +271,21 @@ public class t2 {
 //        int min=1000000;
 //        int i = random.nextInt((max - min) + 1) + min;
 //        System.out.println(i);
-        System.out.println(random.ints(1000,2000).filter(a -> a%2!=0).findAny().getAsInt());
-        System.out.println(random.ints(100,200).findAny().getAsInt());
+        System.out.println(random.ints(1000, 2000).filter(a -> a % 2 != 0).findAny().getAsInt());
+        System.out.println(random.ints(100, 200).findAny().getAsInt());
 
 
         int no = 123456789;
 //        String no = "chaitanya";
-        int[] digits = Integer.toString(no).chars().map(c -> c-'0').toArray();
+        int[] digits = Integer.toString(no).chars().map(c -> c - '0').toArray();
 
-       Integer.toString(no).chars().map(c -> c-'0').toArray();
+        Integer.toString(no).chars().map(c -> c - '0').toArray();
 
         char[] ch = String.valueOf(no).toCharArray();
 
-        for(int i = 0 ;i<ch.length/2; i++){
+        for (int i = 0; i < ch.length / 2; i++) {
 
-            System.out.println(ch[i]+"...."+ch[ch.length-1-i]);
+            System.out.println(ch[i] + "...." + ch[ch.length - 1 - i]);
 
         }
 
@@ -276,13 +294,13 @@ public class t2 {
     private static void find_Prime_Number() {
 
 //        which divided by only 1 and it and by it self
-        int n =12;
+        int n = 12;
         if (n <= 1) {
             System.out.println("not prime");
         }
         int i;
 //        for ( i = 2; i < Math.sqrt(n); i++) {
-        for ( i = 2; i < n; i++) {
+        for (i = 2; i < n; i++) {
             if (n % i == 0) {
                 System.out.println("not prime");
                 break;
@@ -292,32 +310,33 @@ public class t2 {
     }
 
     private static void short_An_ArrayList() {
-        int [] ar = {1,93,2,42,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67,0};
+        int[] ar = {1, 93, 2, 42, 5, 6, 5, 7, 8, 6, 4, 7, 8, 9, 061, 45, 76, 45, 67, 0};
 
         ArrayList<Integer> list = (ArrayList<Integer>) Arrays.stream(ar).boxed().collect(Collectors.toList());
-        for (int i=0;i<list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
 
-            for (int j=0; j<list.size(); j++){
+            for (int j = 0; j < list.size(); j++) {
 
-                if (list.get(i)<list.get(j)){
+                if (list.get(i) < list.get(j)) {
                     Integer temp = list.get(i);
                     list.set(i, list.get(j));
-                    list.set(j,temp);
+                    list.set(j, temp);
 
                 }
+                System.out.println(list);
             }
         }
-        System.out.println(list);
+//        System.out.println(list);
     }
 
 
     private static void print_Duplicate_Element_From_List_and_Print_it() {
 
-        int [] ar = {1,3,2,4,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67};
+        int[] ar = {1, 3, 2, 4, 5, 6, 5, 7, 8, 6, 4, 7, 8, 9, 061, 45, 76, 45, 67};
         ArrayList<Integer> list = (ArrayList<Integer>) Arrays.stream(ar).boxed().collect(Collectors.toList());
         List<Integer> newList = new ArrayList<>();
-        for (int i : list){
-            if (!newList.contains(i)){
+        for (int i : list) {
+            if (!newList.contains(i)) {
                 newList.add(i);
             }
         }
@@ -327,18 +346,18 @@ public class t2 {
 
     private static void print_Star() {
 
-        for(int i = 1; i <= 5; i++){
+        for (int i = 1; i <= 5; i++) {
 
-            for(int j =1; j <= i; j++) {
+            for (int j = 1; j <= i; j++) {
                 System.out.println("*");
             }
             System.out.println();
         }
 
 
-        for (int i = 1; i  <= 5; i++) {
+        for (int i = 1; i <= 5; i++) {
             // Inner loop for number of stars in each row
-            for (int j = 1; j  <= i; j++) {
+            for (int j = 1; j <= i; j++) {
                 System.out.print("*");
             }
             // Move to the next line after printing stars in each row
@@ -347,28 +366,26 @@ public class t2 {
     }
 
     private static void print_Largest_Smallest_value_from_Two_Dimentiol_Array() {
-        int [][] arr = {{44,6,1},{100,2,65,132,79}};
+        int[][] arr = {{44, 6, 1}, {100, 2, 65, 132, 79}};
 
         int min = arr[0][0];
         int max = arr[0][1];
-        System.out.println(min +"   "+max);
+        System.out.println(min + "   " + max);
 
-        for (int [] first : arr){
+        for (int[] first : arr) {
 
-            for (int i :first){
-                if (max<i){
+            for (int i : first) {
+                if (max < i) {
                     min = max;
                     max = i;
-                }
-                else {
-                    if(min<i){
+                } else {
+                    if (min < i) {
                         min = i;
                     }
                 }
             }
         }
-        System.out.println(min +"   "+max);
-
+        System.out.println(min + "   " + max);
 
 
     }
@@ -377,21 +394,16 @@ public class t2 {
 //        TODO  //For example, if we perform a circular left rotation on an array [1, 2, 3, 4, 5]
 //         by a factor of ‘2’ it would be [3, 4, 5, 1, 2]
 
-        int [] ia= {1, 2, 3, 4, 5};
+        int[] ia = {1, 2, 3, 4, 5};
         int fac = 3;
         List<Integer> list = new ArrayList<>();
-        for(int i =fac;i<ia.length;i++){
+        for (int i = fac; i < ia.length; i++) {
             list.add(ia[i]);
         }
-        for (int j =0;j<fac;j++){
+        for (int j = 0; j < fac; j++) {
             list.add(ia[j]);
         }
         System.out.println(list);
-
-
-
-
-
 
 
     }
@@ -399,11 +411,11 @@ public class t2 {
     private static void rverse_Number() {
 
         int number = 998877661;
-        int reverse =0;
-        while (number!=0){
-            int reminder = number%10;
-            reverse = reverse *10 + reminder;
-            number = number/10;
+        int reverse = 0;
+        while (number != 0) {
+            int reminder = number % 10;
+            reverse = reverse * 10 + reminder;
+            number = number / 10;
 
         }
         System.out.println(reverse);
@@ -412,17 +424,17 @@ public class t2 {
 
     private static void find_largest_and_Smallest_number() {
 
-        int num[] ={ 900,90,6,7,5000,4,60000,20,3};
+        int num[] = {900, 90, 6, 7, 5000, 4, 60000, 20, 3};
         int largest = num[0];
         int smallest = num[1];
-        for(int i : num){
+        for (int i : num) {
 
-            if(largest<i){
+            if (largest < i) {
                 smallest = largest;
                 largest = i;
             }
-            if (smallest>i)
-                smallest=i;
+            if (smallest > i)
+                smallest = i;
         }
         System.out.println(largest);
         System.out.println(smallest);
@@ -436,25 +448,25 @@ public class t2 {
         char[] ch = st.toCharArray();
         Map<Character, Integer> map = new HashMap();
 
-        for (char c : ch){
+        for (char c : ch) {
             Pattern pattern = Pattern.compile(String.valueOf(c));
             Matcher matcher = pattern.matcher(st);
             int count = 0;
-            while(matcher.find()){
+            while (matcher.find()) {
                 count++;
             }
-            map.put(c,count);
+            map.put(c, count);
         }
         System.out.println(map);
 
         Iterator itr = map.entrySet().iterator();
 
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
 
-            Map.Entry entry = (Map.Entry)itr.next();
+            Map.Entry entry = (Map.Entry) itr.next();
 
-            System.out.println(entry.getKey()+"..."+entry.getValue());
-            if (entry.getKey().equals("a")){
+            System.out.println(entry.getKey() + "..." + entry.getValue());
+            if (entry.getKey().equals("a")) {
                 itr.remove();
             }
         }
@@ -464,20 +476,20 @@ public class t2 {
     private static void find_Special_Charactr_And_Number_In_Given_String() {
 
         String st = "chait12^%sdf%s6@$NYJ0";
-        char [] ch = st.toCharArray();
+        char[] ch = st.toCharArray();
         String str = "";
         int integers = 0;
         String special = "";
 
-        for(char c : ch){
+        for (char c : ch) {
 
-            if(Character.isDigit(c)){
-                integers= integers+Integer.parseInt(String.valueOf(c));
+            if (Character.isDigit(c)) {
+                integers = integers + Integer.parseInt(String.valueOf(c));
             }
-            if (Character.isLetter(c)){
-                str = str+c;
+            if (Character.isLetter(c)) {
+                str = str + c;
             }
-            if(!Character.isLetter(c) && !Character.isDigit(c)) {
+            if (!Character.isLetter(c) && !Character.isDigit(c)) {
                 special = special + c;
             }
 
@@ -493,26 +505,25 @@ public class t2 {
         String st = "ChaitanyaSilawat";
         char[] ch = st.toCharArray();
         Map<Character, Integer> map = new HashMap<>();
-        for (char c :ch){
+        for (char c : ch) {
 
-            if(map.containsKey(c)){
+            if (map.containsKey(c)) {
                 int value = map.get(c).intValue();
                 value++;
                 map.put(c, value);
-            }
-            else {
-                map.put(c,1);
+            } else {
+                map.put(c, 1);
             }
         }
         System.out.println(map);
 
         Iterator itr = map.entrySet().iterator();
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
 
-            Map.Entry<Character, Integer> entry = (Map.Entry)itr.next();
-            System.out.println(entry.getKey() +"..."+entry.getValue());
+            Map.Entry<Character, Integer> entry = (Map.Entry) itr.next();
+            System.out.println(entry.getKey() + "..." + entry.getValue());
 
-            if(entry.getValue()%2==0){
+            if (entry.getValue() % 2 == 0) {
                 itr.remove();
             }
         }
@@ -522,49 +533,46 @@ public class t2 {
     private static void reverseString() {
 
         String str = "Chaitanya Silawat is My Name";
-        String [] arrSt = str.split("\\s");
+        String[] arrSt = str.split("\\s");
         String rev = "";
-        for (String st : arrSt){
+        for (String st : arrSt) {
 
             char[] ch = st.toCharArray();
 
             String word = "";
-            for (int i =ch.length-1; i>=0; i--){
-                word = word+ch[i];
+            for (int i = ch.length - 1; i >= 0; i--) {
+                word = word + ch[i];
             }
-            rev = rev+ word+" ";
+            rev = rev + word + " ";
         }
         System.out.println(rev);
 
     }
 
 
-
-    public void findCommaonString(){
+    public void findCommaonString() {
         // Input: strs = ["flower","flow","flight"]
         // Output: "fl"
-        String [] st = {"flower","flow","flight"};
+        String[] st = {"flower", "flow", "flight"};
 //        String [] st = {"abc","ab","a"};
         String s = "";
-        for(int i =0; i<st.length; i++) { //flower
+        for (int i = 0; i < st.length; i++) { //flower
 
-            String  s1 = st[i];
-            char [] ch = s1.toCharArray();
+            String s1 = st[i];
+            char[] ch = s1.toCharArray();
 
-            for(int j =1; j<st.length; j++) {
+            for (int j = 1; j < st.length; j++) {
 
 //                if(st[j].contains(String.valueOf(ch[i]))) {
-                if(st[j].contains(String.valueOf(ch[i]))) {
+                if (st[j].contains(String.valueOf(ch[i]))) {
                     s = s + ch[i];
                     continue;
                 }
 
             }
-            System.out.println("s inside "+ s );
+            System.out.println("s inside " + s);
         }
-        System.out.println("s outside "+ s );
-
-
+        System.out.println("s outside " + s);
 
 
 //
@@ -583,10 +591,6 @@ public class t2 {
 //            }
 //            System.out.println(map);
 //        }
-
-
-
-
 
 
     }
