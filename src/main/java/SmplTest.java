@@ -1,23 +1,44 @@
-import java.util.Arrays;
-import java.util.List;
+import io.restassured.http.Method;
+import org.apache.http.HttpStatus;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 
 public class SmplTest  {
+        public static void main(String[] args) throws IOException
+        {
 
-    public static void main(String[] args) {
+            given().
+                    headers("","","","","","").
+            when()
+                    .request(Method.GET, "")
+                    .then()
+                    .statusCode(HttpStatus.SC_OK)
+                    .body("data.id[1]",equalTo("1"))
+                    .body("data.firstName", hasItem("john"))
+//                     body("data.id[1]",equalTo(8)).
 
-            int [] ar = {};
-//        Convert[] to list
-        Arrays.stream(ar).boxed().collect(Collectors.toList());
-//
-////        convert Int to Int[]
-        Integer.toString(123).chars().map(c-> c-'0').toArray();
-//      Find Space index in given string
-        String s = "nb hbv hg ";
-        List<Integer> l = IntStream.range(0,s.length())
-                            .filter(i -> s.charAt(i)==' ')
-                                .boxed().collect(Collectors.toList());
-        System.out.println(l);
-    }
+                    .extract()
+                    .response();
+
+
+
+        }
+
+
 }
+
+
+
+
+
+
+
+
+

@@ -63,9 +63,8 @@ public class BaseTest {
     public void explicateWaitVisibleElement(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOf(element));
-
-//        wait.until(ExpectedConditions.visibilityOfAllElements(element,element,element));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("")));
+        wait.until(ExpectedConditions.visibilityOfAllElements(element,element,element));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("")));
     }
 
     //    TODO Explicate Wait element Clickable
@@ -74,6 +73,7 @@ public class BaseTest {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.elementToBeClickable(element));
         wait.until(ExpectedConditions.alertIsPresent());
+
     }
 
     //    TODO Fluent wait

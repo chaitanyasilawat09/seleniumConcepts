@@ -1,5 +1,7 @@
 package javaPrograms;
 
+import java.util.Random;
+
 public class InterviewCode_WRT_Integers {
 
     public static void main(String[] args) {
@@ -23,15 +25,18 @@ public class InterviewCode_WRT_Integers {
             System.out.println("no is odd");
     }
 
-    public static boolean no_Prime_or_not(int no) {
-        boolean primeNo = false;
-        for (int i = 2; i <= no / 2; i++) {
+    public static boolean isPrime(int no) {
+        if (no <= 1) {
+            return false; // 0 and 1 are not prime numbers
+        }
+        for (int i = 2; i <= Math.sqrt(no); i++) {
             if (no % i == 0) {
-                return false;
+                return false; // Divisible by another number → not prime
             }
         }
-        return true;
+        return true; // No divisors found → prime
     }
+
 
     public static void fibonacciSeries(int no) {
         int first = 0;
@@ -117,6 +122,34 @@ public class InterviewCode_WRT_Integers {
             no = no / 10;
         }
         System.out.println(b);
+    }
+
+    public static void palindrom_No() {
+
+//        TODO Generate Random Number
+        Random random = new Random();
+//        int max=10000900;
+//        int min=1000000;
+//        int i = random.nextInt((max - min) + 1) + min;
+//        System.out.println(i);
+        System.out.println(random.ints(1000, 2000).filter(a -> a % 2 != 0).findAny().getAsInt());
+        System.out.println(random.ints(100, 200).findFirst().getAsInt());
+
+
+        int no = 123456789;
+//        String no = "chaitanya";
+        int[] digits = Integer.toString(no).chars().map(c -> c - '0').toArray();
+
+        Integer.toString(no).chars().map(c -> c - '0').toArray();
+
+        char[] ch = String.valueOf(no).toCharArray();
+
+        for (int i = 0; i < ch.length / 2; i++) {
+
+            System.out.println(ch[i] + "...." + ch[ch.length - 1 - i]);
+
+        }
+
     }
 }
 

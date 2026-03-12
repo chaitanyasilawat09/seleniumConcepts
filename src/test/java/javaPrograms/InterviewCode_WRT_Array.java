@@ -50,6 +50,8 @@ public class InterviewCode_WRT_Array {
         int[] array = {5, 2, 9, 1, 6, 2, 5};
         List<Integer> newList = new ArrayList<>();
         List<Integer> list = new ArrayList<>(Arrays.stream(array).boxed().collect(Collectors.toList()));
+       // List<Integer> list = new ArrayList<>(Arrays.asList(2,2,3,5,3,6,5));
+
         list.stream()
                 .filter(a ->
                 {
@@ -82,7 +84,7 @@ public class InterviewCode_WRT_Array {
         int small = intArr[0];
         int large = intArr[1];
 
-        for (int i : intArr) {
+                for (int i : intArr) {
 
             if (i > large) {
                 large = i;
@@ -164,4 +166,51 @@ public class InterviewCode_WRT_Array {
 
     }
 
+    public static void find_Continious_Accurency_Of_Integer_In_Array() {
+        int[] arr = {0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0};
+
+        int maxCount = 1;
+        int currentCount = 1;
+        int maxElement = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] == arr[i - 1]) {
+                currentCount++;
+            } else {
+                currentCount = 1;
+            }
+
+            if (currentCount > maxCount) {
+                maxCount = currentCount;
+                maxElement = arr[i];
+            }
+        }
+        System.out.println("Number " + maxElement + " occurs " + maxCount + " times continuously.");
+    }
+
+
+    //       //2,4,3,6,0
+//        ArrayList<Integer> list = new ArrayList(Arrays.asList(2,4,3,6,0));
+////        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(0,0,1,0,0));
+//
+//        for (int j = 0;j< list.size();j++){
+//
+//        int midElement = list.get(j);
+//
+//        int leftCount = 0;
+//        int rightCount = 0;
+//
+//        for (int i =0; i<j;i++){
+//            leftCount = leftCount+ list.get(i);
+//        }
+//
+//        for (int i =j+1; i<list.size()-1;i++){
+//            rightCount = rightCount+ list.get(i);
+//        }
+//
+//        if(leftCount==rightCount){
+//            System.out.println("Middle is "+ list.get(j));
+//        }
+//
+//        }
 }

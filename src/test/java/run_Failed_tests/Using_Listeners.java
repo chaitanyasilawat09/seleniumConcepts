@@ -1,12 +1,14 @@
 package run_Failed_tests;
 
 import org.testng.IAnnotationTransformer;
+import org.testng.IRetryAnalyzer;
+import org.testng.ITestResult;
 import org.testng.annotations.ITestAnnotation;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-public class Using_Listeners implements IAnnotationTransformer {
+public class Using_Listeners implements IAnnotationTransformer, IRetryAnalyzer {
 
     @Override
     public void transform(ITestAnnotation annotation,
@@ -17,5 +19,10 @@ public class Using_Listeners implements IAnnotationTransformer {
         System.out.println(".....................");
         System.out.println(testMethod.getName());
         System.out.println("--------------------xxxxxx--------------");
+    }
+
+    @Override
+    public boolean retry(ITestResult iTestResult) {
+        return false;
     }
 }

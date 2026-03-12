@@ -17,6 +17,8 @@ public class Conversion {
 
         //TODO
         List<Integer> list2 = Arrays.asList(4, 5, 6, 7, 8);
+        List<Integer> list3 = new ArrayList<>(Arrays.asList(2, 0, 1, 3, 4));
+
 
         //
         int test = 12345;

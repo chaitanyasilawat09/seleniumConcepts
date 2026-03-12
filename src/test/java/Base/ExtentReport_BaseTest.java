@@ -48,9 +48,9 @@ public class ExtentReport_BaseTest {
 
     @AfterMethod
     public void test1() {
-        driver.quit();
-        reports.endTest(test);
-        reports.flush();
+        reports.endTest(test);  // 1. End the test
+        reports.flush();        // 2. Flush the report (write everything to file)
+        driver.quit();          // 3. Quit the browser
     }
 
     public static String capture(WebDriver driver) {
