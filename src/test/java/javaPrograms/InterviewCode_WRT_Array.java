@@ -8,6 +8,9 @@ import java.util.stream.IntStream;
 
 public class InterviewCode_WRT_Array {
 
+/*
+* */
+
     @Test
     public void common_Element_In_2_Array() {
 
@@ -96,6 +99,31 @@ public class InterviewCode_WRT_Array {
         System.out.println(small);
         System.out.println(large);
     }
+
+    @Test
+    public void find_SecondLarge_and_second_small_Value()
+    {
+        List<Integer> list = new ArrayList<>(Arrays.asList(1,3,5,7,4,13));
+        int [] ik = {0,2,1,4};
+        int large = ik[0];
+        int large2 = ik[1];
+        int small = ik[2];
+        int small2 = ik[2];
+        for (int k : ik){
+            if (k>large){
+                large2 = large;
+                large= k;
+            }
+            if (small>k || small2>k){
+                small2 = small;
+                small=k;
+                System.out.println(small +">>>>>>"+small2);
+            }
+        }
+        System.out.println(large+"......."+large2);
+        System.out.println(small+"-----------"+small2);
+    }
+
 
     @Test
     public void find_larget_and_second_largest_From_Array() {
@@ -192,25 +220,42 @@ public class InterviewCode_WRT_Array {
     //       //2,4,3,6,0
 //        ArrayList<Integer> list = new ArrayList(Arrays.asList(2,4,3,6,0));
 ////        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(0,0,1,0,0));
-//
-//        for (int j = 0;j< list.size();j++){
-//
-//        int midElement = list.get(j);
-//
-//        int leftCount = 0;
-//        int rightCount = 0;
-//
-//        for (int i =0; i<j;i++){
-//            leftCount = leftCount+ list.get(i);
-//        }
-//
-//        for (int i =j+1; i<list.size()-1;i++){
-//            rightCount = rightCount+ list.get(i);
-//        }
-//
-//        if(leftCount==rightCount){
-//            System.out.println("Middle is "+ list.get(j));
-//        }
-//
-//        }
+                public void getMiddleValueFromLetAndRightSum(){
+
+        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(2,4,3,6,3));
+
+        int totalSum = 0;
+        int leftSum = 0;
+
+        for (int num : list) {
+            totalSum += num;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+
+            totalSum = totalSum - list.get(i);   // right sum
+
+            if (leftSum == totalSum) {
+                System.out.println("Equilibrium element: " + list.get(i));
+                return;
+            }
+
+            leftSum = leftSum + list.get(i);
+        }
+    }
+
+    public void sortWithout_Collection(){int[] arr = {5,2,8,1};
+
+        for(int i=0;i<arr.length;i++){
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[i] > arr[j]){
+                    int temp = arr[i];
+                    arr[i]=arr[j];
+                    arr[j]=temp;
+                }
+            }
+        }
+                }
+
+
 }

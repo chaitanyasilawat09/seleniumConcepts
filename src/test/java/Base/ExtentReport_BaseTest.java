@@ -36,7 +36,6 @@ public class ExtentReport_BaseTest {
                 .addSystemInfo("User Name", "Rajkumar SM");
 //        reports.loadConfig(new File(System.getProperty("user.dir") + "\\extent-config.xml"));
 
-//        WebDriverManager.chromedriver().arch64().setup();
         driver = new ChromeDriver();
 //        driver.get("https://demoqa.com/elements");
         try {

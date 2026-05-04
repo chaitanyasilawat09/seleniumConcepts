@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Element Locator Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .target-area {
+            flex: 1;
+            padding: 30px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+        }
+
+        .target-area h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .target-frame {
+            width: 100%;
+            height: 500px;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .target-content {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .locator-panel {
+            flex: 1;
+            padding: 30px;
+            background: white;
+        }
+
+        .locator-panel h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .element-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .element-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .element-tag {
+            font-weight: bold;
+            color: #007bff;
+            font-family: 'Courier New', monospace;
+            background: #e7f3ff;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .locators-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .locator-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .locator-item:hover {
+            background: #e7f3ff;
+            border-color: #4facfe;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.2);
+        }
+
+        .locator-type {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .locator-priority {
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+
+        .locator-value {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            word-break: break-all;
+            font-size: 0.9rem;
+            color: #495057;
+        }
+
+        .copy-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #0056b3;
+        }
+
+        .copy-btn.copied {
+            background: #28a745;
+        }
+
+        .instructions {
+            background: #e7f3ff;
+            border: 1px solid #4facfe;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .instructions h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+            color: #666;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+        }
+
+        .highlight {
+            background: rgba(79, 172, 254, 0.3) !important;
+            border: 2px solid #4facfe !important;
+            border-radius: 4px !important;
+            box-shadow: 0 0 10px rgba(79, 172, 254, 0.5) !important;
+        }
+
+        .sample-elements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .sample-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .sample-btn.primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .sample-btn.success {
+            background: #28a745;
+            color: white;
+        }
+
+        .sample-btn.warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .sample-btn.danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .sample-input {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .sample-select {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .no-element {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Element Locator Generator</h1>
+            <p>Hover over elements to generate locators with priority-based selection</p>
+        </div>
+
+        <div class="main-content">
+            <div class="target-area">
+                <h2>Target Elements</h2>
+                <div class="instructions">
+                    <h3>How to use:</h3>
+                    <ul>
+                        <li>Hover over any element in this area</li>
+                        <li>Locators will be generated automatically</li>
+                        <li>Click on any locator to copy it</li>
+                        <li>Locators are ordered by priority (most reliable first)</li>
+                    </ul>
+                </div>
+                <div class="target-frame" id="targetFrame">
+                    <div class="target-content">
+                        <h3>Sample Web Elements</h3>
+                        <p>Hover over these elements to see their locators:</p>
+                        
+                        <div class="sample-elements">
+                            <button class="sample-btn primary" id="submitBtn">Submit</button>
+                            <button class="sample-btn success" id="saveBtn">Save Changes</button>
+                            <button class="sample-btn warning" id="cancelBtn">Cancel</button>
+                            <button class="sample-btn danger" id="deleteBtn">Delete</button>
+                        </div>
+
+                        <div class="sample-elements">
+                            <input type="text" class="sample-input" id="username" placeholder="Username" value="john.doe">
+                            <input type="email" class="sample-input" id="email" placeholder="Email" value="john@example.com">
+                            <input type="password" class="sample-input" id="password" placeholder="Password">
+                        </div>
+
+                        <div class="sample-elements">
+                            <select class="sample-select" id="country">
+                                <option value="">Select Country</option>
+                                <option value="us">United States</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="ca">Canada</option>
+                            </select>
+                            <select class="sample-select" id="city">
+                                <option value="">Select City</option>
+                                <option value="nyc">New York</option>
+                                <option value="london">London</option>
+                                <option value="toronto">Toronto</option>
+                            </select>
+                        </div>
+
+                        <div class="sample-elements">
+                            <label>
+                                <input type="checkbox" id="terms"> I agree to terms
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="male"> Male
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="female"> Female
+                            </label>
+                        </div>
+
+                        <div class="sample-elements">
+                            <a href="#" id="homeLink" class="sample-link">Home</a>
+                            <a href="#" id="aboutLink" class="sample-link">About</a>
+                            <a href="#" id="contactLink" class="sample-link">Contact</a>
+                        </div>
+
+                        <div class="sample-elements">
+                            <div id="userCard" class="card">
+                                <h4>User Card</h4>
+                                <p>This is a sample card element</p>
+                            </div>
+                            <div id="productCard" class="card">
+                                <h4>Product Card</h4>
+                                <p>This is a product card</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="locator-panel">
+                <h2>Generated Locators</h2>
+                <div id="elementInfo" class="element-info" style="display: none;">
+                    <h3>Current Element</h3>
+                    <div id="elementDetails"></div>
+                </div>
+                <div id="locatorsList" class="locators-list">
+                    <div class="no-element">
+                        Hover over an element to see its locators
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class LocatorGenerator {
+            constructor() {
+                this.targetFrame = document.getElementById('targetFrame');
+                this.locatorsList = document.getElementById('locatorsList');
+                this.elementInfo = document.getElementById('elementInfo');
+                this.elementDetails = document.getElementById('elementDetails');
+                this.currentElement = null;
+                
+                this.init();
+            }
+
+            init() {
+                this.targetFrame.addEventListener('mouseover', this.handleMouseOver.bind(this));
+                this.targetFrame.addEventListener('mouseout', this.handleMouseOut.bind(this));
+            }
+
+            handleMouseOver(event) {
+                const element = event.target;
+                if (element === this.targetFrame || element.classList.contains('target-content')) {
+                    return;
+                }
+
+                this.currentElement = element;
+                this.highlightElement(element);
+                this.generateLocators(element);
+                this.displayElementInfo(element);
+            }
+
+            handleMouseOut(event) {
+                const element = event.target;
+                if (element === this.targetFrame || element.classList.contains('target-content')) {
+                    return;
+                }
+
+                this.removeHighlight(element);
+            }
+
+            highlightElement(element) {
+                element.classList.add('highlight');
+            }
+
+            removeHighlight(element) {
+                element.classList.remove('highlight');
+            }
+
+            displayElementInfo(element) {
+                const tagName = element.tagName.toLowerCase();
+                const id = element.id ? `#${element.id}` : '';
+                const classes = element.className ? `.${element.className.split(' ').join('.')}` : '';
+                const text = element.textContent ? element.textContent.trim().substring(0, 50) + (element.textContent.length > 50 ? '...' : '') : '';
+
+                this.elementDetails.innerHTML = `
+                    <span class="element-tag">&lt;${tagName}${id}${classes}&gt;</span>
+                    ${text ? `<p><strong>Text:</strong> ${text}</p>` : ''}
+                `;
+                this.elementInfo.style.display = 'block';
+            }
+
+            generateLocators(element) {
+                const locators = this.getAllLocators(element);
+                const sortedLocators = this.sortLocatorsByPriority(locators);
+                this.displayLocators(sortedLocators);
+            }
+
+            getAllLocators(element) {
+                const locators = [];
+
+                // ID Locator (highest priority)
+                if (element.id) {
+                    locators.push({
+                        type: 'ID',
+                        value: `#${element.id}`,
+                        priority: 1,
+                        selenium: `By.id("${element.id}")`,
+                        playwright: `page.locator('#${element.id}')`
+                    });
+                }
+
+                // Name attribute
+                if (element.name) {
+                    locators.push({
+                        type: 'Name',
+                        value: `[name="${element.name}"]`,
+                        priority: 2,
+                        selenium: `By.name("${element.name}")`,
+                        playwright: `page.locator('[name="${element.name}"]')`
+                    });
+                }
+
+                // Class name (single class)
+                if (element.className) {
+                    const classes = element.className.split(' ').filter(c => c.trim());
+                    if (classes.length > 0) {
+                        locators.push({
+                            type: 'Class',
+                            value: `.${classes[0]}`,
+                            priority: 3,
+                            selenium: `By.className("${classes[0]}")`,
+                            playwright: `page.locator('.${classes[0]}')`
+                        });
+                    }
+                }
+
+                // Tag Name
+                locators.push({
+                    type: 'Tag Name',
+                    value: element.tagName.toLowerCase(),
+                    priority: 4,
+                    selenium: `By.tagName("${element.tagName.toLowerCase()}")`,
+                    playwright: `page.locator('${element.tagName.toLowerCase()}')`
+                });
+
+                // Link Text (for anchor tags)
+                if (element.tagName.toLowerCase() === 'a' && element.textContent) {
+                    const linkText = element.textContent.trim();
+                    if (linkText) {
+                        locators.push({
+                            type: 'Link Text',
+                            value: linkText,
+                            priority: 5,
+                            selenium: `By.linkText("${linkText}")`,
+                            playwright: `page.locator('text=${linkText}')`
+                        });
+                    }
+                }
+
+                // Partial Link Text
+                if (element.tagName.toLowerCase() === 'a' && element.textContent) {
+                    const linkText = element.textContent.trim();
+                    if (linkText.length > 3) {
+                        const partialText = linkText.substring(0, Math.min(10, linkText.length));
+                        locators.push({
+                            type: 'Partial Link Text',
+                            value: partialText,
+                            priority: 6,
+                            selenium: `By.partialLinkText("${partialText}")`,
+                            playwright: `page.locator('text=${partialText}')`
+                        });
+                    }
+                }
+
+                // CSS Selector with attributes
+                const cssSelector = this.generateCSSSelector(element);
+                if (cssSelector) {
+                    locators.push({
+                        type: 'CSS Selector',
+                        value: cssSelector,
+                        priority: 7,
+                        selenium: `By.cssSelector("${cssSelector}")`,
+                        playwright: `page.locator('${cssSelector}')`
+                    });
+                }
+
+                // XPath
+                const xpath = this.generateXPath(element);
+                if (xpath) {
+                    locators.push({
+                        type: 'XPath',
+                        value: xpath,
+                        priority: 8,
+                        selenium: `By.xpath("${xpath}")`,
+                        playwright: `page.locator('xpath=${xpath}')`
+                    });
+                }
+
+                return locators;
+            }
+
+            generateCSSSelector(element) {
+                const tagName = element.tagName.toLowerCase();
+                const attributes = [];
+
+                // Add ID if present
+                if (element.id) {
+                    attributes.push(`#${element.id}`);
+                }
+
+                // Add classes if present
+                if (element.className) {
+                    const classes = element.className.split(' ').filter(c => c.trim());
+                    if (classes.length > 0) {
+                        attributes.push(`.${classes[0]}`);
+                    }
+                }
+
+                // Add other attributes
+                ['name', 'type', 'value', 'placeholder', 'href'].forEach(attr => {
+                    if (element.getAttribute(attr)) {
+                        attributes.push(`[${attr}="${element.getAttribute(attr)}"]`);
+                    }
+                });
+
+                // Combine tag name with attributes
+                let selector = tagName;
+                if (attributes.length > 0) {
+                    selector += attributes.join('');
+                }
+
+                return selector;
+            }
+
+            generateXPath(element) {
+                const tagName = element.tagName.toLowerCase();
+                
+                // Try to create a more specific XPath
+                if (element.id) {
+                    return `//*[@id="${element.id}"]`;
+                }
+
+                if (element.name) {
+                    return `//*[@name="${element.name}"]`;
+                }
+
+                // XPath with text content
+                if (element.textContent && element.textContent.trim()) {
+                    const text = element.textContent.trim();
+                    if (text.length < 50) {
+                        return `//${tagName}[text()="${text}"]`;
+                    }
+                }
+
+                // XPath with attributes
+                const attributes = [];
+                ['class', 'type', 'value', 'placeholder', 'href'].forEach(attr => {
+                    if (element.getAttribute(attr)) {
+                        attributes.push(`@${attr}="${element.getAttribute(attr)}"`);
+                    }
+                });
+
+                if (attributes.length > 0) {
+                    return `//${tagName}[${attributes.join(' and ')}]`;
+                }
+
+                // Basic XPath
+                return `//${tagName}`;
+            }
+
+            sortLocatorsByPriority(locators) {
+                return locators.sort((a, b) => a.priority - b.priority);
+            }
+
+            displayLocators(locators) {
+                if (locators.length === 0) {
+                    this.locatorsList.innerHTML = '<div class="no-element">No locators found</div>';
+                    return;
+                }
+
+                const locatorsHTML = locators.map((locator, index) => `
+                    <div class="locator-item" data-locator="${locator.value}">
+                        <div class="locator-type">
+                            ${locator.type}
+                            <span class="locator-priority">Priority: ${locator.priority}</span>
+                        </div>
+                        <div class="locator-value">${locator.value}</div>
+                        <div style="margin-top: 8px; font-size: 0.8rem; color: #666;">
+                            <strong>Selenium:</strong> <code>${locator.selenium}</code><br>
+                            <strong>Playwright:</strong> <code>${locator.playwright}</code>
+                        </div>
+                        <button class="copy-btn" onclick="locatorGenerator.copyLocator('${locator.value}')">Copy CSS</button>
+                        <button class="copy-btn" onclick="locatorGenerator.copyLocator('${locator.selenium.replace(/"/g, '\\"')}')">Copy Selenium</button>
+                        <button class="copy-btn" onclick="locatorGenerator.copyLocator('${locator.playwright}')">Copy Playwright</button>
+                    </div>
+                `).join('');
+
+                this.locatorsList.innerHTML = locatorsHTML;
+            }
+
+            copyLocator(value) {
+                navigator.clipboard.writeText(value).then(() => {
+                    const button = event.target;
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    button.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            }
+        }
+
+        // Initialize the locator generator
+        const locatorGenerator = new LocatorGenerator();
+    </script>
+</body>
+</html>

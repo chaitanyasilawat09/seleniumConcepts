@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
@@ -58,7 +59,7 @@ public class Headlessbrowser {
         driver.get("https://demoqa.com/select-menu");
 
 //        TODO for fireFox
-//         FirefoxOptions options = new FirefoxOptions();
+//         FirefoxOptions options1 = new FirefoxOptions();
 //        options.setHeadless(true);
 //
 

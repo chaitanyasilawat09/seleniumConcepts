@@ -5,17 +5,18 @@ api-tests —LUMETA
 cucumber_project-master
 
 Send File via API:-
-Response getResponse = given()
+Response getResponse =
+ given()
         .header("Connection", "keep-alive")
         .header("Pragma", "no-cache")
         .header("Cache-Control", "no-cache")
         .header("Accept", "application/json, text/plain, */*")
         .header("X-x15-sessionId", sessionId)
-        .when()
+ .when()
         .multiPart("file", new File(filePath))
         .multiPart("params", load)
         .request(Method.PUT, apiPath)
-        .then()
+ .then()
         .extract()
         .response();
 
@@ -113,6 +114,7 @@ API Automation
         sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
 
 //
+//  https://localhost/v1/agreement/1234?agreementType=CHQ
 given().log().all()
        .pathParam("agreementId", "1234")
        .queryParam("agreementType", "CHQ")

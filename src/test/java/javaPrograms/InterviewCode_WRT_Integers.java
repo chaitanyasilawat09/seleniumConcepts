@@ -8,7 +8,7 @@ public class InterviewCode_WRT_Integers {
 
 //        no_Even_Odd(10);
 //        System.out.println(no_Prime_or_not(9));
-//        fibonacciSeries(5);
+        fibonacciSeries(5);
 //        swap_No_Without_Third_No();
 //        System.out.println(factorial(50));
 //        reverce_No(1414);

@@ -50,18 +50,18 @@ public class BaseTest {
 
     //    TODO  Implicate Wait
     public void implicateWait() {
-        driver.manage().timeouts().implicitlyWait(40, SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
 
     //    TODO PageLoad time
     public void pageLoadWait() {
 
-        driver.manage().timeouts().pageLoadTimeout(20, SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
     }
 
     //    TODO Explicate Wait  visibleElement
     public void explicateWaitVisibleElement(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(element));
         wait.until(ExpectedConditions.visibilityOfAllElements(element,element,element));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("")));
@@ -70,7 +70,7 @@ public class BaseTest {
     //    TODO Explicate Wait element Clickable
     public void explicateWaitElementClickable(WebElement element) {
 
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(element));
         wait.until(ExpectedConditions.alertIsPresent());
 
@@ -78,11 +78,13 @@ public class BaseTest {
 
     //    TODO Fluent wait
     public void fluentWait1(WebElement element) {
-        Wait wait = (Wait) new FluentWait(driver)
-                .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofSeconds(5))
-                .ignoring(NoSuchElementException.class)
-                .until(ExpectedConditions.visibilityOf(element));
+        Wait<WebDriver> wait = new FluentWait<>(driver)
+                                .withTimeout(Duration.ofSeconds(10))
+                                .pollingEvery(Duration.ofSeconds(5))
+                                .ignoring(NoSuchElementException.class)
+                                .ignoring(ElementClickInterceptedException.class, StaleElementReferenceException.class);
+
+                wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     public void fluentWait(WebElement element) {

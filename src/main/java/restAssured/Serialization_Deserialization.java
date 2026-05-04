@@ -24,6 +24,6 @@ public class Serialization_Deserialization {
         mapper.writeValueAsString(people);
 
 //      TODO  Deserialization = JSON ➡️ Java Object
-        mapper.readValue(jsonObject.toString(),People.class);
+        People p1 =  mapper.readValue(jsonObject.toString(),People.class);
     }
 }

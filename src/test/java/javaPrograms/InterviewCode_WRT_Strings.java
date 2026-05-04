@@ -62,12 +62,12 @@ public class InterviewCode_WRT_Strings {
     public void count_Of_Word_In_String() {
         String name = "My Name is chaitanya   silawat";
         String[] chArr = name.split(" ");
-        System.out.println((int) Arrays.stream(chArr).filter(a -> !a.isEmpty()).count());
+        System.out.println( Arrays.stream(chArr).filter(a -> !a.isEmpty()).count());
     }
 
     @Test
     public static void permute() {
-        String str = "ABC";
+        String str = "ABCDEF";
         String prefix = "";
         permute(str, prefix);
 
@@ -110,10 +110,10 @@ public class InterviewCode_WRT_Strings {
         char[] ch2 = name2.replace("//s", "").toCharArray();
         Arrays.sort(ch1);
         Arrays.sort(ch2);
-//        System.out.println( Arrays.equals(ch1,ch2));
-        for (int i = 0; i <= ch1.length; i++) {
-            if (ch1[i] == ch2[i]) {
-                System.out.println("not");
+        System.out.println( Arrays.equals(ch1,ch2));
+        for (int i = 0; i < ch1.length; i++) {
+            if (ch1[i]!=ch2[i]) {
+                System.out.println("not.."+ ch1[i]+".."+ch2[i]);
                 break;
             }
         }
@@ -122,7 +122,6 @@ public class InterviewCode_WRT_Strings {
     @Test
     public void count_vowel_In_String() {
         String name = "chaitanya";
-        char[] chArr = name.toLowerCase().toCharArray();
         // vowel count
         System.out.println(name.toLowerCase().chars()
                 .filter(c -> "aeiou".indexOf(c) != -1).count());
@@ -132,6 +131,7 @@ public class InterviewCode_WRT_Strings {
                 .filter(c -> "aeiou".indexOf(c) != -1)
                 .collect(Collectors.toList()));
     }
+
 
     @Test
     public void unique_Charactor_In_Stirg() {
@@ -192,6 +192,11 @@ public class InterviewCode_WRT_Strings {
     @Test
     public void shift_0_to_End() {
         String name = "10203034012410041410";
+        int i =123;
+       // Arrays.stream(Integer.toString(i).chars()
+        // .mapToObj(c -> (char) c)
+        // .toArray()).forEach(System.out::println);
+
         String zero = "";
         String nonZero = "";
         char[] chArr = name.toCharArray();
@@ -241,7 +246,7 @@ public class InterviewCode_WRT_Strings {
         String s1 = s.replace(" ", "");
         char c1 = ' ';
         String rev = "";
-        Arrays.stream(s.split("\\s")).map(ss -> ss.length()).collect(Collectors.toList());
+        System.out.println(Arrays.stream(s.split("\\s")).map(ss -> ss.length()).collect(Collectors.toList()));
         List<Integer> indexes = IntStream.range(0, s.length())
                 .filter(i -> s.charAt(i) == c1).boxed()
                 .collect(Collectors.toList());
@@ -408,6 +413,33 @@ public class InterviewCode_WRT_Strings {
                 System.out.println(email + " → ❌ Invalid email");
             }
         }
+    }
+
+    public void longest_substring_without_repeating_characters(){
+        String str = "abcabbcd";
+        String longetsTring = "";
+        for (int i = 0; i < str.length(); i++) {
+            for (int j = i + 1; j <= str.length(); j++) {
+                String subString = str.substring(i, j);
+
+                Map<Character,Integer> map = new HashMap<>();
+                for (Character c : subString.toCharArray()){
+                    if (map.containsKey(c))
+                        map.put(c,map.getOrDefault(c,0)+1);
+                    else
+                        map.put(c,1);
+                }
+                if (map.entrySet().stream()
+                        .filter(a->a.getValue()>1)
+                        .collect(Collectors.toList()).size()==0 && subString.length()>longetsTring.length()){
+                    longetsTring=subString;
+
+                }
+
+
+            }
+        }
+        System.out.println(longetsTring);
     }
 
 

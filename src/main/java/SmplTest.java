@@ -1,38 +1,42 @@
-import io.restassured.http.Method;
-import org.apache.http.HttpStatus;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
+public class SmplTest {
+  ;
+    public static void main(String[] args) throws IOException {
+        int[] arr = {0, 1, 1,1,1,1,1,1, 0, 0, 0, 0, 0};
 
-public class SmplTest  {
-        public static void main(String[] args) throws IOException
+        int maxNo=arr[0];
+        int maxCount=1;
+        int currentCount=1;
+
+        for (int i=1;i<arr.length; i++)
         {
+            if(arr[i]==arr[i-1]){
+                currentCount++;
+            }
+            else {
+                currentCount=1;
+            }
 
-            given().
-                    headers("","","","","","").
-            when()
-                    .request(Method.GET, "")
-                    .then()
-                    .statusCode(HttpStatus.SC_OK)
-                    .body("data.id[1]",equalTo("1"))
-                    .body("data.firstName", hasItem("john"))
-//                     body("data.id[1]",equalTo(8)).
-
-                    .extract()
-                    .response();
-
-
-
+            if (maxCount<currentCount){
+                maxCount=currentCount;
+                maxNo= arr[i];
+            }
         }
-
-
+        System.out.println(maxNo);
+        System.out.println(maxCount);
+    }
 }
+
+
+
+
+
+
+
 
 
 

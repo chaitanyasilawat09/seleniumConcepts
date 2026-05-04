@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -23,7 +25,7 @@ public class RightClick_Action extends BaseTest {
 
         driver.get(url);
         WebElement element = driver.findElement(By.id("rightClickBtn"));
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(element));
 //        TODO right click
         Actions actions = new Actions(driver);
@@ -39,7 +41,7 @@ public class RightClick_Action extends BaseTest {
 
         driver.get(url);
         WebElement doubleClickButton = driver.findElement(By.id("doubleClickBtn"));
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(doubleClickButton));
         wait.until((ExpectedConditions.elementToBeClickable(doubleClickButton)));
 
@@ -58,7 +60,7 @@ public class RightClick_Action extends BaseTest {
 
         driver.get("https://demoqa.com/droppable/");
         WebElement tab = driver.findElement(By.id("droppableExample-tab-preventPropogation"));
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(tab));
         tab.click();
         WebElement drag = driver.findElement(By.id("dragBox"));
@@ -80,7 +82,7 @@ public class RightClick_Action extends BaseTest {
 
         driver.get("https://demoqa.com/droppable/");
         WebElement tab = driver.findElement(By.id("droppableExample-tab-preventPropogation"));
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(tab));
         tab.click();
         WebElement drag = driver.findElement(By.id("dragBox"));
