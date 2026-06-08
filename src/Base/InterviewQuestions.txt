@@ -1,0 +1,47 @@
+What is a Test Automation Framework from scratch? How would you build one for a new web application?
+Answer: Key components:
+• Project structure: separate layers (tests, page objects, utilities, drivers etc.).
+• Locators abstraction (page objects).
+• Config files: environment configs, browser settings, test data paths, timeouts.
+• Logging & reporting: so failures, logs, possibly screenshots, HTML / Jenkins reports.
+• Wrapper for browser drivers, setup/teardown (before/after).
+• Integration with CI/CD.
+• Parallel execution support.
+• Handling cross‑browser / cross‑platform.
+• Handling test data: fixtures, mock data or APIs.
+• Error handling and retry for flaky tests.
+• Maintainability, code standards.
+
+What is your approach to testing REST APIs?
+Answer:
+• Understand API endpoints, methods, request/response schema.
+• Write positive tests (valid inputs) and negative tests (invalid, missing params).
+• Check status codes.
+• Validate response body contents (fields, data types, schema).
+• Validate headers, timeouts, error messages.
+• Security tests (authentication / authorization).
+• Performance under load.
+• Possibly contract testing or mocking dependent services.
+• Use tools like Postman / Rest Assured / JEST etc
+
+
+1. What is a REST API?
+
+A REST API is a way to communicate between systems over the web using HTTP.
+It follows REST (Representational State Transfer) principles.
+REST APIs expose endpoints like:
+GET /users
+POST /orders
+PUT /products/123
+
+
+✅ Think of REST API as:
+A communication method that allows systems to talk to each other using HTTP.
+
+🔍 2. What are Microservices?
+
+Microservices is an architecture style where an application is broken down into small, independent services.
+Each microservice handles one specific business functionality (e.g., user service, payment service).
+They can use REST APIs to talk to each other — but REST is just one of the ways they can communicate (others include gRPC, messaging queues, etc.).
+✅ Think of Microservices as:
+A way of building software using many small, focused services — each doing one job.

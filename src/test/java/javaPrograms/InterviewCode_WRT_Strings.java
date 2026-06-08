@@ -6,7 +6,10 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class InterviewCode_WRT_Strings {
 
@@ -40,31 +43,47 @@ public class InterviewCode_WRT_Strings {
     @Test
     public static void find_Dup_Char_In_String() {
         String name = "duplicateCharacterinString";
-        Map<Character, Integer> storeMap = new HashMap<>();
+        Map<Character, Integer> storeMap = new LinkedHashMap<>();
         char[] chArr = name.toCharArray();
 
         for (char ch : chArr) {
-            if (storeMap.containsKey(ch)) {
-                int i = storeMap.get(ch) + 1;
-                storeMap.put(ch, i);
-            } else storeMap.put(ch, 1);
+            storeMap.put(ch, storeMap.getOrDefault(ch, 0) + 1);
+//            if (storeMap.containsKey(ch)) {
+//                int i = storeMap.get(ch) + 1;
+//                storeMap.put(ch, i);
+//            } else storeMap.put(ch, 1);
         }
+        Map<Character, Integer> storeMap9 = storeMap.entrySet().stream()
+                .filter(entry ->
+                        entry.getValue() > 1)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+//        map.entrySet().stream()
+//                .sorted(Map.Entry.comparingByValue())
+        Map<Character, Integer> storeMap0 = storeMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue
+                        , (old, newValue) -> old, LinkedHashMap::new
+                ));
+
         System.out.println(storeMap);
-        Map<Character, Integer> maps = storeMap.entrySet().stream().filter(entry -> entry.getValue() > 1).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        Map<Character, Integer> maps = storeMap.entrySet().stream().filter(entry -> entry.getValue() > 1)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         System.out.println(maps);
     }
 
     @Test
     public void count_Of_Word_In_String() {
         String name = "My Name is chaitanya   silawat";
-        String[] chArr = name.split(" ");
-        ;
-        System.out.println(Arrays.stream(chArr).filter(a -> a.length() > 0).collect(Collectors.toList()).size());
+        String[] chArr = name.split("\\s");
+        System.out.println(Arrays.stream(chArr).filter(a -> !a.isEmpty()).count());
     }
 
     @Test
     public static void permute() {
-        String str = "ABC";
+        String str = "ABCDEF";
         String prefix = "";
         permute(str, prefix);
 
@@ -103,14 +122,14 @@ public class InterviewCode_WRT_Strings {
         //Example: "listen" and "silent" are anagrams.
         String name1 = "listen";
         String name2 = "silent";
-        char[] ch1 = name1.replace("//s", "").toCharArray();
-        char[] ch2 = name2.replace("//s", "").toCharArray();
+        char[] ch1 = name1.replace("\\s", "").toCharArray();
+        char[] ch2 = name2.replace("\\s", "").toCharArray();
         Arrays.sort(ch1);
         Arrays.sort(ch2);
-//        System.out.println( Arrays.equals(ch1,ch2));
-        for (int i = 0; i <= ch1.length; i++) {
-            if (ch1[i] == ch2[i]) {
-                System.out.println("not");
+        System.out.println(Arrays.equals(ch1, ch2));
+        for (int i = 0; i < ch1.length; i++) {
+            if (ch1[i] != ch2[i]) {
+                System.out.println("not.." + ch1[i] + ".." + ch2[i]);
                 break;
             }
         }
@@ -119,7 +138,6 @@ public class InterviewCode_WRT_Strings {
     @Test
     public void count_vowel_In_String() {
         String name = "chaitanya";
-        char[] chArr = name.toLowerCase().toCharArray();
         // vowel count
         System.out.println(name.toLowerCase().chars()
                 .filter(c -> "aeiou".indexOf(c) != -1).count());
@@ -129,6 +147,7 @@ public class InterviewCode_WRT_Strings {
                 .filter(c -> "aeiou".indexOf(c) != -1)
                 .collect(Collectors.toList()));
     }
+
 
     @Test
     public void unique_Charactor_In_Stirg() {
@@ -155,13 +174,18 @@ public class InterviewCode_WRT_Strings {
 
     @Test
     public void a2b3c4() {
-        String name = "a2b3c4";
+        String name = "aa2b3ccc4D1";
         String output = "";
         char[] chArr = name.toCharArray();
-        for (int i = 0; i < chArr.length; i += 2) {
+        for (int i = 0; i < chArr.length; i++) {
             char newChar = chArr[i];
-            int repeat = Character.getNumericValue(chArr[i + 1]);
-            for (int j = 0; j < repeat; j++) {
+            if (Character.isDigit(chArr[i + 1])) {
+                int repeat = Character.getNumericValue(chArr[i + 1]);
+                for (int j = 0; j < repeat; j++) {
+                    output = output + newChar;
+                }
+                i++;
+            } else {
                 output = output + newChar;
             }
         }
@@ -169,19 +193,18 @@ public class InterviewCode_WRT_Strings {
     }
 
     @Test
-    public void lower_And_upper_case(){
+    public void lower_And_upper_case() {
         String name = "aBCAbcEDdeF";
-        String lower="";
-        String upper="";
+        String lower = "";
+        String upper = "";
 
-        for (char c : name.toCharArray()){
-          if (Character.isLowerCase(c)){
-              lower = lower+c;
-          }
-          else if (Character.isUpperCase(c)) {
-              upper = upper+c;
+        for (char c : name.toCharArray()) {
+            if (Character.isLowerCase(c)) {
+                lower = lower + c;
+            } else if (Character.isUpperCase(c)) {
+                upper = upper + c;
 
-          }
+            }
         }
         System.out.println(lower);
         System.out.println(upper);
@@ -190,26 +213,30 @@ public class InterviewCode_WRT_Strings {
     @Test
     public void shift_0_to_End() {
         String name = "10203034012410041410";
+        int i = 123;
+        // Arrays.stream(Integer.toString(i).chars()
+        // .mapToObj(c -> (char) c)
+        // .toArray()).forEach(System.out::println);
+
         String zero = "";
         String nonZero = "";
-        char [] chArr = name.toCharArray();
-        for (char c : chArr){
-            if (c=='0'){
-                zero =zero+c;
-            }
-            else nonZero= nonZero+c;
+        char[] chArr = name.toCharArray();
+        for (char c : chArr) {
+            if (c == '0') {
+                zero = zero + c;
+            } else nonZero = nonZero + c;
         }
 
-        System.out.println(nonZero+zero);
+        System.out.println(nonZero + zero);
     }
 
     @Test
-    public void common_btwn_two_Array(){
+    public void common_btwn_two_Array() {
         List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
         List<Integer> list2 = Arrays.asList(4, 5, 6, 7, 8);
         List<Integer> list3 = new ArrayList<>(list2);
 
-        System.out.println( list1.stream().filter(a-> list2.contains(a))
+        System.out.println(list1.stream().filter(a -> list2.contains(a))
                 .collect(Collectors.toList()));
         list3.retainAll(list1);
         System.out.println(list3);
@@ -222,15 +249,288 @@ public class InterviewCode_WRT_Strings {
         PDDocument document = PDDocument.load(new File("3-6 Years - 18-Mar.pdf"));
         PDFTextStripper stripper = new PDFTextStripper();
         String text = stripper.getText(document);
-        lines = text.split(System.getProperty("line.separator"));
+        lines = text.split(System.lineSeparator());
         //lines = text.split("\n");
-        for(String s : lines){
-            if(s.contains("Email: "))
-                System.out.println(s.replace("Email: ",""));
+        for (String s : lines) {
+            if (s.contains("Email: "))
+                System.out.println(s.replace("Email: ", ""));
         }
 //        System.out.println(lines[0].toString());
         document.close();
 
 
     }
+
+    public static void print_Reverse_String_and_maintain_space() {
+        String s = "Today is Sunday";
+//                   yadnu Ss iyadoT
+        String s1 = s.replace(" ", "");
+        char c1 = ' ';
+        String rev = "";
+        System.out.println(Arrays.stream(s.split("\\s")).map(ss -> ss.length()).collect(Collectors.toList()));
+        List<Integer> indexes = IntStream.range(0, s.length())
+                .filter(i -> s.charAt(i) == c1).boxed()
+                .collect(Collectors.toList());
+//          TODO With StringBuffer
+//        StringBuffer sb = new StringBuffer(s1).reverse();
+//        for (int i : indexes){
+//            sb.insert(i," ");
+//        }
+//        sb.insert(5," ");
+//        sb.insert(8," ");
+//        System.out.println(sb);
+
+        //          TODO With String
+        char[] ch = s1.toCharArray();
+        int count = 0;
+        for (int j = ch.length - 1; j >= 0; j--) {
+
+            if (indexes.contains(count)) {
+                rev = rev + " " + ch[j];
+                count++;
+                count++;
+            } else {
+                rev = rev + ch[j];
+                count++;
+            }
+        }
+        System.out.println(rev);
+    }
+
+    public void Find_Common_String_In_String_Array(String[] args) {
+        String[] arr = {"automatic", "aautozone", "showauto", "moboleauto", "myautoriksha", "yourautoShoq", "automation"};
+        int mainArrayLen = arr.length;
+        String firstString = arr[0];
+        int firstStringLen = firstString.length();
+        Arrays.sort(arr, Comparator.comparing(String::length));
+        String repStirng = "";
+        for (int i = 0; i < firstStringLen; i++) {
+            for (int j = i + 1; j <= firstStringLen; j++) {
+                String subString = firstString.substring(i, j);
+
+                int k = (int) Arrays.stream(arr).filter(a -> a.contains(subString)).count();
+                if (k == arr.length && repStirng.length() < subString.length())
+                    repStirng = subString;
+            }
+
+
+        }
+        System.out.println(repStirng);
+
+    }
+@Test
+    public static void find_longest_subString_and_Polendrom_SubString_from_Given_String() {
+        String s = "w12aaddaamadamaadaads232";
+//       String s = "abcab";
+
+        int strLength = s.length();
+        boolean plndrCheck = false;
+        String reps = "";
+        String rep = "";
+        for (int i = 0; i < strLength; i++) {
+
+            for (int j = i + 1; j <= strLength; j++) {
+                String subString = s.substring(i, j);
+                // TODO to find Longest repetitive string
+
+                Pattern p = Pattern.compile(subString);
+                Matcher m = p.matcher(s);
+                int count = 0;
+                while (m.find()) {
+                    count++;
+                }
+                if (count > 1 && reps.length() < subString.length()) {
+                    reps = subString;
+                }
+              //  System.out.println(reps);
+                // TODO to find Longest Palandram stirng from given string
+//               if(subString.length()>1){
+                plndrCheck = plndrCheck(subString);
+                if (plndrCheck && rep.length() < subString.length())
+                    rep = subString;
+
+               // System.out.println(rep);
+
+            }
+        }
+
+
+        System.out.println(reps);
+        System.out.println(rep);
+    }
+
+    public static boolean plndrCheck(String str) {
+
+        char[] ch = str.toCharArray();
+        int count = 0;
+        int i = 0;
+        Boolean bool = false;
+        for (i = 0; i < ch.length / 2; i++) {
+            if (ch[i] == ch[ch.length - 1 - i]) {
+                count++;
+            }
+        }
+        if (i == count) {
+            bool = true;
+        }
+        return bool;
+    }
+
+    @Test
+    public void BrackerOpenClose() {
+        String str = "{[()]}";
+
+        Stack<Character> stack = new Stack<>();
+        Map<Character, Character> charMap = new HashMap<>();
+        charMap.put('}', '{');
+        charMap.put(']', '[');
+        charMap.put(')', '(');
+        boolean isBalanced = false;
+        for (Character ch : str.toCharArray()) {
+            if (charMap.containsValue(ch))
+                stack.push(ch);//{[(
+            else if (charMap.containsKey(ch)) { // )
+                if (stack.isEmpty() || stack.pop() != charMap.get(ch)) {
+                    break;               //  (       (
+                }
+            }
+
+        }
+        isBalanced = stack.isEmpty();
+        System.out.println(isBalanced);
+
+
+    }
+
+    public void verifyMobileNo() {
+
+        Pattern pattern = Pattern.compile("(0|91)[7-9][0-9]{9}");
+
+        Matcher matcher = pattern.matcher("91744706850591807905673108847764026");
+        while (matcher.find()) {
+            System.out.println(matcher.group());
+        }
+    }
+
+
+    public void valid_Mail_Id() {
+        // Basic and reliable regex for most valid emails
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+
+        String[] testEmails = {
+                "john.doe@example.com",      // ✅ valid
+                "user123@gmail.co.in",       // ✅ valid
+                "name@sub.domain.org",       // ✅ valid
+                "invalid-email@",            // ❌ invalid
+                "@no-user.com",              // ❌ invalid
+                "wrong@@example.com",        // ❌ invalid
+                "user@domain",               // ❌ invalid (no TLD)
+                "user@domain.c"              // ❌ invalid (TLD too short)
+        };
+
+        for (String email : testEmails) {
+            if (pattern.matcher(email).matches()) {
+                System.out.println(email + " → ✅ Valid email");
+            } else {
+                System.out.println(email + " → ❌ Invalid email");
+            }
+        }
+    }
+
+    @Test
+    public void longest_substring_without_repeating_characters() {
+        String str = "abcabbcd";
+        String longetsTring = "";
+        for (int i = 0; i < str.length(); i++) {
+            for (int j = i + 1; j <= str.length(); j++) {
+                String subString = str.substring(i, j);
+
+                Map<Character, Integer> map = new HashMap<>();
+                for (Character c : subString.toCharArray()) {
+                    if (map.containsKey(c))
+                        map.put(c, map.getOrDefault(c, 0) + 1);
+                    else
+                        map.put(c, 1);
+                }
+                if (map.entrySet().stream()
+                        .filter(a -> a.getValue() > 1)
+                        .collect(Collectors.toList()).size() == 0 && subString.length() > longetsTring.length()) {
+                    longetsTring = subString;
+//                    System.out.println(longetsTring);
+
+                }
+
+
+            }
+        }
+        System.out.println(longetsTring);
+    }
+
+    @org.junit.Test
+    public void sortHashMapByValue() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("Apple", 5);
+        map.put("Banana", 2);
+        map.put("Orange", 8);
+        map.put("Mango", 1);
+
+        Map<String, Integer> sorted = map.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldVal, newVal) -> oldVal,
+                        LinkedHashMap::new
+                ));
+
+        //or
+        // List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        //
+        //        Collections.sort(list, Map.Entry.comparingByValue());
+        //
+        //        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        //        for (Map.Entry<String, Integer> entry : list) {
+        //            sortedMap.put(entry.getKey(), entry.getValue());
+        //        }
+        //        System.out.println(list);
+
+        System.out.println("Original: " + map);
+        System.out.println("Sorted by value: " + sorted);
+        // Output: {Mango=1, Banana=2, Apple=5, Orange=8}
+    }
+
+
+    @org.junit.Test
+    public void mergeTwoMaps() {
+        Map<String, Integer> map1 = new HashMap<>();
+        map1.put("A", 1);
+        map1.put("B", 2);
+
+        Map<String, Integer> map2 = new HashMap<>();
+        map2.put("B", 3);
+        map2.put("C", 4);
+
+        Map<String, Integer> merged = new HashMap<>(map1);
+        map2.forEach((k, v) -> merged.merge(k, v, Integer::sum));
+
+        System.out.println("Map1: " + map1);
+        System.out.println("Map2: " + map2);
+        System.out.println("Merged (sum values): " + merged);
+        // Output: {A=1, B=5, C=4}
+    }
+
+    @org.junit.Test
+    public void convertListToUppercase() {
+        List<String> list = Arrays.asList("apple", "banana", "cherry");
+
+        List<String> upperCase = list.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
+
+        System.out.println("Original: " + list);
+        System.out.println("Uppercase: " + upperCase);
+        // Output: [APPLE, BANANA, CHERRY]
+    }
+
+
 }

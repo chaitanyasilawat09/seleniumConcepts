@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
@@ -26,12 +27,12 @@ public class Gmail_Automation_Test {
         WebDriver driver =  new ChromeDriver(options);
 //        driver.get("https://demoqa.com/elements");
         driver.get(url);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         WebElement email_phone = driver.findElement(By.xpath("//input[@id='identifierId']"));
         email_phone.sendKeys("chetanya1992@gmail.com");
         driver.findElement(By.id("identifierNext")).click();
         WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(password));
         password.sendKeys("xyz96321");
         driver.findElement(By.id("passwordNext")).click();

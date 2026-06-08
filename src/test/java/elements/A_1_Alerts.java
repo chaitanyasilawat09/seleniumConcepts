@@ -3,9 +3,13 @@ package elements;
 import Base.BaseTest;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class A_1_Alerts extends BaseTest {
 
@@ -43,8 +47,10 @@ public class A_1_Alerts extends BaseTest {
         sleep(4000);
 
 
+//        WebDriver driver = new ChromeDriver();
 //        WebDriverWait wait = new WebDriverWait(driver, 10);
 //        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-//        alert.authenticateUsing(new UserAndPassword(**username**, **password**));
+//        alert.authenticateUsing(new UserAndPasswordCredentials("myUsername", "myPassword"));
+
     }
 }

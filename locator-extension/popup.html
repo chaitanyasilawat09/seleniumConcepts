@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Element Locator Generator</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="popup-container">
+        <div class="header">
+            <div class="logo">🎯</div>
+            <h1>Element Locator Generator</h1>
+        </div>
+        
+        <div class="content">
+            <div class="toggle-section">
+                <label class="toggle-label">
+                    <input type="checkbox" id="enableToggle" class="toggle-input">
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-text">Enable Locator Mode</span>
+                </label>
+            </div>
+
+            <div class="instructions">
+                <h3>How to Use</h3>
+                <ul>
+                    <li>Click the toggle to enable locator mode</li>
+                    <li>Hover over elements to see top 5 locators in tooltip</li>
+                    <li>Click on any element to see all locators here</li>
+                    <li>Click copy buttons to copy locators</li>
+                    <li>Press <kbd>Cmd+Shift+L</kbd> to toggle</li>
+                </ul>
+            </div>
+
+            <div class="selected-element-section" id="selectedElementSection" style="display: none;">
+                <h3>Selected Element</h3>
+                <div class="selected-element-info" id="selectedElementInfo"></div>
+                <div class="locators-container" id="locatorsContainer"></div>
+            </div>
+
+            <div class="features">
+                <h3>Features</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Priority-based locators</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Selenium & Playwright support</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Real-time element highlighting</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Multiple locator types</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>One-click copy</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="locator-types">
+                <h3>Locator Priority</h3>
+                <div class="priority-list">
+                    <div class="priority-item">
+                        <span class="priority-badge">1</span>
+                        <span>ID</span>
+                    </div>
+                    <div class="priority-item">
+                        <span class="priority-badge">2</span>
+                        <span>Name</span>
+                    </div>
+                    <div class="priority-item">
+                        <span class="priority-badge">3</span>
+                        <span>Class</span>
+                    </div>
+                    <div class="priority-item">
+                        <span class="priority-badge">4</span>
+                        <span>Tag Name</span>
+                    </div>
+                    <div class="priority-item">
+                        <span class="priority-badge">5</span>
+                        <span>Link Text</span>
+                    </div>
+                    <div class="priority-item">
+                        <span class="priority-badge">6</span>
+                        <span>CSS Selector</span>
+                    </div>
+                    <div class="priority-item">
+                        <span class="priority-badge">7</span>
+                        <span>XPath</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Version 1.0.0</p>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

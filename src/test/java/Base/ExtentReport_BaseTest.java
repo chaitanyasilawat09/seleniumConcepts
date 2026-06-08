@@ -36,7 +36,6 @@ public class ExtentReport_BaseTest {
                 .addSystemInfo("User Name", "Rajkumar SM");
 //        reports.loadConfig(new File(System.getProperty("user.dir") + "\\extent-config.xml"));
 
-//        WebDriverManager.chromedriver().arch64().setup();
         driver = new ChromeDriver();
 //        driver.get("https://demoqa.com/elements");
         try {
@@ -48,9 +47,9 @@ public class ExtentReport_BaseTest {
 
     @AfterMethod
     public void test1() {
-        driver.quit();
-        reports.endTest(test);
-        reports.flush();
+        reports.endTest(test);  // 1. End the test
+        reports.flush();        // 2. Flush the report (write everything to file)
+        driver.quit();          // 3. Quit the browser
     }
 
     public static String capture(WebDriver driver) {

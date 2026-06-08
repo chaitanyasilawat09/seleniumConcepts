@@ -10,6 +10,24 @@ from emp
 CREATE TABLE NewEmp AS
 select * from emp
 
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100) UNIQUE,
+    HireDate DATE,
+    Salary DECIMAL(10, 2),
+    DepartmentID INT
+);
+
+INSERT INTO Employees (EmployeeID, FirstName, LastName, Email, HireDate, Salary, DepartmentID)
+VALUES
+(2, 'Jane', 'Smith', 'jane.smith@example.com', '2023-01-15', 65000.00, 102),
+(3, 'Mike', 'Johnson', 'mike.johnson@example.com', '2021-09-30', 72000.00, 101),
+(4, 'Sara', 'Lee', 'sara.lee@example.com', '2024-03-12', 58000.00, 103);
+
+
+
 --Write q query to find all the employees whose salary is between 50000 to 100000.
 select * from emp
 where salary BETWEEN '1000' and '15000'
@@ -87,9 +105,3 @@ GROUP BY EmpPosition;
 SELECT *
 FROM EmployeeInfo WHERE
 EmpID <= (SELECT COUNT(EmpID)/2 from EmployeeInfo);
-
-
-
-
-
-

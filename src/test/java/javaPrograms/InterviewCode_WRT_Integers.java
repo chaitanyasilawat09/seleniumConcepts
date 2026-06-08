@@ -1,12 +1,18 @@
 package javaPrograms;
 
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 public class InterviewCode_WRT_Integers {
 
     public static void main(String[] args) {
 
 //        no_Even_Odd(10);
 //        System.out.println(no_Prime_or_not(9));
-//        fibonacciSeries(5);
+        fibonacciSeries(5);
 //        swap_No_Without_Third_No();
 //        System.out.println(factorial(50));
 //        reverce_No(1414);
@@ -23,15 +29,18 @@ public class InterviewCode_WRT_Integers {
             System.out.println("no is odd");
     }
 
-    public static boolean no_Prime_or_not(int no) {
-        boolean primeNo = false;
-        for (int i = 2; i <= no / 2; i++) {
+    public static boolean isPrime(int no) {
+        if (no <= 1) {
+            return false; // 0 and 1 are not prime numbers
+        }
+        for (int i = 2; i <= Math.sqrt(no); i++) {
             if (no % i == 0) {
-                return false;
+                return false; // Divisible by another number → not prime
             }
         }
-        return true;
+        return true; // No divisors found → prime
     }
+
 
     public static void fibonacciSeries(int no) {
         int first = 0;
@@ -117,6 +126,46 @@ public class InterviewCode_WRT_Integers {
             no = no / 10;
         }
         System.out.println(b);
+    }
+
+    public static void palindrom_No() {
+
+//        TODO Generate Random Number
+        Random random = new Random();
+//        int max=10000900;
+//        int min=1000000;
+//        int i = random.nextInt((max - min) + 1) + min;
+//        System.out.println(i);
+        System.out.println(random.ints(1000, 2000).filter(a -> a % 2 != 0).findAny().getAsInt());
+        System.out.println(random.ints(100, 200).findFirst().getAsInt());
+
+
+        int no = 123456789;
+//        String no = "chaitanya";
+        int[] digits = Integer.toString(no).chars().map(c -> c - '0').toArray();
+
+        Integer.toString(no).chars().map(c -> c - '0').toArray();
+
+        char[] ch = String.valueOf(no).toCharArray();
+
+        for (int i = 0; i < digits.length / 2; i++) {
+
+            System.out.println(digits[i] + "...." + digits[digits.length - 1 - i]);
+
+        }
+
+    }
+
+    @Test
+    public void findMaxMinFromList() {
+        List<Integer> list = Arrays.asList(5, 2, 8, 1, 9, 3);
+
+        int max = list.stream().max(Integer::compareTo).orElse(-1);
+        int min = list.stream().min(Integer::compareTo).orElse(-1);
+
+        System.out.println("List: " + list);
+        System.out.println("Max: " + max + ", Min: " + min);
+        // Output: Max: 9, Min: 1
     }
 }
 

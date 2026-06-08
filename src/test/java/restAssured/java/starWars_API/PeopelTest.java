@@ -41,9 +41,9 @@ public class PeopelTest extends BaseTest {
         System.out.println(response.asString());
         verifyStatusCode(response,200);
 //      TODO convert response to JSON Array
-        JSONObject array = new JSONObject(response.asString());
+        JSONObject jsonObject = new JSONObject(response.asString());
 
-        JSONArray jsonArray = (JSONArray) array.get("results");
+        JSONArray jsonArray = (JSONArray) jsonObject.get("results");
         assertThat(jsonArray.length(), is(10));
 
         System.out.println(response.jsonPath().getList("results"));;

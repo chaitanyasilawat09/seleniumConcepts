@@ -91,7 +91,7 @@ public class t2 {
         System.out.println(file.exists());
         //TODO read txt file
         List<String> content = Files.readAllLines(Paths.get("TestLog.txt"));
-        String[] s = content.get(0).split(System.getProperty("line.separator"));
+        String[] s = content.get(0).split(System.lineSeparator());
         System.out.println(s[0]);
         System.out.println(content.get(0).split("\\s")[0]);
 
@@ -204,21 +204,21 @@ public class t2 {
         String s = "Today is     Sunday";
         //        = "yadoT si     yadnuS"
         String[] strArr = s.split("\\s");
-        String rev = "";
+        StringBuilder rev = new StringBuilder();
 
         for (String s1 : strArr) {
-            String word = "";
+            StringBuilder word = new StringBuilder();
             if (s1.length() != 0) {
                 char[] ch = s1.toCharArray();
 
                 for (int i = ch.length - 1; i >= 0; i--) {
-                    word = word + ch[i];
+                    word.append(ch[i]);
 
                 }
-                rev = rev + word + " ";
+                rev.append(word).append(" ");
 
             } else {
-                rev = rev + " ";
+                rev.append(" ");
             }
         }
 
@@ -229,29 +229,24 @@ public class t2 {
 
     public static void find_Continious_Accurency_Of_Integer_In_Array() {
         int[] arr = {0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0};
-        int last = 2;
-        int count = 1;
-        int finalCont = 0;
-        int finalInt = 0;
-        for (int i = 0; i < arr.length; i++) {
 
-            if (last == 2) {
-                last = arr[i];
+        int maxCount = 1;
+        int currentCount = 1;
+        int maxElement = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] == arr[i - 1]) {
+                currentCount++;
             } else {
-                if (last == arr[i]) {
-                    count++;
-                } else {
-                    count = 1;
-                    last = arr[i];
-                }
+                currentCount = 1;
             }
 
-            if (finalCont < count) {
-                finalCont = count;
-                finalInt = arr[i];
+            if (currentCount > maxCount) {
+                maxCount = currentCount;
+                maxElement = arr[i];
             }
         }
-        System.out.println(finalInt + "....." + finalCont);
+        System.out.println("Number " + maxElement + " occurs " + maxCount + " times continuously.");
     }
 
 
@@ -424,7 +419,7 @@ public class t2 {
 
     private static void find_largest_and_Smallest_number() {
 
-        int num[] = {900, 90, 6, 7, 5000, 4, 60000, 20, 3};
+        int [] num = {900, 90, 6, 7, 5000, 4, 60000, 20, 3};
         int largest = num[0];
         int smallest = num[1];
         for (int i : num) {

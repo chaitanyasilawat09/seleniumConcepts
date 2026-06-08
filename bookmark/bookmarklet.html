@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Element Locator Generator - Bookmarklet</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .instructions {
+            background: #f8f9fa;
+            border-left: 4px solid #4facfe;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #4facfe;
+        }
+        .instructions ol {
+            margin-left: 20px;
+        }
+        .instructions li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            margin: 20px 0;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .copy-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .copy-btn:hover {
+            background: #0056b3;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .note strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Element Locator Generator</h1>
+        <p class="subtitle">Bookmarklet - No Extension Required</p>
+        
+        <div class="instructions">
+            <h3>📋 How to Install</h3>
+            <ol>
+                <li><strong>Copy the code below</strong> (click the "Copy Code" button)</li>
+                <li><strong>Show your bookmarks bar:</strong> Press Ctrl+Shift+B (Chrome/Edge) or Cmd+Shift+B (Mac)</li>
+                <li><strong>Create a new bookmark:</strong> Right-click on the bookmarks bar and select "Add page..."</li>
+                <li><strong>Name it:</strong> "🎯 Locator Generator"</li>
+                <li><strong>Paste the code</strong> as the URL (it starts with "javascript:")</li>
+                <li><strong>Save</strong> the bookmark</li>
+            </ol>
+        </div>
+        
+        <h3>🔧 Bookmarklet Code</h3>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <p style="font-size: 18px; margin-bottom: 15px;">Or drag this button to your bookmarks bar:</p>
+            <a href="" id="dragButton" class="bookmarklet-button" onclick="event.preventDefault(); alert('Please drag this button to your bookmarks bar!');">🎯 Locator Generator</a>
+        </div>
+        
+        <p style="font-size: 14px; color: #666; margin: 20px 0;">Or copy the code below:</p>
+        <div class="code-block" id="bookmarkletCode">Loading...</div>
+        <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+        
+        <div class="instructions">
+            <h3>📖 How to Use</h3>
+            <ol>
+                <li><strong>Navigate to any website</strong> where you want to find element locators</li>
+                <li><strong>Click the bookmark</strong> to activate the locator tool (a popup will appear)</li>
+                <li><strong>Hover over elements</strong> to see locators in a tooltip</li>
+                <li><strong>Click on an element</strong> to see all available locators in the popup</li>
+                <li><strong>Click "Copy"</strong> to copy any locator to your clipboard</li>
+                <li><strong>Click "×"</strong> or outside the popup to close the tool</li>
+            </ol>
+        </div>
+        
+        <div class="note">
+            <strong>⚠️ Note:</strong> This bookmarklet works on most websites. Some sites may block bookmarklet execution for security reasons. If it doesn't work on a particular site, try a different website.
+        </div>
+    </div>
+    
+    <script>
+        // Inline the bookmarklet code to avoid fetch issues
+        const bookmarkletSourceCode = `(function(){'use strict';if(window.locatorGeneratorInstance){window.locatorGeneratorInstance.disableLocatorMode();window.locatorGeneratorInstance=null;}class LocatorGenerator{constructor(){this.isEnabled=false;this.currentElement=null;this.highlightElement=null;this.locatorPanel=null;this.tooltip=null;this.selectedElement=null;this.selectedFilters=['ID','Name','Class','Tag Name','Link Text','CSS Selector','XPath'];this.selectedFramework='selenium';this.isPickingMode=true;this.init();}init(){this.injectCSS();this.createLocatorPanel();this.enableLocatorMode();}injectCSS(){if(document.getElementById('locator-bookmarklet-css'))return;const css=\`#locator-generator-panel{width:500px;max-height:80vh;background:white;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.3);font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;overflow:hidden}.locator-panel-header{background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);padding:15px 20px;display:flex;flex-direction:column;gap:8px;color:white}.panel-header-content{display:flex;align-items:center;justify-content:space-between}.drag-handle{cursor:move;padding:5px;font-size:18px;color:white;opacity:0.7;user-select:none;margin-right:10px}.drag-handle:hover{opacity:1}.locator-panel-header h3{margin:0;font-size:1.1rem;font-weight:600}.panel-instructions{font-size:0.85rem;opacity:0.9;font-style:italic}.start-picking-btn{background:white;color:#4facfe;border:none;padding:10px 20px;border-radius:6px;font-size:0.9rem;font-weight:600;cursor:pointer;margin-top:8px}.start-picking-btn.active{background:#28a745;color:white}.close-btn{background:rgba(255,255,255,0.2);border:none;color:white;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1.2rem}.locator-panel-content{padding:15px;max-height:calc(80vh - 100px);overflow-y:auto}.framework-selector{display:flex;gap:12px;margin-bottom:10px;padding:8px;background:#f8f9fa;border-radius:6px}.framework-option{display:flex;align-items:center;gap:5px}.element-info{background:#f8f9fa;border-radius:6px;padding:8px;margin-bottom:10px;border-left:3px solid #4facfe}.element-tag{font-weight:bold;color:#007bff;font-family:'Courier New',monospace;background:#e7f3ff;padding:3px 6px;border-radius:4px;font-size:0.8rem}.locators-list{display:flex;flex-direction:column;gap:6px}.locator-item{background:#f8f9fa;border:1px solid #e9ecef;border-radius:6px;padding:8px}.locator-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.locator-type{font-weight:bold;color:#333;font-size:0.85rem}.locator-priority{background:#28a745;color:white;padding:2px 6px;border-radius:10px;font-size:0.7rem}.locator-value{font-family:'Courier New',monospace;background:white;padding:6px;border-radius:4px;border:1px solid #dee2e6;word-break:break-all;font-size:0.8rem;color:#495057}.copy-btn{background:#007bff;color:white;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:0.7rem}.copy-btn:hover{background:#0056b3}#locator-tooltip{position:fixed;z-index:2147483647;background:white;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);border:1px solid #4facfe;min-width:250px;max-width:400px;pointer-events:none;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}.tooltip-content{padding:8px 12px}.tooltip-locator-item{display:flex;align-items:center;padding:4px 0;font-size:11px}.tooltip-locator-type{font-weight:bold;color:#007bff;min-width:50px;font-size:11px}.tooltip-locator-value{font-family:'Courier New',monospace;color:#495057;word-break:break-all;flex:1;margin-left:8px;font-size:11px}\`;const style=document.createElement('style');style.id='locator-bookmarklet-css';style.textContent=css;document.head.appendChild(style);}createLocatorPanel(){if(this.locatorPanel)return;this.modalOverlay=document.createElement('div');this.modalOverlay.style.cssText=\`position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999998\`;this.locatorPanel=document.createElement('div');this.locatorPanel.id='locator-generator-panel';this.locatorPanel.style.cssText=\`position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;max-height:80vh;background:white;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.3);font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;overflow:hidden;z-index:9999999\`;this.locatorPanel.innerHTML=\`<div class="locator-panel-header"><div class="panel-header-content"><div class="drag-handle" id="dragHandle">⋮⋮</div><h3>🎯 Element Locator Generator</h3><button class="close-btn" id="closeBtn">×</button></div><div class="panel-instructions">Click on any element to see locators</div><button class="start-picking-btn active" id="startPickingBtn">⏹ Stop Picking</button></div><div class="locator-panel-content"><div class="framework-selector"><div class="framework-option"><input type="radio" id="framework-selenium" name="framework" value="selenium" checked><label for="framework-selenium">Selenium</label></div><div class="framework-option"><input type="radio" id="framework-playwright" name="framework" value="playwright"><label for="framework-playwright">Playwright</label></div></div><div class="element-info" id="elementInfo"></div><div class="locators-list" id="locatorsList"></div></div><div class="resize-handle" id="resizeHandle"></div>\`;this.modalOverlay.appendChild(this.locatorPanel);document.body.appendChild(this.modalOverlay);this.locatorPanel.querySelector('#closeBtn').addEventListener('click',()=>this.disableLocatorMode());this.locatorPanel.querySelector('#startPickingBtn').addEventListener('click',()=>this.togglePickingMode());this.locatorPanel.querySelectorAll('input[name="framework"]').forEach(radio=>{radio.addEventListener('change',e=>{this.selectedFramework=e.target.value;if(this.selectedElement){this.displayAllLocatorsInPanel(this.selectedElement);}});});this.modalOverlay.addEventListener('click',e=>{if(e.target===this.modalOverlay){this.disableLocatorMode();}});this.makePanelDraggable();this.makePanelResizable();}makePanelDraggable(){const handle=this.locatorPanel.querySelector('#dragHandle');let isDragging=false,startX,startY,initialX,initialY;handle.addEventListener('mousedown',e=>{isDragging=true;startX=e.clientX;startY=e.clientY;const rect=this.locatorPanel.getBoundingClientRect();initialX=rect.left;initialY=rect.top;this.locatorPanel.style.transform='none';this.locatorPanel.style.left=initialX+'px';this.locatorPanel.style.top=initialY+'px';});document.addEventListener('mousemove',e=>{if(!isDragging)return;const dx=e.clientX-startX;const dy=e.clientY-startY;this.locatorPanel.style.left=(initialX+dx)+'px';this.locatorPanel.style.top=(initialY+dy)+'px';});document.addEventListener('mouseup',()=>{isDragging=false;});}makePanelResizable(){const handle=this.locatorPanel.querySelector('#resizeHandle');let isResizing=false,startX,startY,startWidth,startHeight;handle.style.cssText=\`position:absolute;bottom:0;right:0;width:20px;height:20px;cursor:se-resize;background:linear-gradient(135deg,transparent 50%,#4facfe 50%);border-bottom-right-radius:12px\`;handle.addEventListener('mousedown',e=>{isResizing=true;startX=e.clientX;startY=e.clientY;startWidth=this.locatorPanel.offsetWidth;startHeight=this.locatorPanel.offsetHeight;e.preventDefault();});document.addEventListener('mousemove',e=>{if(!isResizing)return;const dx=e.clientX-startX;const dy=e.clientY-startY;const newWidth=Math.max(300,startWidth+dx);const newHeight=Math.min(window.innerHeight*0.9,Math.max(200,startHeight+dy));this.locatorPanel.style.width=newWidth+'px';this.locatorPanel.style.maxHeight=newHeight+'px';});document.addEventListener('mouseup',()=>{isResizing=false;});}enableLocatorMode(){this.isEnabled=true;this.isPickingMode=true;document.body.style.cursor='crosshair';document.addEventListener('mouseover',this.handleMouseOver.bind(this));document.addEventListener('mouseout',this.handleMouseOut.bind(this));document.addEventListener('click',this.handleClick.bind(this));}disableLocatorMode(){this.isEnabled=false;this.isPickingMode=false;document.body.style.cursor='';document.removeEventListener('mouseover',this.handleMouseOver.bind(this));document.removeEventListener('mouseout',this.handleMouseOut.bind(this));document.removeEventListener('click',this.handleClick.bind(this));this.removeHighlight();this.hideTooltip();if(this.modalOverlay){this.modalOverlay.remove();this.modalOverlay=null;}if(this.locatorPanel){this.locatorPanel.remove();this.locatorPanel=null;}const style=document.getElementById('locator-bookmarklet-css');if(style)style.remove();window.locatorGeneratorInstance=null;}togglePickingMode(){this.isPickingMode=!this.isPickingMode;const btn=this.locatorPanel.querySelector('#startPickingBtn');if(this.isPickingMode){btn.textContent='⏹ Stop Picking';btn.classList.add('active');document.body.style.cursor='crosshair';}else{btn.textContent='🎯 Start Picking';btn.classList.remove('active');document.body.style.cursor='';this.removeHighlight();this.hideTooltip();}}handleMouseOver(event){if(!this.isEnabled||!this.isPickingMode)return;const element=event.target;if(element===this.locatorPanel||this.locatorPanel?.contains(element))return;this.currentElement=element;this.highlightCurrentElement(element);this.showTooltip(element);}handleMouseOut(event){if(!this.isEnabled||!this.isPickingMode)return;if(event.target!==this.currentElement&&!event.target.contains(event.relatedTarget)){if(event.relatedTarget!==this.tooltip&&!this.tooltip?.contains(event.relatedTarget)){this.removeHighlight();this.hideTooltip();}}}handleClick(event){if(!this.isEnabled||!this.isPickingMode)return;const element=event.target;if(element===this.locatorPanel||this.locatorPanel?.contains(element))return;event.preventDefault();event.stopPropagation();this.selectedElement=element;this.hideTooltip();this.displayAllLocatorsInPanel(element);this.togglePickingMode();}highlightCurrentElement(element){this.removeHighlight();this.highlightElement=document.createElement('div');this.highlightElement.style.cssText=\`position:absolute;pointer-events:none;border:2px solid #ff6b6b;background:rgba(255,107,107,0.2);z-index:999999\`;const rect=element.getBoundingClientRect();this.highlightElement.style.top=\`\${rect.top+window.scrollY}px\`;this.highlightElement.style.left=\`\${rect.left+window.scrollX}px\`;this.highlightElement.style.width=\`\${rect.width}px\`;this.highlightElement.style.height=\`\${rect.height}px\`;document.body.appendChild(this.highlightElement);}removeHighlight(){if(this.highlightElement){this.highlightElement.remove();this.highlightElement=null;}}showTooltip(element){this.hideTooltip();const locators=this.getAllLocators(element).slice(0,5);this.tooltip=document.createElement('div');this.tooltip.id='locator-tooltip';this.tooltip.innerHTML=\`<div class="tooltip-content">\${locators.map(loc=>\`<div class="tooltip-locator-item"><span class="tooltip-locator-type">\${loc.type}:</span><span class="tooltip-locator-value">\${this.escapeHtml(loc.value)}</span></div>\`).join('')}</div>\`;const rect=element.getBoundingClientRect();this.tooltip.style.top=(rect.bottom+window.scrollY+5)+'px';this.tooltip.style.left=(rect.left+window.scrollX)+'px';document.body.appendChild(this.tooltip);}hideTooltip(){if(this.tooltip){this.tooltip.remove();this.tooltip=null;}}displayAllLocatorsInPanel(element){const locators=this.getAllLocators(element);const sortedLocators=this.sortLocatorsByPriority(locators);const filteredLocators=sortedLocators.filter(loc=>this.selectedFilters.includes(loc.type));const frameworkLocators=filteredLocators.map(loc=>({type:loc.type,value:this.selectedFramework==='selenium'?loc.selenium:loc.playwright,priority:loc.priority}));this.displayElementInfo(element);this.displayFrameworkLocators(frameworkLocators);}displayElementInfo(element){const info=this.locatorPanel.querySelector('#elementInfo');const id=element.id?\`#\${element.id}\`:'';const classes=element.className?\`.\${String(element.className).split(' ').join('.')}\`:'';info.innerHTML=\`<div class="element-tag">&lt;\${element.tagName.toLowerCase()}\${id}\${classes}&gt;</div>\";}displayFrameworkLocators(locators){const list=this.locatorPanel.querySelector('#locatorsList');if(locators.length===0){list.innerHTML='<div style="text-align:center;color:#999;padding:20px;">No locators found</div>';return;}list.innerHTML=locators.map(loc=>\`<div class="locator-item"><div class="locator-header"><span class="locator-type">\${loc.type}</span><span class="locator-priority">\${loc.priority}</span></div><div class="locator-value">\${this.escapeHtml(loc.value)}</div><button class="copy-btn" data-value="\${this.escapeHtml(loc.value)}">Copy</button></div>\`).join('');list.querySelectorAll('.copy-btn').forEach(btn=>{btn.addEventListener('click',function(){navigator.clipboard.writeText(this.dataset.value);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000);});});}getAllLocators(element){const locators=[];if(element.id){locators.push({type:'ID',value:\`#\${element.id}\`,priority:1,selenium:\`By.id("\${element.id}")\`,playwright:\`page.locator('#\${element.id}')\`});}if(element.name){locators.push({type:'Name',value:\`[name="\${element.name}"]\`,priority:2,selenium:\`By.name("\${element.name}")\`,playwright:\`page.locator('[name="\${element.name}"]')\`});}if(element.className){const classes=element.className.split(' ').filter(c=>c.trim());if(classes.length>0){locators.push({type:'Class',value:\`.\${classes[0]}\`,priority:3,selenium:\`By.className("\${classes[0]}")\`,playwright:\`page.locator('.\${classes[0]}')\`});}}locators.push({type:'Tag Name',value:element.tagName.toLowerCase(),priority:4,selenium:\`By.tagName("\${element.tagName.toLowerCase()}")\`,playwright:\`page.locator('\${element.tagName.toLowerCase()}')\`});if(element.tagName.toLowerCase()==='a'&&element.textContent){const text=element.textContent.trim();if(text){locators.push({type:'Link Text',value:text,priority:5,selenium:\`By.linkText("\${text}")\`,playwright:\`page.locator('text=\${text}')\`});}}const cssSelector=this.generateCSSSelector(element);if(cssSelector){locators.push({type:'CSS Selector',value:cssSelector,priority:6,selenium:\`By.cssSelector("\${cssSelector}")\`,playwright:\`page.locator('\${cssSelector}')\`});}const xpath=this.generateXPath(element);if(xpath){locators.push({type:'XPath',value:xpath,priority:7,selenium:\`By.xpath("\${xpath}")\`,playwright:\`page.locator('xpath=\${xpath}')\`});}return locators.sort((a,b)=>a.priority-b.priority);}generateCSSSelector(element){const tagName=element.tagName.toLowerCase();const attributes=[];if(element.id)attributes.push(\`#\${element.id}\`);if(element.className){const classes=element.className.split(' ').filter(c=>c.trim());if(classes.length>0)attributes.push(\`.\${classes[0]}\`);}['name','type','value','placeholder','href'].forEach(attr=>{if(element.getAttribute(attr)){attributes.push(\`[\${attr}="\${element.getAttribute(attr)}"]\`);}});return tagName+attributes.join('');}generateXPath(element){const tagName=element.tagName.toLowerCase();if(element.id)return\`//*[@id="\${element.id}"]\`;if(element.name)return\`//*[@name="\${element.name}"]\`;if(element.textContent&&element.textContent.trim()){const text=element.textContent.trim();if(text.length<50)return\`//\${tagName}[text()="\${text}"]\`;}const attributes=[];['class','type','value','placeholder','href'].forEach(attr=>{if(element.getAttribute(attr)){attributes.push(\`@\${attr}="\${element.getAttribute(attr)}"\`);}});if(attributes.length>0){return\`//\${tagName}[\${attributes.join(' and ')}]\`;}return\`//\${tagName}\`;}}sortLocatorsByPriority(locators){return locators.sort((a,b)=>a.priority-b.priority);}escapeHtml(text){const div=document.createElement('div');div.textContent=text;return div.innerHTML;}}window.locatorGeneratorInstance=new LocatorGenerator();})()`;
+        
+        // Display the code
+        document.getElementById('bookmarkletCode').textContent = bookmarkletSourceCode;
+        
+        // Set the drag button href
+        document.getElementById('dragButton').href = bookmarkletSourceCode;
+        
+        function copyCode(btn) {
+            const codeBlock = document.getElementById('bookmarkletCode');
+            if (codeBlock && codeBlock.textContent) {
+                navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => btn.textContent = originalText, 2000);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

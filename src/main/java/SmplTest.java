@@ -1,23 +1,42 @@
-import java.util.Arrays;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-public class SmplTest  {
+public class SmplTest {
+  ;
+    public static void main(String[] args) throws IOException {
+        int[] i = {1, 2, 3, 4, 5};
+//      2  1,2,3
+//        4/5  4,5
+//        3
+        int key = 1;
+        List<Integer> list = Arrays.stream(i).boxed().collect(Collectors.toList());
 
-    public static void main(String[] args) {
+        int avg = list.get(i.length / 2);
+        System.out.println(avg);
+        if (avg > key && list.contains(key)) {
+            System.out.println(list.subList(0, avg));
+        } else if (avg < key && list.contains(key)) {
+            System.out.println(list.subList(avg, list.size()));
+        } else {
+            System.out.println("-1");
+        }
 
-            int [] ar = {};
-//        Convert[] to list
-        Arrays.stream(ar).boxed().collect(Collectors.toList());
-//
-////        convert Int to Int[]
-        Integer.toString(123).chars().map(c-> c-'0').toArray();
-//      Find Space index in given string
-        String s = "nb hbv hg ";
-        List<Integer> l = IntStream.range(0,s.length())
-                            .filter(i -> s.charAt(i)==' ')
-                                .boxed().collect(Collectors.toList());
-        System.out.println(l);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

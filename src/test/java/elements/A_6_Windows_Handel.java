@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class A_6_Windows_Handel extends BaseTest {
@@ -22,7 +23,7 @@ public class A_6_Windows_Handel extends BaseTest {
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
         WebElement windowsTab = driver.findElement(By.xpath("//div[text()='Alerts, Frame & Windows']"));
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(windowsTab));
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", windowsTab);
 
