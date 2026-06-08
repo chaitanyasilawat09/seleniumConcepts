@@ -17,7 +17,7 @@ public class Java_8_Code {
         map.put("cde","dd");
         map.put("def","ee");
         //TODO Create List using Array
-        ArrayList<Integer> list = (ArrayList<Integer>) Arrays.stream(ar).boxed().collect(Collectors.toList());
+        ArrayList<Integer> list = new ArrayList<>(Arrays.stream(ar).boxed().collect(Collectors.toList()));
         ArrayList<String> strList = (ArrayList<String>) Arrays.stream(strArr).collect(Collectors.toList());
 
         System.out.println(list.stream().filter(a -> a%2==0).collect(Collectors.toList()));;
@@ -54,7 +54,7 @@ public class Java_8_Code {
 
     }
 
-    public static void main11(String[] args){
+    public static void main(String[] args){
         String [] arr = {"automatic","aautozone","showauto","moboleauto","myautoriksha","yourautoShoq","automation"};
         int [] ar = {1,3,2,4,5,6,5,7,8,6,4,7,8,9,061,45,76,45,67};
 
@@ -67,12 +67,12 @@ public class Java_8_Code {
 //
 //        elementList.stream().collect(Collectors.toMap(WebElement::getText, Function.identity()));
 
-//        System.out.println( arrayList.stream().
-//                filter(a -> a.contains("auto"))
-////                .map(a -> a+"_updated")
-//                .reduce("",(a,b)-> a+"5"+b+"\n")
-//                .toUpperCase()
-//        );
+        System.out.println( arrayList.stream().
+                filter(a -> a.contains("auto"))
+                .map(a -> a+"_updated")
+                .reduce("",(a,b)-> a+"5"+b+"3 \n")
+                .toUpperCase()
+        );
 
 
 
@@ -86,7 +86,7 @@ public class Java_8_Code {
 
     }
 
-    public static void main(String[] args){
+    public static void main11(String[] args){
 
         String [] arr = {"automatic","aautozone","showauto","moboleauto","myautoriksha","yourautoShoq","aut1omation"};
         List<String> arrayList = (ArrayList)Arrays.stream(arr).collect(Collectors.toList());

@@ -43,15 +43,31 @@ public class InterviewCode_WRT_Strings {
     @Test
     public static void find_Dup_Char_In_String() {
         String name = "duplicateCharacterinString";
-        Map<Character, Integer> storeMap = new HashMap<>();
+        Map<Character, Integer> storeMap = new LinkedHashMap<>();
         char[] chArr = name.toCharArray();
 
         for (char ch : chArr) {
-            if (storeMap.containsKey(ch)) {
-                int i = storeMap.get(ch) + 1;
-                storeMap.put(ch, i);
-            } else storeMap.put(ch, 1);
+            storeMap.put(ch, storeMap.getOrDefault(ch, 0) + 1);
+//            if (storeMap.containsKey(ch)) {
+//                int i = storeMap.get(ch) + 1;
+//                storeMap.put(ch, i);
+//            } else storeMap.put(ch, 1);
         }
+        Map<Character, Integer> storeMap9 = storeMap.entrySet().stream()
+                .filter(entry ->
+                        entry.getValue() > 1)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+//        map.entrySet().stream()
+//                .sorted(Map.Entry.comparingByValue())
+        Map<Character, Integer> storeMap0 = storeMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue
+                        , (old, newValue) -> old, LinkedHashMap::new
+                ));
+
         System.out.println(storeMap);
         Map<Character, Integer> maps = storeMap.entrySet().stream().filter(entry -> entry.getValue() > 1)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -61,8 +77,8 @@ public class InterviewCode_WRT_Strings {
     @Test
     public void count_Of_Word_In_String() {
         String name = "My Name is chaitanya   silawat";
-        String[] chArr = name.split(" ");
-        System.out.println( Arrays.stream(chArr).filter(a -> !a.isEmpty()).count());
+        String[] chArr = name.split("\\s");
+        System.out.println(Arrays.stream(chArr).filter(a -> !a.isEmpty()).count());
     }
 
     @Test
@@ -106,14 +122,14 @@ public class InterviewCode_WRT_Strings {
         //Example: "listen" and "silent" are anagrams.
         String name1 = "listen";
         String name2 = "silent";
-        char[] ch1 = name1.replace("//s", "").toCharArray();
-        char[] ch2 = name2.replace("//s", "").toCharArray();
+        char[] ch1 = name1.replace("\\s", "").toCharArray();
+        char[] ch2 = name2.replace("\\s", "").toCharArray();
         Arrays.sort(ch1);
         Arrays.sort(ch2);
-        System.out.println( Arrays.equals(ch1,ch2));
+        System.out.println(Arrays.equals(ch1, ch2));
         for (int i = 0; i < ch1.length; i++) {
-            if (ch1[i]!=ch2[i]) {
-                System.out.println("not.."+ ch1[i]+".."+ch2[i]);
+            if (ch1[i] != ch2[i]) {
+                System.out.println("not.." + ch1[i] + ".." + ch2[i]);
                 break;
             }
         }
@@ -158,13 +174,18 @@ public class InterviewCode_WRT_Strings {
 
     @Test
     public void a2b3c4() {
-        String name = "a2b3c4D1";
+        String name = "aa2b3ccc4D1";
         String output = "";
         char[] chArr = name.toCharArray();
-        for (int i = 0; i < chArr.length; i =i+2) {
+        for (int i = 0; i < chArr.length; i++) {
             char newChar = chArr[i];
-            int repeat = Character.getNumericValue(chArr[i + 1]);
-            for (int j = 0; j < repeat; j++) {
+            if (Character.isDigit(chArr[i + 1])) {
+                int repeat = Character.getNumericValue(chArr[i + 1]);
+                for (int j = 0; j < repeat; j++) {
+                    output = output + newChar;
+                }
+                i++;
+            } else {
                 output = output + newChar;
             }
         }
@@ -192,8 +213,8 @@ public class InterviewCode_WRT_Strings {
     @Test
     public void shift_0_to_End() {
         String name = "10203034012410041410";
-        int i =123;
-       // Arrays.stream(Integer.toString(i).chars()
+        int i = 123;
+        // Arrays.stream(Integer.toString(i).chars()
         // .mapToObj(c -> (char) c)
         // .toArray()).forEach(System.out::println);
 
@@ -297,13 +318,14 @@ public class InterviewCode_WRT_Strings {
         System.out.println(repStirng);
 
     }
-
-    public static void find_longest_subString_and_Polendrom_SubString_from_Given_String(String[] args) {
+@Test
+    public static void find_longest_subString_and_Polendrom_SubString_from_Given_String() {
         String s = "w12aaddaamadamaadaads232";
 //       String s = "abcab";
 
         int strLength = s.length();
         boolean plndrCheck = false;
+        String reps = "";
         String rep = "";
         for (int i = 0; i < strLength; i++) {
 
@@ -317,22 +339,23 @@ public class InterviewCode_WRT_Strings {
                 while (m.find()) {
                     count++;
                 }
-                if (count > 1 && rep.length() < subString.length()) {
-                    rep = subString;
+                if (count > 1 && reps.length() < subString.length()) {
+                    reps = subString;
                 }
+              //  System.out.println(reps);
                 // TODO to find Longest Palandram stirng from given string
 //               if(subString.length()>1){
                 plndrCheck = plndrCheck(subString);
                 if (plndrCheck && rep.length() < subString.length())
                     rep = subString;
 
-                System.out.println(rep);
+               // System.out.println(rep);
 
             }
         }
 
 
-        System.out.println("rep...........");
+        System.out.println(reps);
         System.out.println(rep);
     }
 
@@ -354,21 +377,21 @@ public class InterviewCode_WRT_Strings {
     }
 
     @Test
-    public void BrackerOpenClose(){
+    public void BrackerOpenClose() {
         String str = "{[()]}";
 
         Stack<Character> stack = new Stack<>();
         Map<Character, Character> charMap = new HashMap<>();
-        charMap.put('}','{');
-        charMap.put(']','[');
-        charMap.put(')','(');
+        charMap.put('}', '{');
+        charMap.put(']', '[');
+        charMap.put(')', '(');
         boolean isBalanced = false;
-        for (Character ch : str.toCharArray()){
+        for (Character ch : str.toCharArray()) {
             if (charMap.containsValue(ch))
-                stack.push(ch);
-            else if(charMap.containsKey(ch)){
-                if(stack.isEmpty() || stack.pop()!=charMap.get(ch)){
-                    break;
+                stack.push(ch);//{[(
+            else if (charMap.containsKey(ch)) { // )
+                if (stack.isEmpty() || stack.pop() != charMap.get(ch)) {
+                    break;               //  (       (
                 }
             }
 
@@ -390,8 +413,7 @@ public class InterviewCode_WRT_Strings {
     }
 
 
-
-        public void valid_Mail_Id(){
+    public void valid_Mail_Id() {
         // Basic and reliable regex for most valid emails
         Pattern pattern = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
@@ -415,24 +437,26 @@ public class InterviewCode_WRT_Strings {
         }
     }
 
-    public void longest_substring_without_repeating_characters(){
+    @Test
+    public void longest_substring_without_repeating_characters() {
         String str = "abcabbcd";
         String longetsTring = "";
         for (int i = 0; i < str.length(); i++) {
             for (int j = i + 1; j <= str.length(); j++) {
                 String subString = str.substring(i, j);
 
-                Map<Character,Integer> map = new HashMap<>();
-                for (Character c : subString.toCharArray()){
+                Map<Character, Integer> map = new HashMap<>();
+                for (Character c : subString.toCharArray()) {
                     if (map.containsKey(c))
-                        map.put(c,map.getOrDefault(c,0)+1);
+                        map.put(c, map.getOrDefault(c, 0) + 1);
                     else
-                        map.put(c,1);
+                        map.put(c, 1);
                 }
                 if (map.entrySet().stream()
-                        .filter(a->a.getValue()>1)
-                        .collect(Collectors.toList()).size()==0 && subString.length()>longetsTring.length()){
-                    longetsTring=subString;
+                        .filter(a -> a.getValue() > 1)
+                        .collect(Collectors.toList()).size() == 0 && subString.length() > longetsTring.length()) {
+                    longetsTring = subString;
+//                    System.out.println(longetsTring);
 
                 }
 
@@ -442,5 +466,71 @@ public class InterviewCode_WRT_Strings {
         System.out.println(longetsTring);
     }
 
+    @org.junit.Test
+    public void sortHashMapByValue() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("Apple", 5);
+        map.put("Banana", 2);
+        map.put("Orange", 8);
+        map.put("Mango", 1);
 
+        Map<String, Integer> sorted = map.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldVal, newVal) -> oldVal,
+                        LinkedHashMap::new
+                ));
+
+        //or
+        // List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        //
+        //        Collections.sort(list, Map.Entry.comparingByValue());
+        //
+        //        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        //        for (Map.Entry<String, Integer> entry : list) {
+        //            sortedMap.put(entry.getKey(), entry.getValue());
+        //        }
+        //        System.out.println(list);
+
+        System.out.println("Original: " + map);
+        System.out.println("Sorted by value: " + sorted);
+        // Output: {Mango=1, Banana=2, Apple=5, Orange=8}
     }
+
+
+    @org.junit.Test
+    public void mergeTwoMaps() {
+        Map<String, Integer> map1 = new HashMap<>();
+        map1.put("A", 1);
+        map1.put("B", 2);
+
+        Map<String, Integer> map2 = new HashMap<>();
+        map2.put("B", 3);
+        map2.put("C", 4);
+
+        Map<String, Integer> merged = new HashMap<>(map1);
+        map2.forEach((k, v) -> merged.merge(k, v, Integer::sum));
+
+        System.out.println("Map1: " + map1);
+        System.out.println("Map2: " + map2);
+        System.out.println("Merged (sum values): " + merged);
+        // Output: {A=1, B=5, C=4}
+    }
+
+    @org.junit.Test
+    public void convertListToUppercase() {
+        List<String> list = Arrays.asList("apple", "banana", "cherry");
+
+        List<String> upperCase = list.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
+
+        System.out.println("Original: " + list);
+        System.out.println("Uppercase: " + upperCase);
+        // Output: [APPLE, BANANA, CHERRY]
+    }
+
+
+}

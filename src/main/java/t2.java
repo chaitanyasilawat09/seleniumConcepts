@@ -204,21 +204,21 @@ public class t2 {
         String s = "Today is     Sunday";
         //        = "yadoT si     yadnuS"
         String[] strArr = s.split("\\s");
-        String rev = "";
+        StringBuilder rev = new StringBuilder();
 
         for (String s1 : strArr) {
-            String word = "";
+            StringBuilder word = new StringBuilder();
             if (s1.length() != 0) {
                 char[] ch = s1.toCharArray();
 
                 for (int i = ch.length - 1; i >= 0; i--) {
-                    word = word + ch[i];
+                    word.append(ch[i]);
 
                 }
-                rev = rev + word + " ";
+                rev.append(word).append(" ");
 
             } else {
-                rev = rev + " ";
+                rev.append(" ");
             }
         }
 
@@ -419,7 +419,7 @@ public class t2 {
 
     private static void find_largest_and_Smallest_number() {
 
-        int num[] = {900, 90, 6, 7, 5000, 4, 60000, 20, 3};
+        int [] num = {900, 90, 6, 7, 5000, 4, 60000, 20, 3};
         int largest = num[0];
         int smallest = num[1];
         for (int i : num) {

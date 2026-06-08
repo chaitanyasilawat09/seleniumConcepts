@@ -7,5 +7,44 @@ public class Maven {
      generate reports during the test phase of the build lifecycle.
      It is the standard test runner for Maven-based Java projects,
      and it's most commonly used with JUnit or TestNG.
+
+     The Maven Surefire Plugin is used to run test cases automatically during the build process
+     Runs Test Cases Automatically
+            No need to run tests manually
+            Executes all test classes during build
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <version>3.0.0</version>
+    </plugin>
+  </plugins>
+</build>
+
+
+
+<configuration>
+  <suiteXmlFiles>
+    <suiteXmlFile>testng.xml</suiteXmlFile>
+  </suiteXmlFiles>
+</configuration>
+
+
+
+
+<configuration>
+  <parallel>methods</parallel>
+  <threadCount>4</threadCount>
+</configuration>
+
     */
+
+//    TODO
+//     <configuration>
+//  <includes>
+//    <include>**/*Test.java</include>
+//  </includes>
+//</configuration>
 }

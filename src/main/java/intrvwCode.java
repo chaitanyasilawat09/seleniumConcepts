@@ -10,14 +10,15 @@ public class intrvwCode {
         String [] strArr = s.split("\\s");
         Map<String, Integer> map = new HashMap<>();
         for(String str : strArr){
-            if(map.containsKey(str)){
-              int value = map.get(str).intValue();
-              value++;
-              map.put(str,value);
-            }
-            else {
-                map.put(str,1);
-            }
+//            if(map.containsKey(str)){
+//              int value = map.get(str).intValue();
+//              value++;
+//              map.put(str,value);
+//            }
+//            else {
+//                map.put(str,1);
+//            }
+            map.put(str, map.getOrDefault(str, 0)+1);
         }
         System.out.println(map);
         Iterator itr = map.entrySet().iterator();

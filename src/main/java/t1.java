@@ -23,6 +23,9 @@ public class t1 {
             for (int j =i+1;j<=s1L;j++){
 
                 String subStirng  = s1.substring(i,j);
+//                int count = (int) Arrays.stream(arr).collect(Collectors.toList())
+//                        .stream()
+//                        .filter(a -> a.contains(subStirng)).count();
                 int k ;
                 for (k=1; k<arlength;k++){
                     if(!(arr[k].contains(subStirng))){

@@ -139,6 +139,17 @@ public class InterviewCode_WRT_Advanced {
                         LinkedHashMap::new
                 ));
 
+        //or
+        // List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        //
+        //        Collections.sort(list, Map.Entry.comparingByValue());
+        //
+        //        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        //        for (Map.Entry<String, Integer> entry : list) {
+        //            sortedMap.put(entry.getKey(), entry.getValue());
+        //        }
+        //        System.out.println(list);
+
         System.out.println("Original: " + map);
         System.out.println("Sorted by value: " + sorted);
         // Output: {Mango=1, Banana=2, Apple=5, Orange=8}

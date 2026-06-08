@@ -1,5 +1,9 @@
 package javaPrograms;
 
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class InterviewCode_WRT_Integers {
@@ -144,12 +148,24 @@ public class InterviewCode_WRT_Integers {
 
         char[] ch = String.valueOf(no).toCharArray();
 
-        for (int i = 0; i < ch.length / 2; i++) {
+        for (int i = 0; i < digits.length / 2; i++) {
 
-            System.out.println(ch[i] + "...." + ch[ch.length - 1 - i]);
+            System.out.println(digits[i] + "...." + digits[digits.length - 1 - i]);
 
         }
 
+    }
+
+    @Test
+    public void findMaxMinFromList() {
+        List<Integer> list = Arrays.asList(5, 2, 8, 1, 9, 3);
+
+        int max = list.stream().max(Integer::compareTo).orElse(-1);
+        int min = list.stream().min(Integer::compareTo).orElse(-1);
+
+        System.out.println("List: " + list);
+        System.out.println("Max: " + max + ", Min: " + min);
+        // Output: Max: 9, Min: 1
     }
 }
 

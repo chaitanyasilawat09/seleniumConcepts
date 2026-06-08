@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class InterviewCode_WRT_Array {
 
@@ -17,19 +18,18 @@ public class InterviewCode_WRT_Array {
         List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
         List<Integer> list2 = Arrays.asList(3, 1, 6, 8, 9);
 
-        //TODO Common element
-        list2.stream()
-                .filter(a -> list1.contains(a))
-                .collect(Collectors.toList())
-                .forEach(System.out::println);
+        System.out.println(
+                Stream.concat(list1.stream(),list2.stream())
+                        .filter(a-> ( list1.contains(a) && list2.contains(a) ) )
+                        .distinct()
+                        .collect(Collectors.toList())
+        );
 
-//        TODO Unique element in two list
-        list1
-                .addAll(list2
-                        .stream()
-                        .filter(a -> !list1.contains(a))
-                        .collect(Collectors.toList()));
-        System.out.println(list1);
+        System.out.println(
+                Stream.concat(list1.stream(),list2.stream())
+                        .filter(a-> (!( list1.contains(a) && list2.contains(a) )))
+                        .collect(Collectors.toList())
+        );
     }
 
     @Test
@@ -55,6 +55,15 @@ public class InterviewCode_WRT_Array {
         List<Integer> list = new ArrayList<>(Arrays.stream(array).boxed().collect(Collectors.toList()));
        // List<Integer> list = new ArrayList<>(Arrays.asList(2,2,3,5,3,6,5));
 
+        for (int i :array){
+            if (!newList.contains(i)){
+                newList.add(i);
+            }
+            else {
+                System.out.println("Duplicate : "+i);
+            }
+        }
+//                       TODO OR
         list.stream()
                 .filter(a ->
                 {
@@ -87,8 +96,7 @@ public class InterviewCode_WRT_Array {
         int small = intArr[0];
         int large = intArr[1];
 
-                for (int i : intArr) {
-
+        for (int i : intArr) {
             if (i > large) {
                 large = i;
             }
@@ -103,25 +111,37 @@ public class InterviewCode_WRT_Array {
     @Test
     public void find_SecondLarge_and_second_small_Value()
     {
-        List<Integer> list = new ArrayList<>(Arrays.asList(1,3,5,7,4,13));
-        int [] ik = {0,2,1,4};
-        int large = ik[0];
-        int large2 = ik[1];
-        int small = ik[2];
-        int small2 = ik[2];
-        for (int k : ik){
-            if (k>large){
+        int[] ik = {0, 2, 1, 4};
+
+        int large = Integer.MIN_VALUE;
+        int large2 = Integer.MIN_VALUE;
+
+        int small = Integer.MAX_VALUE;
+        int small2 = Integer.MAX_VALUE;
+
+        for (int k : ik) {
+
+            // largest two
+            if (k > large) {
                 large2 = large;
-                large= k;
+                large = k;
+            } else if (k > large2) {
+                large2 = k;
             }
-            if (small>k || small2>k){
+
+            // smallest two
+            if (k < small) {
                 small2 = small;
-                small=k;
-                System.out.println(small +">>>>>>"+small2);
+                small = k;
+            } else if (k < small2) {
+                small2 = k;
             }
         }
-        System.out.println(large+"......."+large2);
-        System.out.println(small+"-----------"+small2);
+
+        System.out.println("Largest = " + large);
+        System.out.println("Second Largest = " + large2);
+        System.out.println("Smallest = " + small);
+        System.out.println("Second Smallest = " + small2);
     }
 
 
@@ -192,6 +212,16 @@ public class InterviewCode_WRT_Array {
            }
        }
 
+//       TODO OR
+        for (int i: array){
+            if(IntStream.range(0,array.length)
+                    .filter(a-> array[a]==i)
+                    .boxed()
+                    .collect(Collectors.toList()).size()>1)
+                System.out.println("duplicate No is :-"+ i);
+
+
+        }
     }
 
     public static void find_Continious_Accurency_Of_Integer_In_Array() {
@@ -220,26 +250,23 @@ public class InterviewCode_WRT_Array {
     //       //2,4,3,6,0
 //        ArrayList<Integer> list = new ArrayList(Arrays.asList(2,4,3,6,0));
 ////        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(0,0,1,0,0));
-                public void getMiddleValueFromLetAndRightSum(){
-
-        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(2,4,3,6,3));
+///
+        @Test
+        public void getMiddleValueFromLetAndRightSum(){
+        ArrayList<Integer> list = new ArrayList(Arrays.asList(2,4,3,6,0));
+//        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(2,4,3,6,3));
 
         int totalSum = 0;
         int leftSum = 0;
-
         for (int num : list) {
             totalSum += num;
         }
-
         for (int i = 0; i < list.size(); i++) {
-
             totalSum = totalSum - list.get(i);   // right sum
-
             if (leftSum == totalSum) {
                 System.out.println("Equilibrium element: " + list.get(i));
                 return;
             }
-
             leftSum = leftSum + list.get(i);
         }
     }
@@ -256,6 +283,59 @@ public class InterviewCode_WRT_Array {
             }
         }
                 }
+
+    public static void maximumSubarraySum_Kadane() {
+        int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+
+        int maxSoFar = arr[0];
+        int maxEndingHere = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
+            maxSoFar = Math.max(maxSoFar, maxEndingHere);
+        }
+        System.out.println(maxSoFar);
+    }
+
+
+
+        public static void maximumSubarraySum_Kadane1(String[] args) {
+        int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+//        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+        int max = arr[0];
+        int maxValue = arr[0];
+
+        ArrayList<Integer> list = new ArrayList<>(Arrays.stream(arr).boxed().collect(Collectors.toList()));
+
+        for (int i = 0;i<list.size();i++){
+            for (int j =i+1;j<= list.size();j++){
+                int k =    list.subList(i,j)
+                        .stream()
+                        .mapToInt(a-> a).sum();
+                if (k>max){
+                    System.out.println( list.subList(i,j) +"---->"+ k);
+                    max = k;
+                }
+            }
+        }
+    }
+
+    @Test
+    public void findSecondHighestSalary() {
+        List<Integer> salaries = Arrays.asList(50000, 60000, 45000, 70000, 55000);
+
+        Integer secondHighest = salaries.stream()
+                .distinct()
+                .sorted(Comparator.reverseOrder())
+                .skip(1)
+                .findFirst()
+                .orElse(null);
+
+        System.out.println("Salaries: " + salaries);
+        System.out.println("Second highest: " + secondHighest);
+        // Output: 60000
+    }
+
 
 
 }
