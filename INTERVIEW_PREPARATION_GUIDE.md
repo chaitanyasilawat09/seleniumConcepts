@@ -262,9 +262,6 @@ WebElement permanentAddress = driver.findElement(By.cssSelector("textarea.form-c
 
 ### Advanced CSS Selectors
 ```java
-// Contains text
-driver.findElement(By.cssSelector("a:contains('Click')"))
-
 // Starts with
 driver.findElement(By.cssSelector("input[name^='user']"))
 
