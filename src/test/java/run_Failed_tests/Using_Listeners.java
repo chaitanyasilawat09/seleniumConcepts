@@ -10,6 +10,9 @@ import java.lang.reflect.Method;
 
 public class Using_Listeners implements IAnnotationTransformer, IRetryAnalyzer {
 
+//    IRetryAnalyzer for flaky failures.
+//    IAnnotationTransformer to apply retries globally.
+
     @Override
     public void transform(ITestAnnotation annotation,
                           Class testClass,

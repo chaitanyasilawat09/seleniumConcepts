@@ -121,6 +121,14 @@ given().log().all()
        .when()
        .get("https://localhost/v1/agreement/{agreementId}");
 
+              or
+
+given().log().all()
+       .pathParam("agreementId", "1234")
+       .queryParam("agreementType", "CHQ")
+       .when()
+       .get("/{agreementId}");
+
 
 Key Difference Between Test Plan and Test Strategy
 Test Strategy = The rules and approach for testing (like a general game plan).

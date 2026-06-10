@@ -212,10 +212,11 @@ public void validate_People_Json_Schema(){
 
     public void authorizationTypes(){
 
-        given().auth().preemptive().basic("username","Password");
-        given().header("authorization","Bearer token");
+        given().auth().basic("username","Password");
         given().auth().oauth2("access Token");
         given().auth().oauth("consumerKey", "consumerSecret", "accessToken", "tokenSecret");
+        given().header("authorization","Bearer token");
+
     }
 
     @Test

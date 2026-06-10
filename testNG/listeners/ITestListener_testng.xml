@@ -4,7 +4,6 @@
         <listener class-name="Listeners.ITestListener_Override_Methods"></listener>
     </listeners>
     <test name="Parallel Tests">
-
         <classes>
             <class name="Listeners.Implement_ITestListener"/>
         </classes>

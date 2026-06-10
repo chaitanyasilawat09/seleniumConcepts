@@ -288,11 +288,11 @@ public class InterviewCode_WRT_Array {
         int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 
         int maxSoFar = arr[0];
-        int maxEndingHere = arr[0];
+        int macValue = arr[0];
 
         for (int i = 1; i < arr.length; i++) {
-            maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
-            maxSoFar = Math.max(maxSoFar, maxEndingHere);
+            macValue = Math.max(arr[i], macValue + arr[i]);
+            maxSoFar = Math.max(maxSoFar, macValue);
         }
         System.out.println(maxSoFar);
     }

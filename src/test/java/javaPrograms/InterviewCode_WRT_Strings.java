@@ -27,7 +27,7 @@ public class InterviewCode_WRT_Strings {
     @Test
     public void reverse_eachWord_at_Same_PLace() {
         String name = "My Name is Chaitanya";
-        String[] StringArr = name.split(" ");
+        String[] StringArr = name.split("\\s");
         String revString = "";
         for (String eachWord : StringArr) {
             char[] chArr = eachWord.toCharArray();
@@ -228,19 +228,6 @@ public class InterviewCode_WRT_Strings {
         }
 
         System.out.println(nonZero + zero);
-    }
-
-    @Test
-    public void common_btwn_two_Array() {
-        List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
-        List<Integer> list2 = Arrays.asList(4, 5, 6, 7, 8);
-        List<Integer> list3 = new ArrayList<>(list2);
-
-        System.out.println(list1.stream().filter(a -> list2.contains(a))
-                .collect(Collectors.toList()));
-        list3.retainAll(list1);
-        System.out.println(list3);
-
     }
 
     //    Import   <groupId>org.apache.pdfbox</groupId>
@@ -484,10 +471,10 @@ public class InterviewCode_WRT_Strings {
                 ));
 
         //or
-        // List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
-        //
-        //        Collections.sort(list, Map.Entry.comparingByValue());
-        //
+         List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+
+                Collections.sort(list, Map.Entry.comparingByValue());
+
         //        Map<String, Integer> sortedMap = new LinkedHashMap<>();
         //        for (Map.Entry<String, Integer> entry : list) {
         //            sortedMap.put(entry.getKey(), entry.getValue());
