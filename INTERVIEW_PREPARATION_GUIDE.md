@@ -1868,9 +1868,14 @@ public class EventHandler implements WebDriverListener {
 
 ```java
 WebDriver driver = new ChromeDriver();
-EventFiringWebDriver eventDriver = new EventFiringWebDriver(driver);
 EventHandler handler = new EventHandler();
-eventDriver.register(handler);
+
+WebDriver eventDriver =
+        new EventFiringDecorator<>(handler)
+        .decorate(driver);
+
+        eventDriver.get("https://toolsqa.com");
+
 
 // Now all operations will be logged
 eventDriver.get("https://example.com");
@@ -2167,6 +2172,17 @@ public void writeToFile() throws IOException {
     writer.newLine();
     writer.write("More data");
     writer.close();
+}
+   // [ or ]
+    public void writeToFile() throws IOException {
+        Files.write(
+                Path.of("output.txt"),
+                List.of("Test data", "More data")
+        );
+        
+        //  Files.writeString( Path.of("output.txt"),
+        //        "Test data%nMore data".formatted();
+    }
 }
 ```
 
