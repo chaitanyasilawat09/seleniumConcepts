@@ -79,6 +79,7 @@ public class PeopelTest extends BaseTest {
         ObjectMapper mapper = new ObjectMapper();
         People people = mapper.readValue(jsonObject.toString(),People.class);
 
+        mapper.writeValueAsString(people);
         System.out.println(people.toString());
         System.out.println(people.getResults().get(0).getName());
     }
@@ -112,10 +113,28 @@ public class PeopelTest extends BaseTest {
     // If Response is large and not possible to validate each and every Value
 @Test
 public void validate_People_Json_Schema(){
-    given().when().get("/").then()
-            .assertThat()
+        given()
+             .when()
+                .get("/")
+            .then()
             .body(JsonSchemaValidator.
                     matchesJsonSchema(new File("/Users/chaitanyasilawat/Documents/GitHub/RestAssured_API_Concepts/src/main/java/DataFileInJSON/people_Json_Schema.json")));
+
+//   InputStream schema = getClass().getClassLoader()
+//        .getResourceAsStream("people_Json_Schema.json");
+//
+//     given()
+//    .when()
+//    .get("/")
+//    .then()
+//    .body(JsonSchemaValidator.matchesJsonSchema(schema));
+
+
+    //.    given()
+    //    .when()
+    //    .get("/")
+    //    .then()
+    //    .body(JsonSchemaValidator.matchesJsonSchema(new File("...")));
     }
 
 

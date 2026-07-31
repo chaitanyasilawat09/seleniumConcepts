@@ -8,7 +8,7 @@ import org.testng.annotations.ITestAnnotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-public class Using_Listeners implements IAnnotationTransformer, IRetryAnalyzer {
+public class Using_Listeners implements IAnnotationTransformer {
 
 //    IRetryAnalyzer for flaky failures.
 //    IAnnotationTransformer to apply retries globally.
@@ -24,8 +24,4 @@ public class Using_Listeners implements IAnnotationTransformer, IRetryAnalyzer {
         System.out.println("--------------------xxxxxx--------------");
     }
 
-    @Override
-    public boolean retry(ITestResult iTestResult) {
-        return false;
-    }
 }

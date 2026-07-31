@@ -1,6 +1,7 @@
 package elements;
 
 import Base.BaseTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
@@ -26,5 +27,8 @@ public class A_4_Frames extends BaseTest {
         driver.switchTo().frame("frame2");
         WebElement element1 = findElementFunction("//h1[@id='sampleHeading']");
         System.out.println(element1.getText());
+
+        WebElement iframe = driver.findElement(By.tagName("iframe"));
+        driver.switchTo().frame(iframe);
     }
 }

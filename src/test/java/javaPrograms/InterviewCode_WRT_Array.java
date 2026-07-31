@@ -287,14 +287,14 @@ public class InterviewCode_WRT_Array {
     public static void maximumSubarraySum_Kadane() {
         int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 
-        int maxSoFar = arr[0];
-        int macValue = arr[0];
+        int currentMax = arr[0];
+        int max = arr[0];
 
         for (int i = 1; i < arr.length; i++) {
-            macValue = Math.max(arr[i], macValue + arr[i]);
-            maxSoFar = Math.max(maxSoFar, macValue);
+            max = Math.max(arr[i], max + arr[i]);
+            currentMax = Math.max(currentMax, max);
         }
-        System.out.println(maxSoFar);
+        System.out.println(currentMax);
     }
 
 

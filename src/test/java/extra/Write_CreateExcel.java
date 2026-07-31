@@ -8,6 +8,8 @@ import java.io.IOException;
 public class Write_CreateExcel {
     public static void main(String[] args) {
         // Create a new workbook
+//        .xlsx ke liye XSSFWorkbook use karo
+//        .xls ke liye HSSFWorkbook use karo
         Workbook workbook = new XSSFWorkbook();
 
         // Create a sheet

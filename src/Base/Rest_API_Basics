@@ -5,6 +5,7 @@ api-tests —LUMETA
 cucumber_project-master
 
 Send File via API:-
+RestAssured.baseURI = "https://www.faker.com/";
 Response getResponse =
  given()
         .header("Connection", "keep-alive")
@@ -12,6 +13,8 @@ Response getResponse =
         .header("Cache-Control", "no-cache")
         .header("Accept", "application/json, text/plain, */*")
         .header("X-x15-sessionId", sessionId)
+        .pathParam("apiPath","upload")
+        .queryParam("userId","123")
  .when()
         .multiPart("file", new File(filePath))
         .multiPart("params", load)
@@ -46,18 +49,19 @@ given().cookie("session_id", "1234").when().get("/users/eugenp")
 
 customize our cookie using cookie Builder:
 Cookie myCookie = new Cookie.Builder("session_id", "1234")
-      .setSecured(true)
-      .setComment("session id cookie")
-      .build();
+                 .setSecured(true)
+                 .setComment("session id cookie")
+                 .build();
 
     given().cookie(myCookie)
-      .when().get("/users/eugenp")
-      .then().statusCode(200);
+    .when().get("/users/eugenp")
+    .then().statusCode(200);
 
 
 
 
-  Cookie cookie = given()
+  Cookie cookie =
+    given()
         .contentType(JSON)
         .body(loginRequest)
     .when()
@@ -74,12 +78,14 @@ Child to parent
 		<a href="https://mail.google.com/x" > Inbox </a>
 	</span>
 	<div class="bsU">2,437</div></div>
+### Rule: @ sirf tab use karo jab HTML tag ki property/attribute ko access karna ho.
+      Text ke saath @ nahi lagta.
 
 1 method :- (//a[text()='Inbox']/ancestor::span)/following-sibling::div
 2 method :- //a[text()='Inbox']/parent::span//following-sibling::div
 3 method     //a[text()='Inbox']//..//following-sibling::div
 
-4 method (//input[text()='Inbox']/descendant::span) [ to get all 'span' of 'input' ]
+4 method    (//input[text()='Inbox']/descendant::span) [ to get all 'span' of 'input' ]
 5 method :- //div[@class='sort']/preceding-sibling::input  [ sibling element preceding to the current context node ]
 
 
@@ -100,7 +106,6 @@ h1 ~ #id	---------//h1/following-sibling::[@id="id"]
 //a[@id="favourites"] | //span[@class="checkmark"]
 
 
-
 To handel SVG tag
 //*[name()='svg']//*[name()='span']
 
@@ -113,12 +118,13 @@ API Automation
         javax.net.ssl.SSLHandshakeException:
         sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
 
-//
+
 //  https://localhost/v1/agreement/1234?agreementType=CHQ
+
 given().log().all()
        .pathParam("agreementId", "1234")
        .queryParam("agreementType", "CHQ")
-       .when()
+.when()
        .get("https://localhost/v1/agreement/{agreementId}");
 
               or

@@ -11,7 +11,7 @@ public class ExtentReportTes extends ExtentReport_BaseTest{
     public void extentReportsDemo()
     {
         test = reports.startTest("extentReportsDemoTest");
-        driver.get("https://www.google.co.in");
+        //driver.get("https://www.google.co.in");
         if(driver.getTitle().equals("Google"))
         {
             test.log(LogStatus.PASS, "Navigated to the specified URL");

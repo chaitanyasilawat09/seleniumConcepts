@@ -8,8 +8,7 @@ import java.io.File;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.stream.*;
 
 public class InterviewCode_WRT_Strings {
 
@@ -58,8 +57,7 @@ public class InterviewCode_WRT_Strings {
                         entry.getValue() > 1)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-//        map.entrySet().stream()
-//                .sorted(Map.Entry.comparingByValue())
+
         Map<Character, Integer> storeMap0 = storeMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
@@ -286,7 +284,6 @@ public class InterviewCode_WRT_Strings {
 
     public void Find_Common_String_In_String_Array(String[] args) {
         String[] arr = {"automatic", "aautozone", "showauto", "moboleauto", "myautoriksha", "yourautoShoq", "automation"};
-        int mainArrayLen = arr.length;
         String firstString = arr[0];
         int firstStringLen = firstString.length();
         Arrays.sort(arr, Comparator.comparing(String::length));
@@ -364,7 +361,7 @@ public class InterviewCode_WRT_Strings {
     }
 
     @Test
-    public void BrackerOpenClose() {
+    public void BracketsOpenClose() {
         String str = "{[()]}";
 
         Stack<Character> stack = new Stack<>();
@@ -436,8 +433,6 @@ public class InterviewCode_WRT_Strings {
                 for (Character c : subString.toCharArray()) {
                     if (map.containsKey(c))
                         map.put(c, map.getOrDefault(c, 0) + 1);
-                    else
-                        map.put(c, 1);
                 }
                 if (map.entrySet().stream()
                         .filter(a -> a.getValue() > 1)
@@ -514,6 +509,10 @@ public class InterviewCode_WRT_Strings {
                 .map(String::toUpperCase)
                 .collect(Collectors.toList());
 
+//        List<String> upperCase = list.stream()
+//                .map(s -> String.valueOf(s.charAt(0)).toUpperCase()+s.substring(1))
+//                .collect(Collectors.toList());
+        
         System.out.println("Original: " + list);
         System.out.println("Uppercase: " + upperCase);
         // Output: [APPLE, BANANA, CHERRY]
