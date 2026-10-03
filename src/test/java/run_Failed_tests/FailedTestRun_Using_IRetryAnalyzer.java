@@ -9,7 +9,7 @@ public class FailedTestRun_Using_IRetryAnalyzer implements IRetryAnalyzer {
     int retry = 4;
     @Override
     public boolean retry(ITestResult iTestResult) {
-
+         count = iTestResult.getMethod().getCurrentInvocationCount();
         if (count<retry) {
             count++;
             return true;

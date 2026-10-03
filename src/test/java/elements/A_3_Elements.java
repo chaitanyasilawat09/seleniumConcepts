@@ -50,15 +50,17 @@ public class A_3_Elements extends BaseTest {
         sleep(3000);
 //      Vertical scroll - down by 500  pixels
         js.executeScript("window.scrollBy(0,500)");
+
         js.executeScript("arguments[0].scrollIntoView();", permanentAddress);
 
 //      Scroll to the bottom of the page
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        //.     Scroll up to top
+        js.executeScript("window.scrollTo(0, 0);");
 
 //        Scroll up
         js.executeScript("scroll(0, -250);");
-//.     Scroll up to top
-        js.executeScript("window.scrollTo(0, 0);");
+
 
     }
 }

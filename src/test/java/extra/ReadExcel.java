@@ -5,6 +5,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class ReadExcel {
     public static void main(String[] args) {
@@ -14,6 +15,8 @@ public class ReadExcel {
              Workbook workbook = new XSSFWorkbook(fis)) {
 
             Sheet sheet = workbook.getSheetAt(0); // Get first sheet
+//            List<? extends Name> sheet = workbook.getAllNames(); // Get first sheet
+//            Sheet sheet = workbook.getSheet("EmployeeData"); // Get first sheet
             // int sheetCount = workbook.getNumberOfSheets();// Get all Sheeta
 
             for (Row row : sheet) {

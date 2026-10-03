@@ -56,6 +56,7 @@ public class Headlessbrowser {
         options.merge(capabilities);
 
         WebDriver driver = new ChromeDriver(options);
+        WebDriver driver1 = new ChromeDriver(options);
         driver.get("https://demoqa.com/select-menu");
 
 //        TODO for fireFox

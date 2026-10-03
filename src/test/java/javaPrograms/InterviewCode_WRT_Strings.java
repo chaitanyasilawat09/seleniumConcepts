@@ -8,8 +8,7 @@ import java.io.File;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.stream.*;
 
 public class InterviewCode_WRT_Strings {
 
@@ -27,7 +26,7 @@ public class InterviewCode_WRT_Strings {
     @Test
     public void reverse_eachWord_at_Same_PLace() {
         String name = "My Name is Chaitanya";
-        String[] StringArr = name.split(" ");
+        String[] StringArr = name.split("\\s");
         String revString = "";
         for (String eachWord : StringArr) {
             char[] chArr = eachWord.toCharArray();
@@ -58,8 +57,7 @@ public class InterviewCode_WRT_Strings {
                         entry.getValue() > 1)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-//        map.entrySet().stream()
-//                .sorted(Map.Entry.comparingByValue())
+
         Map<Character, Integer> storeMap0 = storeMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
@@ -230,19 +228,6 @@ public class InterviewCode_WRT_Strings {
         System.out.println(nonZero + zero);
     }
 
-    @Test
-    public void common_btwn_two_Array() {
-        List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
-        List<Integer> list2 = Arrays.asList(4, 5, 6, 7, 8);
-        List<Integer> list3 = new ArrayList<>(list2);
-
-        System.out.println(list1.stream().filter(a -> list2.contains(a))
-                .collect(Collectors.toList()));
-        list3.retainAll(list1);
-        System.out.println(list3);
-
-    }
-
     //    Import   <groupId>org.apache.pdfbox</groupId>
     public void read_PDF_FIle() throws Exception {
         String[] lines;
@@ -299,7 +284,6 @@ public class InterviewCode_WRT_Strings {
 
     public void Find_Common_String_In_String_Array(String[] args) {
         String[] arr = {"automatic", "aautozone", "showauto", "moboleauto", "myautoriksha", "yourautoShoq", "automation"};
-        int mainArrayLen = arr.length;
         String firstString = arr[0];
         int firstStringLen = firstString.length();
         Arrays.sort(arr, Comparator.comparing(String::length));
@@ -377,7 +361,7 @@ public class InterviewCode_WRT_Strings {
     }
 
     @Test
-    public void BrackerOpenClose() {
+    public void BracketsOpenClose() {
         String str = "{[()]}";
 
         Stack<Character> stack = new Stack<>();
@@ -449,8 +433,6 @@ public class InterviewCode_WRT_Strings {
                 for (Character c : subString.toCharArray()) {
                     if (map.containsKey(c))
                         map.put(c, map.getOrDefault(c, 0) + 1);
-                    else
-                        map.put(c, 1);
                 }
                 if (map.entrySet().stream()
                         .filter(a -> a.getValue() > 1)
@@ -484,10 +466,10 @@ public class InterviewCode_WRT_Strings {
                 ));
 
         //or
-        // List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
-        //
-        //        Collections.sort(list, Map.Entry.comparingByValue());
-        //
+         List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+
+                Collections.sort(list, Map.Entry.comparingByValue());
+
         //        Map<String, Integer> sortedMap = new LinkedHashMap<>();
         //        for (Map.Entry<String, Integer> entry : list) {
         //            sortedMap.put(entry.getKey(), entry.getValue());
@@ -527,6 +509,10 @@ public class InterviewCode_WRT_Strings {
                 .map(String::toUpperCase)
                 .collect(Collectors.toList());
 
+//        List<String> upperCase = list.stream()
+//                .map(s -> String.valueOf(s.charAt(0)).toUpperCase()+s.substring(1))
+//                .collect(Collectors.toList());
+        
         System.out.println("Original: " + list);
         System.out.println("Uppercase: " + upperCase);
         // Output: [APPLE, BANANA, CHERRY]

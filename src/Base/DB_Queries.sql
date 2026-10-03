@@ -72,10 +72,7 @@ WHERE E.Department = E1.Department AND E.EmpID != E1.EmpID;
 
 Q25. Write a query to find the third-highest salary from the EmpPosition table.
 SELECT TOP 1 salary
-FROM(
-SELECT TOP 3 salary
-FROM employee_table
-ORDER BY salary DESC) AS emp
+FROM(SELECT TOP 3 salary FROM employee_table ORDER BY salary DESC) AS emp
 ORDER BY salary ASC;
 
 
@@ -105,3 +102,42 @@ GROUP BY EmpPosition;
 SELECT *
 FROM EmployeeInfo WHERE
 EmpID <= (SELECT COUNT(EmpID)/2 from EmployeeInfo);
+
+
+1. INNER JOIN
+--Returns only rows that have a match in both tables.
+SELECT e.name, d.dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.dept_id;
+
+2. LEFT JOIN
+--Returns all rows from the left table, plus matching rows from the right. Missing matches become NULL.
+SELECT e.name, d.dept_name
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.dept_id;
+
+3. RIGHT JOIN
+--Returns all rows from the right table, plus matching rows from the left. Missing matches become NULL.
+SELECT e.name, d.dept_name
+FROM employees e
+RIGHT JOIN departments d ON e.dept_id = d.dept_id;
+
+4. FULL OUTER JOIN
+--Returns all rows from both tables, with NULL where there is no match.
+SELECT e.name, d.dept_name
+FROM employees e
+FULL OUTER JOIN departments d ON e.dept_id = d.dept_id;
+
+--Most Common in Practice
+--INNER JOIN and LEFT JOIN cover about 95% of real-world queries.
+--Use INNER JOIN when you only care about matched records,
+--and LEFT JOIN when you want to keep all records from the main table even if some related data is missing.
+
+Quick Mental Model
+Think of JOINs as a Venn diagram of two circles:
+
+INNER: just the overlap
+LEFT: everything in the left circle
+RIGHT: everything in the right circle
+FULL OUTER: everything in both circles
+CROSS: every point paired with every other point

@@ -144,8 +144,6 @@ public class InterviewCode_WRT_Integers {
 //        String no = "chaitanya";
         int[] digits = Integer.toString(no).chars().map(c -> c - '0').toArray();
 
-        Integer.toString(no).chars().map(c -> c - '0').toArray();
-
         char[] ch = String.valueOf(no).toCharArray();
 
         for (int i = 0; i < digits.length / 2; i++) {

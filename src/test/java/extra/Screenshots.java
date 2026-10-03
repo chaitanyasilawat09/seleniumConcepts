@@ -1,18 +1,20 @@
 package extra;
 
 import Base.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.HasFullPageScreenshot;
+import org.openqa.selenium.remote.Augmenter;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Screenshots extends BaseTest {
 
     @Test
-    public void screenshots() {
+    public void screenshots() throws IOException {
         driver.get("https://demoqa.com/select-menu");
 
 //        TODO take screenshot
@@ -41,5 +43,10 @@ public class Screenshots extends BaseTest {
 //
 //        FileUtils.copyFile(f, new File("C:\\projectScreenshots\\logoScreeshot.png"));
 //
+
+        WebDriver augmented = new Augmenter().augment(driver);
+        File fullPage = ((HasFullPageScreenshot) augmented)
+                .getFullPageScreenshotAs(OutputType.FILE);
+        Files.copy(fullPage.toPath(), Path.of("fullpage.png"));
     }
 }

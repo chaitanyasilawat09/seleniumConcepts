@@ -18,9 +18,9 @@ import org.testng.annotations.BeforeTest;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class ExtentReport_BaseTest {
-
 
     public WebDriver driver = null;
     public static ExtentReports reports;
@@ -28,21 +28,16 @@ public class ExtentReport_BaseTest {
 
     @BeforeMethod
     public void beforeTest() {
-
-//        Initilized ExtentReport and ExtentTest object
         reports = new ExtentReports(System.getProperty("user.dir")+"/testQA.html");
+//        reports = new ExtentReports(Paths.get("").toString());
                reports.addSystemInfo("Host Name", "SoftwareTestingMaterial")
                 .addSystemInfo("Environment", "Automation Testing")
-                .addSystemInfo("User Name", "Rajkumar SM");
-//        reports.loadConfig(new File(System.getProperty("user.dir") + "\\extent-config.xml"));
+                .addSystemInfo("User Name", "Chaitanya");
 
-        driver = new ChromeDriver();
-//        driver.get("https://demoqa.com/elements");
-        try {
-            Thread.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        driver = new ChromeDriver();
+        driver = DriverFactory.setUpDriverAndGet(new ChromeDriver());
+        driver.get("https://demoqa.com/elements");
+
     }
 
     @AfterMethod

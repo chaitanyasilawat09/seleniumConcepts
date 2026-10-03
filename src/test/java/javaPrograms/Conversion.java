@@ -28,7 +28,7 @@ public class Conversion {
 
         //Max value from list
         List<Integer> listq = new ArrayList<>(Arrays.asList(1,4,7,8,9,14,2));
-        Optional<Integer> in = listq.stream().max(Integer::compare);
+        Optional<Integer> in = listq.stream().max(Integer::compareTo);
         int i = list.stream().max(Integer::compare).get();
 
 
