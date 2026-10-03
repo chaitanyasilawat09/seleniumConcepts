@@ -1,8 +1,9 @@
 package run_Failed_tests;
 
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
+@Listeners(Using_Listeners.class)
 public class retry_using_listeners {
 
         @Test

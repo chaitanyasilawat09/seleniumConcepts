@@ -36,17 +36,17 @@ public class ITestListener_Override_Methods implements ITestListener {
 
 //    Full lifecycle order
 //@BeforeSuite
-//@BeforeTest
-//onStart(ITestContext)
-//@BeforeClass
-//@BeforeMethod
-//onTestStart(ITestResult)
-//@Test
-//onTestSuccess / onTestFailure / onTestSkipped / onTestFailedButWithinSuccessPercentage
-//@AfterMethod
-//@AfterClass
-//onFinish(ITestContext)
-//@AfterTest
+    //@BeforeTest
+        //onStart(ITestContext)
+    //@BeforeClass
+        //@BeforeMethod
+            //onTestStart(ITestResult)
+                //@Test
+                    //onTestSuccess / onTestFailure / onTestSkipped / onTestFailedButWithinSuccessPercentage
+        //@AfterMethod
+    //@AfterClass
+    //onFinish(ITestContext)
+  //@AfterTest
 //@AfterSuite
 
 }

@@ -19,9 +19,9 @@ Keyboard Events
 Mouse Events
 
 TODO Different Methods for performing Keyboard Events:
+keyUp(modifier key): Performs a modifier key release.
 keyDown(modifier key): Performs a modifier key press.
 sendKeys(keys to send ): Sends keys to the active web element.
-keyUp(modifier key): Performs a modifier key release.
 
 TODO  Different Methods for performing Mouse Events:
 click(): Clicks at the current mouse location.

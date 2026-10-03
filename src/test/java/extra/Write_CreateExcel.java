@@ -13,7 +13,7 @@ public class Write_CreateExcel {
         Workbook workbook = new XSSFWorkbook();
 
         // Create a sheet
-        Sheet sheet = workbook.createSheet("Employee Data");
+        Sheet sheet = workbook.createSheet("EmployeeData.xlsx");
 
         // Create header row
         Row headerRow = sheet.createRow(0);

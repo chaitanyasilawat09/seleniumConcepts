@@ -10,6 +10,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import restAssured.utils.ApplicationProperties;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,7 +29,11 @@ public class BaseTest {
         RestAssured.useRelaxedHTTPSValidation();
 //        RequestSpecification requestSpecification = RestAssured.given();
         RequestSpecification requestSpecification = RestAssured.given()
-                                         .contentType(ContentType.JSON);
+                                                    .relaxedHTTPSValidation()
+                .trustStore(new File("src/test/resources/truststore.jks"), "changeit")
+                                                    .baseUri("")
+                                                    .basePath("")
+                                                    .contentType(ContentType.JSON);
 
     }
 //TODO,

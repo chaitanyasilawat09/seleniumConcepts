@@ -36,10 +36,21 @@ public class A_2_DropDown extends BaseTest {
 
 //        to select by value (<option value="red">Red</option>)
         select.selectByValue("red");
+        select.deselectByValue("red");
+
 //      to select by value (<option value="green">Green</option>)
         select.selectByVisibleText("Green");
+        select.deselectByVisibleText("Green");
+        select.selectByContainsVisibleText("Gre");
+
 //        to select by Index inside select tag
         select.selectByIndex(5);
+        select.deselectByIndex(5);
+
+        select.getFirstSelectedOption();
+        select.deselectAll();
+        elementDropDown.isSelected();
+
 
 
     }

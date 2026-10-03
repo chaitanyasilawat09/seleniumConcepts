@@ -44,7 +44,7 @@ public class A_6_Windows_Handel extends BaseTest {
         sleep(5000);
         driver.switchTo().window(mainWindow);
 //      TODO cast Set to ArrayList
-        ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
+        ArrayList<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
 
         String lastWindow = null;
         for (String window : tabs2) {

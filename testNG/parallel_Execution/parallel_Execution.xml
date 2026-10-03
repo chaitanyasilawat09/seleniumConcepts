@@ -2,7 +2,7 @@
 <suite name="Parallel Testing Suite">
     <!--    <test name = "Parallel Tests" parallel = "methods" thread-count = "4">-->
     <!--    parallel with methods inside a class-->
-    <test name="Parallel Tests" parallel="classes" thread-count="2">
+    <test  name="Parallel Tests" parallel="classes" thread-count="2">
 
         <classes>
             <class name="paralled_Executions.ParallelByMethods"/>

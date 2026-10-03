@@ -27,14 +27,14 @@
         </classes>
     </test>
 
-<!--    <test name="Parallel Tests2">-->
-<!--        <classes>-->
-<!--            <class name="paralled_Executions.ParallelByClass"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Parallel Tests3">-->
-<!--        <classes>-->
-<!--            <class name="paralled_Executions.Using_Test_Annotation"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Parallel Tests2">
+        <classes>
+            <class name="paralled_Executions.ParallelByClass"/>
+        </classes>
+    </test>
+    <test name="Parallel Tests3">
+        <classes>
+            <class name="paralled_Executions.Using_Test_Annotation"/>
+        </classes>
+    </test>
 </suite>

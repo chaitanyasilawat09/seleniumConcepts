@@ -11,9 +11,10 @@ public class A_4_Frames extends BaseTest {
     public void handleFrames() {
 
         driver.get("https://demoqa.com/frames");
-//        driver.switchTo().frame(0);
+        driver.switchTo().frame(0);
         driver.switchTo().frame("frame1");
         WebElement element = findElementFunction("//h1[@id='sampleHeading']");
+        driver.switchTo().frame(element); // should be frame tag element
         System.out.println(element.getText());
         sleep(5000);
 

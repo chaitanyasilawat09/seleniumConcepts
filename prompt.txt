@@ -1,0 +1,820 @@
+#PCS Tools-Electron App Build Prompt (Compact)
+
+##Overview
+
+Build 'PCS Tools a desktop Electron app: Playwright/Selenium locator picker, action recorder, test code generator. Injects a content script into a BrowserView/WebContentsView. Sidebar panel UI (React Tailwind Webpack) alongside embedded browser.
+
+**Process structure:** main.js (Electron main)
+
+preload-renderer.js (exposes electron Bridge to sidebar) preload-content.js (exposes electronBridge to content script) content-script.js (injected into BrowserView page).
+
+**Layout:** 380px left sidebar (PCS Tools UI) remaining right panel (BrowserView).
+
+URL bar at top of BrowserView area.
+
+## 1. File Structure
+
+pcs-tools/
+
+main.js
+
+#Electron main process.
+
+preload-content.js
+
+#Bridge for content-script.js
+
+preload-renderer.js
+
+#Bridge for React sidebar
+
+content-script.js
+
+#Injected into target page
+
+src/renderer/
+
+#Main React app
+
+App.tsx
+
+index.tsx/index.css/types.ts
+
+components/
+
+dist/
+
+Locator Picker.tsx, Recorder.tsx, ConfigBar.tsx
+
+Elementinspector.tsx, Batch Tester.tsx, LocatorHistory.tsx
+
+HtmlAnalyzer.tsx, Boilerplate Generator.tsx
+
+Toast.tsx, StatusBar.tsx, HelpPanel.tsx, ErrorBoundary.tsx
+
+#Webpack output
+
+package.json
+
+**Scripts:**
+
+json { "start": "electron.", "build": "webpack--config webpack.config.js",
+
+"watch:renderer": "webpack-config webpack.config.js-watch",
+
+"dev": "concurrently \'npm run watch:renderer\" \'wait-on dist/renderer.js && electron
+
+A "dist": "npm run build && electron-builder"}
+
+## 2. Global State (content-script.js)
+
+js var is Picking-false, is Recording-false, is Playing-false, isAssert Picking-false;
+
+var recordedActions-[]: // (type,loc, el,value,key,confidence,actionable)
+
+var lastPicked El-null, lastGenLocs=[];
+
+var highlightBox-null, tooltipBox-null, hiOverlays-[], hoverEl=null;
+
+var hoverTimer-null, hover Record Delay-5000;
+
+var lastinputEl-null, lastinputValues", inputTimer-null;
+
+var strictRecord Mode-false, autoAssertEnabled=false;
+
+var cfg-(framework: playwright', language: 'typescript');
+
+var locatorMode-'playwright'; //'playwright'l'custom
+
+var
+
+enabled Types (getByRole:true.getByText:true,getByLabel:true.getByPlaceholder:true.g
+
+etByTestid:true, CSS:true,XPath true);
+
+var simpleMode true, multiTooltipEnabled=true;
+
+var quality Filter-'all', preferred Type-'auto', priority Preference-'auto;
+
+## 3. Locator Generation Engine
+
+### 3a. ARIA Role (getAria Role)
+
+Explicit role attr first. Tag fallback: button-button', a-link,
+
+input[text/email/]-textbox, input[checkbox]-checkbox', input[radio]+radio". select combobox, textarea-textbox, h1-h6-heading. Do NOT map button[aria-haspopup-listbox) to combobox.
+
+### 3b. Accessible Name (getName') - priority order
+
+1. aria-label 2. aria-labelledby (shadow-aware lookup) 3. label[for-id] text 4. Wrapping <label> text minus el value 5. Previous sibling text (strip trailing)6. First short-text label/span/div within 5 parent levels (<80 chars, <3 children)
+
+### 3c. Shadow DOM Utilities
+isShadow(el) el.getRootNode() instanceof ShadowRoot
+shadowPath(el) [{host, inner),...] walking up shadow roots
+shadowCss(el) deepQSA(root,sel) host-css >>> inner-css (Playwright shadow-piercing) recursive querySelectorAll across all shadowRoot nodes
+
+### 3d. CSS Class Filtering (goodCls')
+Reject if: prefixes 'ng-css-sc-jsx-,svelte-,cdk-mat-,mdc-; state words focused,active,hover, selected,open, expanded, collapsed, disabled,checked,pressed,dra gging.highlighted, visible, hidden, entered, leaving, animating: single-char; length >60; starts with digit.
+
+### 3e. Stable ID (stableld) - REJECT if:
+8+ consecutive hex chars | 4+ consecutive digits | contains or spaces | matches [-]\d{1,3}[-] or [-]\d{1,3}$ | length : 60 | contains timestamp/date patterns (e.g. ^\d{4}-\d{2}-\d{2}', `\d{8}^)
+
+### 3f. CSS Builders (all return unique selector or empty)
+| Function | Logic |
+buildCssUnique(el) | Walk up DOM building segments, stop when qSA(sel).length---11
+segCss(el) #id if stable [data-attr-v] (unique) [aria-label-v]→
+tag.cls1.cls2 tag:nth-of-type(n) |
+buildCssAttr(el) | First uniquely matching tag [attr="v"] from:
+name/placeholder/role/aria-label/data-testid/data-cy/data-pw/href/title/for/type | buildCssCombo(el) | All attr pairs from [name/type/role/aria-
+label/placeholder/title] forming unique selector |
+buildCssNth(el) Inth-child path anchored to stable ID ancestor |
+
+### 3g. XPath Builders
+
+Function | Logic |
+buildXPUnique(el) //tag[n] shortest unique prefix I
+buildIdXP(el) | Walk up, anchor to [@id='...'], append path |
+buildAttrXP(el) //tag[@attr='val'] for name/placeholder/role/aria-
+label/title/data-testid |
+buildAttrComboXP(el) //tag[@al-'vl' and @a2-v2] combos |
+buildTextXP(el)//tag[normalize-space(text())=...] direct text only |
+buildContainsXP(el)//tag[contains(@attr,'word')] attribute word tokens |
+buildSiblingXP(el) //prev[text()-'...']/following-sibling::tag[1] |
+buildAncestorXP(el)//ancestor[@id='...']//tag' or '//ancestor[@role and @aria-
+label]//tag |
+
+### 3h. genLocs(el) Main Locator Function
+Route to genSeleniumLocs(el) if cfg.framework==='selenium". Otherwise build
+LO of {t,v,p,n,hit, actionable):
+
+**Step 1 - Special detection:** AG-Grid checkbox genAgGridCheckboxLocs (pO-p4 using [row-id=""]); AG-Grid cell genAgGridCellLocs; SVG in table → parent+svg locators.
+
+**Step 2-getByRole:** role+name role only p10. getByRole('r',{name:'n')) p4+ exact true pl;
+
+**Step 3-getByText:** Direct text exact p10 non-exact p5: visible text exact p3 + non-exact p10 (if differs).
+
+**Step 4-getByLabel** (input/textarea/select/button): derive label Text from
+
+(1)label[for] (2)aria-label (3)wrapping label minus value (4)aria-labelledby (5)shadow host label attr (6)prev sibling text (7)walk 5 parents for short-text sibling. Add getByLabel('t') p10 exact true p10.
+
+**Step 5-getByPlaceholder:** exact p2 + non-exact p2.
+
+**Step 6-getByAltText:** img with alt exact p10 + non-exact p10.
+
+**Step 7-getByTitle:** exact p7+ non-exact p7.
+
+**Step 8-getByTestid:** data-testid/data-test-id/data-test/data-cy/data-pw→ p6. If inside shadow DOM with no testid, walk up to 5 shadow host levels checking each host for testid attrs p7.
+
+**Step 9-CSS/XPath (non-shadow):** All builders from §3f/3g via addLoc(L.type,str.raw,is Css,p). CSS p8, XPath p9. Override p-0 if count==-1.
+
+**Step 10-Shadow locators:** shadowCss(el) CSS p8; role+text in shadow host context; host-attr locators page.locator('host').locator('tag')'; nearby label filter({has Text)) chains; testid parent chains.
+
+**Step 11-Context locators (genContextLocs):**
+
+findAnchor Parent(el) walks up to find testid/id/role+label ancestor. **Verify anchor is unique via resolveAny(anchorLoc) before using-if >1 match, skip standalone anchor child locators.** Cross shadow via getRootNode().host only when parentElement---null. Generate: anchor.getByRole, anchor.getByText", anchor.getByTestid, CSS combos. findAnchorChild(el)→ locator(tag,(has:getByTestid)), filter({has Text)). Also: sibling XPaths, heading context XPaths, find Unique Textin Container filter chains.
+
+**Step 12-Verify:** resolveAny(loc.v) set `n-length", hit-elements.includes(el)", actionable-hit&&rect.w>0&&rect.h>0&&!disabled&&visible&&pointerEvents-none" Skip n=-2 (context).
+
+**Step 13-Sort:** hit&&n===1&&has Text-0, hit&&n==-1-1. n===1&&hasText→2', 'n===1+3, else 4. Secondary: p ascending.
+
+**Step 14-Language translate:** Python: getByRole(→.get_by_role(". selectOption select_option, (exact:true}→exact-True. Java: no await, options via new XxxOptions().setName("...")".
+
+##4. Locator Scoring (scoreLocator)
+
+Base | Type | Bonus/Penalty |
+
+|100| getByTestld | n===1&&hit&&actionable +40 |
+
+1901 getByRole | n==-1&&hit +301
+
+|80| getByLabel | n===1&&actionable +201
+
+175 | getByPlaceholder | n===1+15 |
+
+|72| getByAltText | hit&&actionable +10, hit +51
+
+|70| getByText | n>1-30, n===-1-201
+
+| 65 | id CSS | has.filter(-5, length>120-101
+
+|60| getByTitle | exact:true +3 |
+
+|40|CSS locator ||
+
+| 10 | XPath ||
+
+bestLocWithMeta(el)
+
+tiers: n===1&&hit&&actionable (high)→ n===1&&hit (high) n==-1&&actionable (medium)→
+
+buildCssUnique(el) | Walk up DOM building segments, stop when
+
+qSA(sel).length---11
+
+I segCss(el) #id if stable [data-attr-v] (unique) [aria-label-v]→
+
+tag.cls1.cls2 tag:nth-of-type(n) |
+
+buildCssAttr(el) | First uniquely matching 'tag [attr="v"] from:
+
+name/placeholder/role/aria-label/data-testid/data-cy/data-pw/href/title/for/type/buildCssCombo(el) | All attr pairs from [name/type/role/aria-
+
+label/placeholder/title] forming unique selector |
+
+buildCssNth(el) | nth-child path anchored to stable ID ancestor |
+
+### 3g. XPath Builders
+
+Function | Logic |
+
+buildXPUnique(el)//tag[n]' shortest unique prefix |
+
+buildIdXP(el) | Walk up, anchor to [@id='...'], append path |
+
+| buildAttrXP(el)|//tag[@attr='val'] for name/placeholder/role/aria-
+
+label/title/data-testid |
+
+buildAttrComboXP(el) |//tag[@a1='v1' and @a2='v2']' combos |
+
+buildTextXP(el)|//tag[normalize-space(text())=...] direct text only |
+
+buildContainsXP(el)//tag[contains(@attr,'word')] attribute word tokens |
+
+buildSiblingXP(el) |//prev[text()-'...']/following-sibling::tag[1] |
+
+buildAncestorXP(el) |//ancestor[@id='...']//tag' or '//ancestor[@role and @aria-label]//tag |
+
+### 3h. genLocs(el) - Main Locator Function
+
+Route to genSeleniumLocs(el) if cfg.framework=-='selenium". Otherwise build
+
+LO of (t,v,p,n,hit, actionable):
+
+**Step 1 - Special detection:** AG-Grid checkbox genAgGridCheckboxLocs (pо-p4 using [row-id="..."]"); AG-Grid cell genAgGridCell Locs; SVG in table → parent+svg locators.
+
+**Step 2-getByRole:** role+name getByRole('r', {name:'n'}) p4 + exact:true p1; role only p10.
+
+**Step 3-getByText:** Direct text exact p10+ non-exact p5; visible text exact p3 + non-exact p10 (if differs).
+
+**Step 4-getByLabel** (input/textarea/select/button): derive label Text from
+
+(1)label[for] (2)aria-label (3)wrapping label minus value (4)aria-labelledby (5)shadow host label attr (6)prev sibling text (7)walk 5 parents for short-text sibling. Add getByLabel('t') p10+ exact:true p10.
+
+**Step 5-getBy Placeholder:** exact p2 + non-exact p2.
+
+**Step 6-getByAltText:** img with alt exact p10+ non-exact p10.
+
+**Step 7-getByTitle:** exact p7+ non-exact p7.
+
+hit&&actionable&&n>1 (medium+.first()) n==-1 (medium)→
+
+hit&&n>1 (low+.first(0) fallback(low).
+
+##5. Locator Resolution (resolveAny)
+
+resolveAny(sel):
+
+starts "page. chained? resolveChained(): resolvePwLocatorDeep(sel) starts / document.evaluate() (XPath)
+
+else deepQSA(document, sel)
+
+resolvePwLocator Deep: getByTestId deepQSA([data-testid], [data-test-id].[data-test].[data-cy].[data-pw].[data-e2e], [data-qa]); getByRole-deepQSA by implicit tag roles, filter by name (aria-label or textContent); getByText deepQSA filter textContent; getByLabel deepQSA label, [aria-label], [aria-labelledby], [label]'; getByPlaceholder [placeholder]; locator('css')→deepQSA (handles >>> shadow-piercing); locator('//xpath')→evaluate. resolveChained parses XO.YO.ZO segments, applies each in scope via resolvePwLocatorinScope.
+
+## 6. Recording Engine
+
+### SVG Escalation (escapeSvgTarget) - Apply FIRST in all pick/record handlers
+
+js var_svg Tags (svg:1,path:1,polyline:1,polygon:1,circle: 1, ellipse: 1, line:1,rect:1,
+
+g:1,use: 1,text:1.tspan:1,defs:1,clippath:1, mask:1,image:1,symbol:1,marker:1,patt
+
+ern:1, foreignobject:1); function escapeSvg Target(el) {
+
+}
+
+if (!elll!el.tagNamell!_svg Tags[el.tagName.toLowerCase())) return el;
+
+for (var i=0,node=el; i<10&&node; i++) {
+
+} node node.parentElement || (node.getRootNode&&node.getRootNode().host) || null; if (node&&node.tagName&&!_svg Tags[node.tagName.toLowerCase())) return node;
+
+return el;
+
+Apply in: onPickMove, doPickClick, onPickPointer Down, onRC,
+
+onRCPointer Down, shadowClick.
+
+### Shadow Escalation for Recording ('escalateShadow Target')
+
+Walk parentElement first (stays in shadow root); cross to getRootNode0.host only when parentElement===null". Find closest ancestor with bestLocForAction confidence !== 'low' (max 15 steps).
+
+### Shadow Escalation for Picker ('escalatePickerTarget") Same walk but uses genLocs and checks 'n===-1 || n===-2.
+
+### Shadow Root Event Propagation
+
+Web components may call stopimmediate Propagation(). Attach all handlers to shadow roots in capture phase. Use WeakSet shadowRootsListened to prevent duplicates. MutationObserver on each shadow root+document.body for dynamic additions, Recurse into nested shadow roots.
+
+### Event Deduplication
+
+js var_lastEventTs=0,_lastEventTarget-null;
+
+function is Duplicate Event(e) {
+
+}
+
+var t=e.composedPath?e.composedPath()[0]:e.target, now-e.timeStampllDate.now(); if (t JastEventTarget&&Math.abs(now-_lastEventTs)<50) return true;
+
+_lastEventTs-now;_lastEventTarget-t; return false;
+
+### Pointerdown Fallback
+
+Register pointerdown alongside click. On pointerdown: capture target, wait 300ms. If click fired within 300ms skip. Otherwise process as click. Handles web components that swallow click via stopimmediate Propagation".
+
+### Event Handlers (capture:true on document AND shadow roots)
+
+onRC(e) recording click:**
+
+1. is Duplicate Event check; get target via composedPath()[0]; walk to parentElement if text node
+
+2. escapeSvg Target flush pending input
+
+3. input[checkbox] record check/uncheck based on el.checked; skip input/textarea (handled by onRI)
+
+4. escalateShadowTarget strict mode confidence check
+
+5. No locator text fallback: page.getByText('t',{exact:true})
+
+6. Push (type:'click', loc_el, confidence, actionable,fallbacks)→
+
+notifyRecordedAction()
+
+onRD (dblclick):** Remove preceding single-click, record {type:'dblclick}.
+
+onRI (input/change):** <select> record (type:'select', value) immediately.
+
+Else debounce 800ms store lastInputEl/Value
+
+onRK (keydown):** Enter/Tab/Escape only. Flush input first. Record
+
+(type:'keypress', key}
+
+flushinput():** Push (type:'fill',loc,value) if pending, clear timer.
+
+onPickMove:** text-node fix escapeSvgTarget
+
+escalatePickerTarget
+
+update highlight + tooltip.
+
+doPickClick:** escapeSvgTarget escalatePicker Target capture element outerHTML (max 3000 chars)→ bridge.sendToRenderer('locators-picked',
+
+(locators, element, elementHtml})
+
+stopPicking().
+
+**Start/Stop:**
+js function startPicking (
+
+isPicking-true;
+
+document.addEventListener(mousemove', on PickMove,true);
+
+document.addEventListener('click',on PickClick,true);
+
+document.addEventListener('pointerdown', onPickPointer Down,true);
+
+findAndAttachShadowRoots([{event:'mousemove', handler on PickMove), (event'click',h
+
+andler.onPickClick),(event: pointerdown', handler on PickPointer Down)]);
+
+} //startRecording: same pattern dblclick,input, change, keydown, mousemove handlers
+
+// Stop: remove all document listeners detachShadowListeners() (disconnect all MutationObservers, reset WeakSet)
+
+### Fast Locator for Recording (bestLocForRecord')
+
+1. aria-label getByRole(role, (name,exact:true}) 2. placeholder→
+
+getByPlaceholder(ph, (exact true)) 3. data-testid/cy/pw getByTestid(val) 4. stable id page.locator('#id') 5. fallback bestLocWithCache(el) (WeakMap, 2s TTL)
+
+### Code Generation (actCode(a)) - Framework Language Matrix
+
+| Action | PW/TS | PW/Python | SE/Java |
+
+loc.click(); | click await loc.click(); | await loc.click()
+
+dblclick await loc.dblclick(); await loc.dbiclick() | new
+
+Actions(d).doubleClick(loc).perform(); |
+
+| fill await loc.fill('v'); | await loc.fill("v") loc.clear(); loc.sendKeys("v"); I select await loc.selectOption('v'); | await loc.select_option("v") | new
+
+Select(loc).selectByVisibleText("v"); I
+
+check await loc.check); await loc.check() | if(!loc.isSelected())loc.click(); | keypress await loc press('Enter'); | await loc.press("Enter") |
+
+loc.sendKeys(Keys.ENTER); |
+
+| hover await loc.hover(); | await loc.hover(new
+
+Actions(d).moveToElement(loc).perform(); |
+
+Prepend confidence comments for MEDIUM/LOW. Auto-assert: assertion lines before click/fill/dblclick if enabled.
+
+##7. Assertion Engine (generateAssertion')
+
+Types: visible, hidden, enabled, disabled, editable, checked, focused, empty, hasText, hasValue, hasAttribute, hasClass, hasCount. Options: negate(bool), soft(bool), timeout(ms).
+
+PW/TS: await expect(loc).toBeVisible({timeout:5000}); / await
+
+expect.soft(loc).not.to HaveText('...');
+
+PW/Py: expect(loc).to_be_visible(timeout=5000)
+
+PW/Java: assertThat(loc).isVisible(); / assertThat(loc).not().isEnabled();
+
+SE/Java: Assert.assertTrue(loc.is Displayed());
+
+##8. Selenium Locator Generation (genSeleniumLocs)
+
+Generate from: id(By.id'), name(By.name'), CSS path(By.cssSelector), XPath(By.xpath), first good class(By.className'), tag(By.tagName').
+
+##9. Playback Engine (play Recording")
+
+1. Parse textarea via parseTextareaLines(): skip blanks/comments, detect assertions. call parsePwinput(line)→(loc,chain) where chain has (act,arg) and (nth) entries.
+
+2. doNext() loop, 1200ms between steps. Per step: highlight textarea line → findEl(loc,retries-3) via resolveAny (300ms retry)→ scroll center blue highlight overlay execute after 500mson fail: log+stop.
+
+3. Actions: click shadowClick(el), fill findShadowinput native setter+dispatch dispatch change, input/change with composed:true, select el.value-val keypress-dispatch Keyboard Event+form submit on Enter.
+
+parsePwinput(raw): strip await, unwrap expect/assertThat, extract .click()/.fill()/.check()/.press()/.selectOption(0/.nth(0/.first()/.last() {loc,chain).
+
+##10. Shadow DOM Playback Utilities
+
+js function safeClick(el) (//SVG elements lack.click() on HTMLElement.prototype typeof el.click='function'? el.click()
+
+el.dispatchEvent(new
+
+MouseEvent('click', (bubbles:true,cancelable:true, composed:true}));
+
+shadowClick(el)': escapeSvgTarget first →
+
+scrollintoView center → deepShadowQS(el, button,a,[role-button], [type=submit]") dispatch pointerdown/mousedown/pointerup/mouseup (composed:true) → safeClick(target) safeClick(el) if different. Checkbox/radio: direct .click().
+
+deepShadowQS(root,sel): recursive single-element query across shadow roots. findShadowinput(el)': first input:not([type=hidden]), textarea, select in shadow tree.
+
+##11. Test Locator Feature
+
+0 matches/1 match (UNIQUE)/N matches UI: "[paste locator...] [Find] [Clear] [2/5]<tag> #id "text..." | Visible | Enabled
+
+Logic: parsePwinput resolveAny (filter PCS panel) → apply nth/first/last- 0 matches: try all lastGenLocs as fallback show "Primary failed. Fallback: highlight all (current-green, others yellow) nav cycles matches action if present. execute chain action if present
+
+## 12. Ul Panel
+
+### Config Bar (above tabs, persistent)
+
+FW: [0 Playwright] [O Selenium] | Lang: [OTS] [O Java] [O Python] | Loc: [ Playwright/Custom]
+
+Custom mode → show type toggles: [x Role] [x Text] [x Label][x Placeholder][x Testid][x CSS][x XPath]. FW/Lang change regenerate locators + re-translate recorded actions.
+
+### Tabs (Ctrl+1-7)
+
+Tab | Key | Content |
+
+| Picker | Ctrl+1 | Start/Stop picking, locator list, test locator |
+
+| Recorder | Ctrl+2 | Record/stop/play, code textarea, assert panel |
+
+Inspector | Ctrl+3 | Element inspector |
+
+Batch | Ctrl+4 | Batch tester |
+
+| History | Ctrl+5 | Locator history |
+
+| HTML | Ctrl+6 | HtmlAnalyzer paste HTML, get algorithmic locators |
+
+Al | Ctrl+7 | Rock Al tab-connection settings generate Al locators |
+
+### Locator Picker Tab
+
+Controls: [Start Picking] (green) [Refresh] (gray) [Regenerate) (purple). Toggles: Simple Mode, Multi-tooltip. Quality filter: All/Verified Unique/Unique/Has Text/Context/Multi/Verified. Type filter: Auto/P1/P2.
+
+Locator row: [TYPE][★★★] [ACTIONABLE] [UNIQUE/][n
+
+clipboard + test. Hover MATCHES] [Copy] [Test] [Highlight] + locator value. Row click →green highlight on lastPickedEl. Highlight btn amber overlays on all matches.
+
+Regenerate (genAltLocs): All element attrs as tag [attr=val]; ancestor text filter chains (12 levels); index-based nth-child/nth; shadow host attr scan; sibling XPaths.
+
+### Recorder Tab
+
+Strict mode toggle (skip non-high confidence). Controls:
+
+[Start][Stop] [Clear] [Copy] [Play] [Assert). Code textarea: monospace, dark, editable, live-updated. Assert panel: type checkboxes, timeout, auto-assert, pick-element button. Error log: collapsible, per-step playback result.
+
+### Status Bar (bottom, color-coded)
+
+Green #22c55e: Ready/Picked/Copied/OK
+
+Red #ef4444: Recording/Error
+
+Amber #f59e0b: Warning/Skipped
+
+Blue #3b82f6: Playing/Finding
+
+Purple #8b5cf6': Assert mode/Regenerated
+
+##13. Overlay System
+
+-**highlightBox:** position:fixed, z-index:2147483646, hover= 2px solid #22c55e/rgba(34,197,94,0.12), picked 3px solid #8b5cf6/rgba(139,92,246,0.15)
+
+**tooltipBox:** background:#1e1e2e', 'color:#a5f3fc, font:monospace 11px. Multi-tooltip: top 5, white-space:pre. Single: 1, "white-space:nowrap".
+
+**hlOverlays:** 2px solid #f59e0b (amber). Used for test/highlight matches.
+
+Tooltip position: left mouseX+10, top-mouseY+15: clamp right if leftPos+w>viewW; flip above if topPos+h>viewH
+
+##14. Iframe Support
+
+getiframePath(el)': walk window.frameElement chain. getiframeSelector: priority src-name-title-id-CSS path. Prepend page.frameLocator('sel') chain to locators.
+
+ts page.frameLocator('#main-iframe").getByRole('button', { name: 'Submit'))
+
+##15. AG-Grid Special Handling
+
+isAgGridCheckbox(el) input[checkbox] inside [role="row"][row-id] isAgGridElement(el) inside [role="row"] or .ag-row with row-id
+
+Row context: rowld-row.getAttribute('row-id'), visibleTexts-all cell texts, firstText
+
+Cell context: colld-cell.getAttribute('col-id')", cellValue-text([data-testid-cell-value])
+
+- Checkbox locators (p0-p4): [row-id="abc"].getByRole('checkbox')"
+
+getByRole('row',{name}).getByRole('checkbox')
+
+filter({hasText)).getByRole('checkbox') etc.
+
+- Cell locators: same pattern locator('[col-id="colld"]')" suffix.
+
+## 16. Locator Filtering (filterLocs)
+
+**Playwright mode:** sort by
+
+PLAYWRIGHT_PRIORITY={getBy Testid: 1, getBy Role:2.getByLabel:3.getByPlaceholder:
+
+4.getByAltText:5,getByText:6.getBy Title: 7,CSS:8, XPath:9) then uniqueness. **Custom mode:** filter by enabled Types, sort by uniqueness then p.
+
+**Quality:** all/verified-unique(n==-1&&hit)/unique(n==-1)/has-
+
+text/context(n===-2)/multi(n>1')/verified(hit). **Priority pref:** p1-show p 1-7 only, p2-show p 8-9 only.
+
+locHasText(v): checks has Text, name:", getByText/Label/Placeholder, text(), normalize-space, contains('.
+
+##17. Electron Setup
+
+##13. Overlay System
+
+-**highlightBox:** position:fixed, z-index:2147483646, hover= 2px solid #22c55e/rgba(34,197,94,0.12), picked 3px solid #8b5cf6/rgba(139,92,246,0.15)
+
+**tooltipBox:** background:#1e1e2e', 'color:#a5f3fc, font:monospace 11px. Multi-tooltip: top 5, white-space:pre. Single: 1, "white-space:nowrap".
+
+**hlOverlays:** 2px solid #f59e0b (amber). Used for test/highlight matches.
+
+Tooltip position: left mouseX+10, top-mouseY+15: clamp right if leftPos+w>viewW; flip above if topPos+h>viewH
+
+##14. Iframe Support
+
+getiframePath(el)': walk window.frameElement chain. getiframeSelector: priority src-name-title-id-CSS path. Prepend page.frameLocator('sel') chain to locators.
+
+ts page.frameLocator('#main-iframe").getByRole('button', { name: 'Submit'))
+
+##15. AG-Grid Special Handling
+
+isAgGridCheckbox(el) input[checkbox] inside [role="row"][row-id] isAgGridElement(el) inside [role="row"] or .ag-row with row-id
+
+Row context: rowld-row.getAttribute('row-id'), visibleTexts-all cell texts, firstText
+
+Cell context: colld-cell.getAttribute('col-id')", cellValue-text([data-testid-cell-value])
+
+- Checkbox locators (p0-p4): [row-id="abc"].getByRole('checkbox')"
+
+getByRole('row',{name}).getByRole('checkbox')
+
+filter({hasText)).getByRole('checkbox') etc.
+
+- Cell locators: same pattern locator('[col-id="colld"]')" suffix.
+
+## 16. Locator Filtering (filterLocs)
+
+**Playwright mode:** sort by
+
+PLAYWRIGHT_PRIORITY={getBy Testid: 1, getBy Role:2.getByLabel:3.getByPlaceholder:
+
+4.getByAltText:5,getByText:6.getBy Title: 7,CSS:8, XPath:9) then uniqueness. **Custom mode:** filter by enabled Types, sort by uniqueness then p.
+
+**Quality:** all/verified-unique(n==-1&&hit)/unique(n==-1)/has-
+
+text/context(n===-2)/multi(n>1')/verified(hit). **Priority pref:** p1-show p 1-7 only, p2-show p 8-9 only.
+
+locHasText(v): checks has Text, name:", getByText/Label/Placeholder, text(), normalize-space, contains('.
+
+##17. Electron Setup
+
+## 18. Rock Al Integration ( Al Tab)
+
+### IPC Handler (main.js)
+
+js
+
+const https-require('https');
+
+ipcMain.handle('rockai-generate', async
+
+ClapiBase, deploymentid, apiKey.userEmail,elementHtml, elementinfo))=>{ const prompt You are a Playwright expert. Given HTML of a Ul element, generate 3
+
+reliable Playwright locators.
+
+Tag:$(elementinfo.tag) ID:$(elementinfo.id/l'none') Text:$(elementinfo.text['none')
+
+Classes $(elementinfo.classes/l'none')
+
+HTML:$(elementHtml)
+
+RULES: 1)Prefer getByRole>getByTestId>getByLabel>getByPlaceholder>CSS[data-*]
+
+2)AVOID timestamps, dynamic IDs, auto-classes
+
+3)AVOID hardcoded changing text 4)Use aria-label/title for icon buttons 5) For grid
+
+buttons: role-aria-label NOT text
+
+6)Return only page. or locator(strings:
+
+CANDIDATE_1:\n<locator>\nConfidence:
+
+HIGH/MEDIUM/LOW\nCANDIDATE_2....\nCANDIDATE_3:...:
+
+const body-JSON.stringify({messages: [{role:'user',content:prompt)], reasoning_effort:'medium
+
+const url-new URL('${apiBase)/${deploymentId}/infer');
+
+//https.request with Authorization: Bearer $(apiKey), X-User-Email:${userEmail),
+
+rejectUnauthorized:false, timeout:30000
+
+// Parse response: extract CANDIDATE_1/2/3 blocks, strip backticks, ensure starts
+
+with 'page.
+
+//resolve({success:true,candidates)) or resolve({success:false,error)) ):
+
+### Config Fields (AppConfig + localStorage) ts
+
+rockaiEnabled: boolean;
+
+rockaiApiBase: string; // default: https://rockai.cnp-common.musw2.rockai.extdns.pshcloud.blackrock.com/model-
+
+deployment/deployments
+
+rockai Deploymentid: string;
+
+rockaiApiKey: string;
+
+rockaiUserEmail: string;
+
+### Al Tab UI (RockAl.tsx)
+
+**Connection Settings:** API Base URL input, Deployment ID input, API Key
+
+(password), User Email, **Test Connection** button status dot (gray-untested,
+
+amber-testing, green-ok, red-fail)
+
+**Element Source:** Radio "From Picker" (shows last picked element preview) |
+
+"Manual HTML" (textarea)
+
+-**Generate button:** calls bridge.invoke('rockai-generate'.(...) maps candidates
+
+to LocatorInfo[] with isAl:true, aiConfidence: 'HIGH'I'MEDIUM'I'LOW
+
+-**Results:** Gold Al #1/2/3 badge+ confidence badge Copy button per locator
+
+### IPC Bridge (preload-renderer.js)
+
+window.electronBridge - {
+
+send: (ch,data) { if(validSendChannels.includes (ch)) ipcRenderer.send(ch,data):). on: (ch,cb) => { if(validRecvChannels.includes(ch)) ipcRenderer.on(ch.(d)=>cb(d));). invoke:(ch....a) -> {if(validInvoke Channels.includes(ch)) return ipcRenderer.invoke(ch....a); }
+
+Send channels: navigate-to,to-content.cfg-change, start-pick,stop-pick.start-rec,stop-rec.play-recording,stop-playback.test-locator,clear-highlights.zoom-in,zoom-changed,did-navigate
+
+out.zoom-reset.get-zoom Recv channels: locators-picked,action-recorded,status-update,test-result.zoom-
+
+Invoke channels: save-file,load-file,load-session, rockai-generate
+
+### Corporate Site Support (main.js)
+
+js app.commandLine.appendSwitch('ignore-certificate-errors"); app.commandLine.appendSwitch('allow-insecure-localhost'); app.commandLine.appendSwitch('auth-server-whitelist","*"); app.commandLine.appendSwitch('auth-negotiate-delegate-whitelist', *"); //Spoof Chrome user-agent for SSO compatibility
+
+### BrowserView Navigation
+
+On URL enter browserView.webContents.loadURL(url). On 'did-finish-load-re-inject content-script. Re-initialize overlays after navigation.
+
+### File I/O
+
+Save: dialog.showSaveDialog write.ts/.py/java. Load:
+
+dialog.showOpenDialog read file. Session auto-save (URL, actions, config) to app.getPath('userData')",
+
+### Zoom Controls (main.js IPC)
+
+ipcMain.on(zoom-in', () const z-Math.min(bv.webContents.getZoom Factor()+0.1.3.0); bv.webContents.setZoom Factor(z); win.webContents.send("zoom-changed, Math.round(z*100)); }); ipcMain.on('zoom-out', ()->(const z=Math.max(bv.webContents.getZoom Factor()-0.1,0.3); bv.webContents.setZoomFactor(z); win.webContents.send('zoom-changed, Math.round(z*100)); });
+
+ipcMain.on('zoom-reset', ()->{ bv.webContents.setZoom Factor(1.0); win.webContents.send('zoom-changed', 100); });
+
+Keyboard: Ctrl++ -zoom-in, Ctrl+--zoom-out, Ctrl+O -reset.
+
+### Picker Tab - Al Deduplication
+
+ts
+
+//Normalize and compare ai vs algorithmic locators
+
+const normalize = (v:string) => v.trim().replace(/^\s+/g,''); const aiByValue new Map(aiLocators.map(I=>[normalize(l.v),1]));
+
+// Mark algorithmic locators that Al also produced show inline with Al+confidence
+
+badge const merged Locators locators.map(loc => {
+
+const match aiByValue.get(normalize(loc.v));
+
+}); return match? (...loc, isAl:true, aiConfidence:match.aiConfidence): loc;
+
+// Only truly new Al locators (not in algorithmic list)→ show in Rock Al - New Locators section
+
+const algoSet = new Set(locators.map(I=>normalize(l.v)));
+
+const uniqueAiLocators - aiLocators.filter(l->lalgoSet.has(normalize(l.v)));
+
+Matched locators get gold left border + **AI** badge confidence badge inline. Section header shows: Rock Al-New Locators 2 matched above 1 new.
+
+##19. Common Issues & Fixes
+
+| Issue | Fix |
+
+| Picker doesn't auto-stop | doPickClick() call stopPicking() after sending:
+
+renderer sets setls Picking(false) in locators-picked handler |
+
+window.prompt() blocked | Use inline React state
+
+addingBookmark+bookmarkName instead |
+
+Bookmark dropdown closes immediately | Add 100ms delay before attaching click-
+
+outside handler |
+
+| Dropdown doesn't close after "Use" swapLocator() call setExpandedLine(null)
+
+after swap |
+
+new URL(str) throws | Wrap in try-catch , fallback to raw string |
+
+| CSS/XPath not unique for dynamic buttons stableld() rejects timestamp/date patterns; is DynamicText() guards getByText/getByLabel/recording fallback text
+
+SVG click not working in playback safeClick() uses dispatchEvent(MouseEvent) fallback since SVGElement lacks .click() |
+
+| Event fires twice (shadow+document) is Duplicate Event() dedup with 50ms window
+
+on same target |
+
+### Dynamic Text Detection (is DynamicText')
+
+Reject text as locator if it matches: numbers with separators ('\d[\d,]+), timestamps, dates, currency ($\d'), status counts like "3 items", pure numbers, long random strings.
+
+##20. Packaging (.exe)
+
+json
+
+"build": {
+
+"appld": "com.pcs-tools.app", "productName": "PCS Tools", "directories: ('output": "release"), "files": ["main.js", "preload-content.js","preload-renderer.js", "content-script.js","dist/**/**,"src/renderer/index.html","package.json"], "win": {"target":[{"target":"nsis","arch":["x64"]},{"target":"portable","arch":["x64"]}],"signAndEditEx ecutable":false}, "portable": ("artifactName":"PCS-Tools-Portable.exe"),
+
+"asar": true
+
+npm run dist release/PCS-Tools-Portable.exe' Set CSC_IDENTITY_AUTO_DISCOVERY-false to skip signing.
+
+## 21. Build & Debug
+
+bash
+
+npm run build #webpack dist/renderer.js #electron.
+
+npm start
+
+npm run dev #watch + auto-restart
+
+npm run dist #package.exe
+
+Debug: DevTools in both main window and BrowserView. Prefix logs [PCS] Check localStorage for state issues. Verify IPC channels in preload scripts.
+

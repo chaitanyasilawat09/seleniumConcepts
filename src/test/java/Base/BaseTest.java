@@ -33,6 +33,14 @@ public class BaseTest {
         implicateWait();
         pageLoadWait();
 
+//TODO Healenium (most popular, open-source, Selenium-compatible)
+//Selenium WebDriver ko wrap karta hai (SelfHealingDriver)
+//Locator fail hone par similar element ko DOM tree se match karke automatically heal karta hai
+//Requires: Healenium backend service (via Docker) + MySQL/Postgres/H2
+
+//        WebDriver baseDriver = new ChromeDriver();
+//        SelfHealingDriver driver = SelfHealingDriver.create(baseDriver);
+
         Cookie ck = new Cookie("name", "value");
         driver.manage().addCookie(ck);
 

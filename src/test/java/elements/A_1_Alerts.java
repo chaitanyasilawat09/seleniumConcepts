@@ -18,39 +18,17 @@ public class A_1_Alerts extends BaseTest {
         driver.get("https://demoqa.com/alerts");
 //        List<WebElement> ListOfHeading = driver.findElements(By.xpath("//span[@class='mr-3']"));
         driver.findElement(By.xpath("//button[@id='alertButton']")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+
         // Clik on Alerts
         Alert alerts = driver.switchTo().alert();
-        sleep(4000);
         alerts.accept();
-        sleep(4000);
+        alerts.getText();
+        alerts.dismiss();
+        alerts.sendKeys("sent to alerts");
 
-        driver.findElement(By.xpath("//button[@id='timerAlertButton']")).click();
-        sleep(10000);
-        Alert wait_5_second = driver.switchTo().alert();
-        sleep(4000);
-        wait_5_second.accept();
-        wait_5_second.getText();
-        sleep(4000);
-
-        // Dismiss alert
-        driver.findElement(By.xpath("//button[@id='confirmButton']")).click();
-        Alert cancleAlert = driver.switchTo().alert();
-        sleep(4000);
-        cancleAlert.dismiss();
-        sleep(4000);
-
-        // Send values to alerts
-        driver.findElement(By.xpath("//button[@id='promtButton']")).click();
-        Alert sendKeys = driver.switchTo().alert();
-        sleep(4000);
-        sendKeys.sendKeys("Chaitanya");
-        sleep(4000);
-
-
-//        WebDriver driver = new ChromeDriver();
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-//        alert.authenticateUsing(new UserAndPasswordCredentials("myUsername", "myPassword"));
 
     }
 }

@@ -1,7 +1,9 @@
 package extra;
 
 import Base.BaseTest;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.devtools.v147.page.model.Screenshot;
 import org.openqa.selenium.firefox.HasFullPageScreenshot;
 import org.openqa.selenium.remote.Augmenter;
 import org.testng.annotations.Test;
@@ -22,17 +24,19 @@ public class Screenshots extends BaseTest {
         TakesScreenshot screenshots = ((TakesScreenshot) driver);
         File file = screenshots.getScreenshotAs(OutputType.FILE);
         System.out.println(file.getName());
+        // This will work only in TODO Firefox
+        HasFullPageScreenshot fullPageScreenshot = (HasFullPageScreenshot)driver;
+        File fullPageSS = fullPageScreenshot.getFullPageScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(fullPageSS, new File(System.getProperty("user.dir")+"/Error/fullPage.png"));
 
-//        copy screenshot file to CWD
-//        FileUtils.copyFile(file, new File("C:\\projectScreenshots\\homePageScreenshot.png"));
-
+        //TODO For Chrome use AShot
 //   To capture the full page screenshot, we have to use a third-party library named Ashot.
 //   It provides the ability to take a screenshot of a particular WebElement as well as a full-page screenshot.
 
-//        // capture screenshot and store the image
+        // capture screenshot and store the image
 //        Screenshot s=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
 //        ImageIO.write(s.getImage(),"PNG",new File("C:\\projectScreenshots\\fullPageScreenshot.png"));
-//
+
 
 
         // Locate the web element

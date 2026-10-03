@@ -215,7 +215,7 @@ public class InterviewCode_WRT_Strings {
         // Arrays.stream(Integer.toString(i).chars()
         // .mapToObj(c -> (char) c)
         // .toArray()).forEach(System.out::println);
-
+        //  String str = String.valueOf(i);
         String zero = "";
         String nonZero = "";
         char[] chArr = name.toCharArray();
@@ -226,6 +226,7 @@ public class InterviewCode_WRT_Strings {
         }
 
         System.out.println(nonZero + zero);
+//        Integer.parseInt(nonZero);
     }
 
     //    Import   <groupId>org.apache.pdfbox</groupId>
@@ -434,6 +435,7 @@ public class InterviewCode_WRT_Strings {
                     if (map.containsKey(c))
                         map.put(c, map.getOrDefault(c, 0) + 1);
                 }
+//                map.entrySet().stream().filter(a -> a.getValue() > 1).count();
                 if (map.entrySet().stream()
                         .filter(a -> a.getValue() > 1)
                         .collect(Collectors.toList()).size() == 0 && subString.length() > longetsTring.length()) {

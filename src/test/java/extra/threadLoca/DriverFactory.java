@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class DriverFactory {
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     public static WebDriver getDriver() {
         return driver.get();
     }

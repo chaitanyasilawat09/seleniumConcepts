@@ -37,7 +37,7 @@ pipeline {
         stage('Configure') {  // build the box
             steps {
                 script {
-                    if (branchName.equals("master0")) {
+                    if (branchName.equals("master")) {
 //                         sh "chmod +x ./shFile/setups77.sh"
 //                         sh "./shFile/setups77.sh"
                     } else {

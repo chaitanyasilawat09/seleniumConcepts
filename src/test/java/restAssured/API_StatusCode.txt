@@ -1,0 +1,41 @@
+| Code | Name | Example |
+| --- | --- | --- |
+| 100 | Continue | Client sends Expect: 100-continue before a large upload; server says "go ahead" |
+| 101 | Switching Protocols | Upgrading an HTTP connection to WebSocket |   | Code | Name | When to use / Example |
+|  ---------------------------200-----------------------------------------------|
+| 200 | OK | Standard success. GET /users/42 returns user data |
+| 201 | Created | POST /users creates a resource. Response: {"id": 101, "name": "Ada"} with Location: /users/101 header |
+| 202 | Accepted | Request queued for async processing — e.g., POST /reports kicks off a job; body returns {"job_id": "abc", "status": "pending"} |
+| 204 | No Content | Success with empty body — typical for DELETE /users/42 or PUT responses |.             | Code | Name | When to use / Example |
+|  ---------------------------300-----------------------------------------------|
+| 301 | Moved Permanently | Endpoint relocated; clients should update bookmarks. Location: https://api.example.com/v2/users |
+| 302 | Found | Temporary redirect (common after OAuth login flows) |
+| 304 | Not Modified | Client sent If-None-Match with a valid ETag — resource unchanged, use cached copy |
+| 307/308 | Temporary/Permanent Redirect | Like 302/301 but preserves the HTTP method (e.g., POST stays POST) |.                                                       | Code | Name | Example |
+|  ---------------------------400-----------------------------------------------|
+| 400 | Bad Request | Malformed request — POST /users with {"age": "banana"} returns {"error": "age must be a number"} |
+| 401 | Unauthorized | Missing/invalid auth. Request without Authorization: Bearer <token> → 401 |
+| 403 | Forbidden | Authenticated but not allowed — user tries DELETE /admin/settings without admin role |
+| 404 | Not Found | GET /users/9999 where user doesn't exist |
+| 405 | Method Not Allowed | DELETE /health on a read-only endpoint |
+| 406 | Not Acceptable | Client asks for Accept: application/xml but API only serves JSON |
+| 409 | Conflict | POST /users with an email that already exists — {"error": "email already registered"} |
+| 410 | Gone | Resource permanently deleted (e.g., expired download link) |
+| 412 | Precondition Failed | If-Match ETag doesn't match current resource version |
+| 413 | Payload Too Large | Uploading a 500MB file when limit is 10MB |
+| 415 | Unsupported Media Type | Sending Content-Type: text/plain to a JSON-only endpoint |
+| 422 | Unprocessable Entity | JSON is valid but semantically wrong — {"start_date": "2025-01-01", "end_date": "2024-01-01"} (end before start) |
+| 429 | Too Many Requests | Rate limit hit. Include Retry-After: 60 header |                               | Code | Name | Example |
+|  ---------------------------500-----------------------------------------------|
+| 500 | Internal Server Error | Unhandled exception — null pointer, DB query crash |
+| 501 | Not Implemented | Endpoint stubbed out but not built yet |
+| 502 | Bad Gateway | API gateway/reverse proxy can't reach upstream service |
+| 503 | Service Unavailable | Server down for maintenance or overloaded — {"error": "temporarily unavailable", "retry_after": 300} |
+| 504 | Gateway Timeout | Upstream service didn't respond in time (e.g., DB took >30s) |
+                           Create → `201` (not `200`)
+- Delete/PUT with no response body → `204`
+- Async job accepted → `202`
+- Validation failure → `422` for semantic errors, `400` for malformed syntax
+- 401 vs 403: 401 = "who are you?", 403 = "I know you, and no."
+- 404 vs 410: 404 = "doesn't exist (or never did)", 410 = "existed, now gone forever"
+- Rate limits → `429` + `Retry-After`

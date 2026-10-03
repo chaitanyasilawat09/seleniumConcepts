@@ -6,6 +6,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.time.Duration;
+
 import static org.testng.Assert.assertEquals;
 
 public class KeyBoardEventsTest extends BaseTest {
@@ -17,7 +19,6 @@ public class KeyBoardEventsTest extends BaseTest {
 
         //Create object of the Actions class
         Actions actions = new Actions(driver);
-
 
         // Enter the Full Name
         WebElement fullName = driver.findElement(By.id("userName"));

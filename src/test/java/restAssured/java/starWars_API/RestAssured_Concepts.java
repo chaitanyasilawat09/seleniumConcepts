@@ -55,7 +55,7 @@ public class RestAssured_Concepts {
         given().when().get("/users/eugenp")
                 .then().log().ifValidationFails().statusCode(200);
 
-        given().given().log().ifValidationFails()
+        given().log().ifValidationFails()
                 .when().get("/users/eugenp")
                 .then().statusCode(200);
 

@@ -2,9 +2,13 @@
 <suite name="Test-Suite">
     <test name="ToolsQA">
         <groups>
+<!--            <dependencies>-->
+<!--                <group name="" depends-on=""></group>-->
+<!--            </dependencies>-->
             <run>
 <!--                <include name="regression"/>-->
                 <include name="smoke"/>
+                <exclude name="regression"/>
             </run>
         </groups>
         <classes>

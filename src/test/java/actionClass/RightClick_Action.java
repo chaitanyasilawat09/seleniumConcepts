@@ -90,7 +90,7 @@ public class RightClick_Action extends BaseTest {
 
 //        TODO drag N drop action
         Actions actions = new Actions(driver);
-        actions.dragAndDropBy(drag, 100, 100);
+        actions.dragAndDropBy(drag, 100, 100).perform();;
         sleep(5000);
     }
 

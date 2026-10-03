@@ -50,8 +50,9 @@ public class Maven {
 
 
 // TODO run specific file from cmd :
-//  mvn -Dsurefire.suiteXmlFiles=src/test/resources/testng.xml test
-//  mvn -DsuiteXmlFile=src/test/resources/regression.xml -Dgroups="smoke,regression" -Dbrowser=edge -Denv=staging -Dtag="critical" test
+//  mvn test -Dsurefire.suiteXmlFiles=src/test/resources/testng.xml
+//  mvn test -DsuiteXmlFiles=src/test/resources/regression.xml -Dgroups="smoke,regression" -Dbrowser=edge -Denv=staging -Dtag="critical"
+
 
 //<properties>
 //    <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>

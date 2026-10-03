@@ -3,6 +3,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.Cookie;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -36,7 +37,7 @@ public class PeopelTest extends BaseTest {
 
 //        response.time();  to get response time
 
-//        given().when().get("/").then().extract().as(People.class);
+        given().when().get("/").then().extract().as(People.class);
 //        DataFileInJSON/people.json  response_Data
         System.out.println(response.asString());
         verifyStatusCode(response,200);
@@ -55,7 +56,8 @@ public class PeopelTest extends BaseTest {
         Response response = getPeopleData();
 //      TODO get all Names available in Result array
         response.jsonPath().getList("results.name");
-        response.jsonPath().get("next");
+        response.jsonPath().getString("next");
+        response.jsonPath().getInt("id");
         System.out.println(response.jsonPath().getList("results.name"));
 
 //        TODO verify Names contains a Particular name or not
@@ -79,7 +81,8 @@ public class PeopelTest extends BaseTest {
         ObjectMapper mapper = new ObjectMapper();
         People people = mapper.readValue(jsonObject.toString(),People.class);
 
-        mapper.writeValueAsString(people);
+        JSONObject Java_2_JSON = new JSONObject(mapper.writeValueAsString(people));
+//        mapper.writeValueAsString(people);
         System.out.println(people.toString());
         System.out.println(people.getResults().get(0).getName());
     }
@@ -233,7 +236,7 @@ public void validate_People_Json_Schema(){
 
         given().auth().basic("username","Password");
         given().auth().oauth2("access Token");
-        given().auth().oauth("consumerKey", "consumerSecret", "accessToken", "tokenSecret");
+      // old way  given().auth().oauth("consumerKey", "consumerSecret", "accessToken", "tokenSecret");
         given().header("authorization","Bearer token");
 
     }
@@ -245,5 +248,6 @@ public void validate_People_Json_Schema(){
                 .get("https://api.example.com/user/123")
                 .then()
                 .spec(responseSpec);
+
     }
 }

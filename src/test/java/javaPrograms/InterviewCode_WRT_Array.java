@@ -9,9 +9,6 @@ import java.util.stream.Stream;
 
 public class InterviewCode_WRT_Array {
 
-/*
-* */
-
     @Test
     public void common_Element_In_2_Array() {
 
@@ -89,6 +86,59 @@ public class InterviewCode_WRT_Array {
         System.out.println(list);
     }
 
+    @Test
+    public void get_1_2_3_Small_And_LargestValue(){
+
+        int [] arr = {1,3,2,4,5,6,8,7,10,9,0};
+        int _1Large = 0;
+        int _2Large = 0;
+        int _3Large = 0;
+        int _1Small = 999;
+        int _2Small = 999;
+        int _3Small = 999;
+
+        for (int i : arr){
+
+            if (_1Large<i || _2Large<i){
+                if(_1Large<i){
+                    _3Large = _2Large;
+                    _2Large = _1Large;
+                    _1Large = i;
+                }
+                else {
+                    if (_2Large<i){
+                        _3Large = _2Large;
+                        _2Large = i;
+                    }
+                }
+            }
+
+            if (_1Small>i || _2Small>i){
+
+                if(_1Small>i){
+                    _3Small = _2Small;
+                    _2Small = _1Small;
+                    _1Small = i;
+                }else{
+                    if(_2Small>i){
+                        _3Small = _2Small;
+                        _2Small = i;
+
+                    }}
+            }
+
+
+        }
+
+
+        System.out.println(_1Large);
+        System.out.println(_2Large);
+        System.out.println(_3Large);
+        System.out.println(_1Small);
+        System.out.println(_2Small);
+        System.out.println(_3Small);
+
+    }
     @Test
     public void find_Large_and_Small_From_Array() {
 
@@ -174,6 +224,11 @@ public class InterviewCode_WRT_Array {
                 .filter(i -> intArr[i] == target)
                 .findFirst().orElse(-1);
         System.out.println(index);
+
+        //With list
+        List<Integer> list  = Arrays.stream(intArr).boxed().collect(Collectors.toList());
+        System.out.println(IntStream.range(0,list.size())
+                .filter(a->list.get(a)==target).findFirst().orElse(-1));
     }
 
     @Test

@@ -15,25 +15,32 @@ TestListener listens to specific events (depending on its methods) and executes 
 With ITestListener in TestNG, we can also log the events onto the reports using the Selenium web driver.
 The ITestListener contains the following methods:
 
-onStart: This method invokes when the test class is instantiated and before executing any test method.
+onStart	        before all test case
+onFinish	    after all test case
+onTestStart	    Har test start hone par
+onTestSuccess	Test pass hone par
+onTestFailure	Test fail hone par
+onTestSkipped	Test skip hone par
+
+onStart: This method invokes before all test case in suite
 Syntax: void onStart(ITestContext context);
 
-onFinish: This method invokes when all the test methods have run, and calling of all of their configuration methods happens.
+onFinish: This method invokes after all test case in suite
 Syntax: void onFinish(ITestContext context);
 
-onTestStart:  This method invokes every time a test method is called and executed.
+onTestStart:  every time a test method is called and executed.
 Syntax: void onTestStart(ITestResult result);
 
-onTestSuccess: This method is invoked every time a test case passes (succeeds).
+onTestSuccess: every time a test case passes (succeeds).
 Syntax: void onTestSuccess(ITestResult result);
 
-onTestFailure: This method invokes every time a test case fails.
+onTestFailure: every time a test case fails.
 Syntax: void onTestFailure(ITestResult result);
 
-onTestSkipped: This method invokes every time a test skips.
+onTestSkipped: every time a test skips.
 Syntax: void onTestSkipped (ITestResult result);
 
-onTestFailedButWithinSuccessPercentage: This method invokes when the test method fails as a whole but has passed a certain success percentage, which is defined by the user.
+onTestFailedButWithinSuccessPercentage: test method fails as a whole but has passed a certain success percentage, which is defined by the user.
 Syntax: void onTestFailedButSuccessPercentage (ITestResult result);
 
 TODO Listeners can implement in two ways in TestNG:

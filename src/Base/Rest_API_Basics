@@ -84,6 +84,7 @@ Child to parent
 1 method :- (//a[text()='Inbox']/ancestor::span)/following-sibling::div
 2 method :- //a[text()='Inbox']/parent::span//following-sibling::div
 3 method     //a[text()='Inbox']//..//following-sibling::div
+            //h3[text()='Capsicum - Green']//ancestor::h3//following-sibling::div//button[starts-with(.,'Add')]
 
 4 method    (//input[text()='Inbox']/descendant::span) [ to get all 'span' of 'input' ]
 5 method :- //div[@class='sort']/preceding-sibling::input  [ sibling element preceding to the current context node ]
@@ -116,7 +117,18 @@ UI Automation
 API Automation
         RestAssured.useRelaxedHTTPSValidation();
         javax.net.ssl.SSLHandshakeException:
-        sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+        PKIX path building failed: unable to find valid certification path to requested target
+
+Reason : API's server has a invalid, trusted SSL certificate
+         Hostname mismatches
+         Expired or otherwise invalid certs
+
+Here are the two clean ways to avoid useRelaxedHTTPSValidation():
+
+1. Add the cert to your Java truststore (permanent, global)
+        keytool -import -alias myapi-cert -file api.crt -keystore "$JAVA_HOME/lib/security/cacerts" -storepass changeit
+Get the cert from the server, then import it:
+        RestAssured.trustStore(new File("src/test/resources/truststore.jks"), "truststore-password");
 
 
 //  https://localhost/v1/agreement/1234?agreementType=CHQ
