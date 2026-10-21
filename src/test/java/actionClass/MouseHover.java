@@ -18,17 +18,6 @@ public class MouseHover extends BaseTest {
         Actions action = new Actions(driver);
         WebElement menu = driver.findElement(By.xpath("//a[text()='Main Item 2']"));
         action.moveToElement(menu).perform();
-
-        WebElement subMenu = driver.findElement(By.xpath("//a[text()='SUB SUB LIST »']"));
-        action.moveToElement(subMenu).perform();
-        assertThat(String.valueOf(subMenu.isDisplayed()), true);
-        sleep(2000);
-
-        WebElement sub_subMenu = driver.findElement(By.xpath("//a[text()='Sub Sub Item 1']"));
-        action.moveToElement(sub_subMenu).perform();
-        assertThat(String.valueOf(sub_subMenu.isDisplayed()), true);
-//        sub_subMenu.click();
-        sleep(5000);
     }
 
     @Test

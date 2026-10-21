@@ -44,8 +44,13 @@ public class ChromeOptionsExample {
         options.addArguments("--headless");
         options.setAcceptInsecureCerts(true);
 
+        final String USERNAME = "your_browserstack_username";
+        final String ACCESS_KEY = "your_browserstack_access_key";
+        final String URL = "https://" + USERNAME + ":" + ACCESS_KEY +
+                "@hub-cloud.browserstack.com/wd/hub";
+
         WebDriver driver1 =
-                new RemoteWebDriver(new URL("gridURL"), options);
+                new RemoteWebDriver(new URL(URL), options);
     }
 
 

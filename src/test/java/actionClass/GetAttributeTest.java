@@ -12,6 +12,9 @@ public class GetAttributeTest extends BaseTest {
         driver.get("https://demoqa.com/tool-tips/");
         WebElement ageTextBox = driver.findElement(By.id("age"));
 
+        // Find Element inside ShadowRoot
+        driver.findElement(By.xpath("")).getShadowRoot().findElement(By.cssSelector("div#Id"));
+
         //Get title attribute value
         String tooltipText = ageTextBox.getAttribute("title");
 

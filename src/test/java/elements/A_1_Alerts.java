@@ -21,8 +21,8 @@ public class A_1_Alerts extends BaseTest {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-
-        // Clik on Alerts
+        // If alert not present then it will through TODO "TimeOut Exception"
+        // Click on Alerts
         Alert alerts = driver.switchTo().alert();
         alerts.accept();
         alerts.getText();

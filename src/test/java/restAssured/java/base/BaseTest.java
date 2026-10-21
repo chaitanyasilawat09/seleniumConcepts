@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class BaseTest {
 
     public ApplicationProperties applicationProperties = ApplicationProperties.INSTANCE;
-    //TODO In REST Assured, RequestSpecification is used to define reusable request settings —
+    //TODO RequestSpecification is used to define reusable request settings —
     // like base URI, headers, authentication, query params, body, etc.
     public RequestSpecification requestSpecification ;
     @BeforeMethod

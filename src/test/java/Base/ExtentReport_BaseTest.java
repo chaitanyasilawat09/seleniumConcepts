@@ -44,6 +44,7 @@ public class ExtentReport_BaseTest {
     public void test1() {
         reports.endTest(test);  // 1. End the test
         reports.flush();        // 2. Flush the report (write everything to file)
+        DriverFactory.quitDriver();
         driver.quit();          // 3. Quit the browser
     }
 
@@ -51,7 +52,7 @@ public class ExtentReport_BaseTest {
 
 //        download the jar file of the Ashot library from "https://jar-download.com/artifacts/ru.yandex.qatools.ashot/ashot "
         // capture screenshot and store the image
-//        Screenshot s=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
+// TODO:  Screenshot s=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
 //        ImageIO.write(s.getImage(),"PNG",new File("C:\\projectScreenshots\\fullPageScreenshot.png"));
 //
         TakesScreenshot takesScreenshot = ((TakesScreenshot) driver);

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 500">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#11998e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38ef7d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f7971e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd200;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="700" height="500" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="350" y="35" text-anchor="middle" fill="#333" font-size="22" font-weight="bold" font-family="Arial">⏳ PLAYWRIGHT AUTO-WAITING FLOW</text>
+  
+  <!-- Start -->
+  <rect x="250" y="55" width="200" height="40" rx="20" fill="url(#blueGrad)" filter="url(#shadow)"/>
+  <text x="350" y="82" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="Arial">locator.click()</text>
+  
+  <!-- Arrow -->
+  <line x1="350" y1="95" x2="350" y2="115" stroke="#667eea" stroke-width="2"/>
+  <polygon points="350,120 345,112 355,112" fill="#667eea"/>
+  
+  <!-- Check 1: Attached -->
+  <polygon points="350,130 450,170 350,210 250,170" fill="#fff8e1" stroke="#f0883e" stroke-width="2"/>
+  <text x="350" y="165" text-anchor="middle" fill="#f0883e" font-size="11" font-weight="bold" font-family="Arial">Attached?</text>
+  <text x="350" y="180" text-anchor="middle" fill="#8b949e" font-size="9" font-family="Arial">(in DOM)</text>
+  
+  <!-- Yes/No arrows for Check 1 -->
+  <text x="460" y="165" fill="#d32f2f" font-size="10" font-weight="bold" font-family="Arial">No → Wait</text>
+  <line x1="350" y1="210" x2="350" y2="230" stroke="#2e7d32" stroke-width="2"/>
+  <text x="370" y="225" fill="#2e7d32" font-size="10" font-family="Arial">Yes ↓</text>
+  
+  <!-- Check 2: Visible -->
+  <polygon points="350,240 450,280 350,320 250,280" fill="#f3e5f5" stroke="#a371f7" stroke-width="2"/>
+  <text x="350" y="275" text-anchor="middle" fill="#a371f7" font-size="11" font-weight="bold" font-family="Arial">Visible?</text>
+  <text x="350" y="290" text-anchor="middle" fill="#8b949e" font-size="9" font-family="Arial">(not hidden)</text>
+  
+  <text x="460" y="275" fill="#d32f2f" font-size="10" font-weight="bold" font-family="Arial">No → Wait</text>
+  <line x1="350" y1="320" x2="350" y2="340" stroke="#2e7d32" stroke-width="2"/>
+  
+  <!-- Check 3: Stable -->
+  <polygon points="350,350 450,390 350,430 250,390" fill="#e3f2fd" stroke="#79c0ff" stroke-width="2"/>
+  <text x="350" y="385" text-anchor="middle" fill="#79c0ff" font-size="11" font-weight="bold" font-family="Arial">Stable?</text>
+  <text x="350" y="400" text-anchor="middle" fill="#8b949e" font-size="9" font-family="Arial">(no animation)</text>
+  
+  <text x="460" y="385" fill="#d32f2f" font-size="10" font-weight="bold" font-family="Arial">No → Wait</text>
+  <line x1="350" y1="430" x2="350" y2="450" stroke="#2e7d32" stroke-width="2"/>
+  
+  <!-- Success -->
+  <rect x="250" y="455" width="200" height="35" rx="17" fill="url(#greenGrad)" filter="url(#shadow)"/>
+  <text x="350" y="478" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="Arial">✅ PERFORM ACTION</text>
+  
+  <!-- Side checks -->
+  <rect x="520" y="130" width="150" height="130" rx="10" fill="#fafafa" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="595" y="155" text-anchor="middle" fill="#f0883e" font-size="11" font-weight="bold" font-family="Arial">Also Checks:</text>
+  <text x="595" y="180" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">• Enabled</text>
+  <text x="595" y="200" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">• Not obscured</text>
+  <text x="595" y="220" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">• Receives events</text>
+  <text x="595" y="240" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">• Editable (for fill)</text>
+  
+  <!-- Info box -->
+  <rect x="30" y="300" width="180" height="80" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="120" y="325" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="bold" font-family="Arial">💡 No explicit</text>
+  <text x="120" y="345" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="bold" font-family="Arial">waits needed!</text>
+  <text x="120" y="365" text-anchor="middle" fill="#555" font-size="9" font-family="Arial">Playwright handles</text>
+  <text x="120" y="378" text-anchor="middle" fill="#555" font-size="9" font-family="Arial">all waiting for you</text>
+</svg>

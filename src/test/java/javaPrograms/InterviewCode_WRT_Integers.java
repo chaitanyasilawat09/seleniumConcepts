@@ -8,6 +8,21 @@ import java.util.Random;
 
 public class InterviewCode_WRT_Integers {
 
+
+    /*
+    * no_Even_Odd(int no) → void
+isPrime(int no) → boolean
+fibonacciSeries(int no) → void
+factorial(long n) → long (recursive)
+reverce_No(int no) → int
+Armstrong_no_Check(int no) → void
+Methods without parameters
+swap_No_Without_Third_No() — static
+no_Is_Palindrome() — static
+sum_of_Digit_Of_Given_No() — static
+palindrom_No() — static (generates random no, compares digit pairs)
+findMaxMinFromList() — @Test
+    * */
     public static void main(String[] args) {
 
 //        no_Even_Odd(10);
@@ -86,6 +101,7 @@ public class InterviewCode_WRT_Integers {
         int actualNo = no;
         int sum = 0;
         int length = String.valueOf(no).length();
+//        Integer.toString(no).length();
         while (no > 0) {
             int digit = no % 10;
             sum += (int) Math.pow(digit, length);

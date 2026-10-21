@@ -1,5 +1,7 @@
 package javaPrograms;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,5 +14,14 @@ public class Read_text_file {
 //        String [] arr = allLines.get(0).split(System.getProperty("lines.separator"));
         System.out.println(allLines);
         System.out.println(allLines.get(0));
+
+//        or
+
+        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+        }
     }
 }

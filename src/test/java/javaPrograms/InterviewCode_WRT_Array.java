@@ -9,6 +9,28 @@ import java.util.stream.Stream;
 
 public class InterviewCode_WRT_Array {
 
+    /*
+    * Test methods (no parameters)
+common_Element_In_2_Array()
+sort_an_Array()
+remove_duplicate_from_array()
+find_missing_no()
+get_1_2_3_Small_And_LargestValue()
+find_Large_and_Small_From_Array()
+find_SecondLarge_and_second_small_Value()
+find_larget_and_second_largest_From_Array()
+search_Element_in_Array()
+sum_of_Integers_from_Array()
+get_non_repetitive_no()
+getMiddleValueFromLetAndRightSum()
+findSecondHighestSalary()
+Non-test methods
+sortWithout_Collection() — no params
+find_Continious_Accurency_Of_Integer_In_Array() — static, no params
+maximumSubarraySum_Kadane() — static, no params
+maximumSubarraySum_Kadane1(String[] args) — static, takes String[] args (main-style signature)
+    * */
+
     @Test
     public void common_Element_In_2_Array() {
 
@@ -43,6 +65,20 @@ public class InterviewCode_WRT_Array {
             }
         }
         System.out.println(list);
+    }
+
+    public void sortWithout_Collection(){
+        int[] arr = {5,2,8,1};
+
+        for(int i=0;i<arr.length;i++){
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[i] > arr[j]){
+                    int temp = arr[i];
+                    arr[i]=arr[j];
+                    arr[j]=temp;
+                }
+            }
+        }
     }
 
     @Test
@@ -326,18 +362,6 @@ public class InterviewCode_WRT_Array {
         }
     }
 
-    public void sortWithout_Collection(){int[] arr = {5,2,8,1};
-
-        for(int i=0;i<arr.length;i++){
-            for(int j=i+1;j<arr.length;j++){
-                if(arr[i] > arr[j]){
-                    int temp = arr[i];
-                    arr[i]=arr[j];
-                    arr[j]=temp;
-                }
-            }
-        }
-                }
 
     public static void maximumSubarraySum_Kadane() {
         int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};

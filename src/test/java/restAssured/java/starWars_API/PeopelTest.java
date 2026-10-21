@@ -121,7 +121,8 @@ public void validate_People_Json_Schema(){
                 .get("/")
             .then()
             .body(JsonSchemaValidator.
-                    matchesJsonSchema(new File("/Users/chaitanyasilawat/Documents/GitHub/RestAssured_API_Concepts/src/main/java/DataFileInJSON/people_Json_Schema.json")));
+                    matchesJsonSchema(
+                            new File("/Users/chaitanyasilawat/Documents/GitHub/RestAssured_API_Concepts/src/main/java/DataFileInJSON/people_Json_Schema.json")));
 
 //   InputStream schema = getClass().getClassLoader()
 //        .getResourceAsStream("people_Json_Schema.json");
@@ -218,19 +219,12 @@ public void validate_People_Json_Schema(){
         FileOutputStream outputStream = new FileOutputStream("E:\\TestData\\TestData.xls");
         wb.write(outputStream);
         wb.close();
-
-
-
-
-
     }
-
 
     public Response getPeopleData(){
         Response response = given().when().get("/").then().extract().response();
        return response;
     }
-
 
     public void authorizationTypes(){
 

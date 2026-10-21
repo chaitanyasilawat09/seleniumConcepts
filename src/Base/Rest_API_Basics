@@ -38,6 +38,8 @@ API Get call and verify Data
 
 Form Param In API
 given().formParams("username", "john","password","1234").post("/");
+//Server expect that application/x-www-form-urlencoded body (REST Assured automatically ye Content-Type set karta hai)
+username=john&password=1234
 
 TO add Multiple Headers
 given().headers("User-Agent", "MyAppName", "Accept-Charset", "utf-8")
@@ -56,9 +58,6 @@ Cookie myCookie = new Cookie.Builder("session_id", "1234")
     given().cookie(myCookie)
     .when().get("/users/eugenp")
     .then().statusCode(200);
-
-
-
 
   Cookie cookie =
     given()
@@ -146,6 +145,13 @@ given().log().all()
        .queryParam("agreementType", "CHQ")
        .when()
        .get("/{agreementId}");
+
+given()
+        .log().all()
+        .pathParam("agreementId", "1234")          // same jagah, same kaam
+        .queryParam("agreementType", "CHQ")
+.when()
+        .request(Method.GET, "/{agreementId}");    // placeholder yaha se resolve hoga
 
 
 Key Difference Between Test Plan and Test Strategy

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="browserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00c6ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0072ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="contextGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f857a6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff5858;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#11998e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38ef7d;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" fill="#333" font-size="22" font-weight="bold" font-family="Arial">BROWSER → CONTEXT → PAGE HIERARCHY</text>
+  
+  <!-- Browser Box -->
+  <rect x="30" y="55" width="740" height="330" rx="15" fill="none" stroke="url(#browserGrad)" stroke-width="4"/>
+  <rect x="30" y="55" width="180" height="30" rx="8" fill="url(#browserGrad)"/>
+  <text x="120" y="77" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold" font-family="Arial">🌐 BROWSER</text>
+  
+  <!-- Context 1 -->
+  <rect x="50" y="100" width="340" height="270" rx="12" fill="none" stroke="url(#contextGrad)" stroke-width="3"/>
+  <rect x="50" y="100" width="200" height="28" rx="8" fill="url(#contextGrad)"/>
+  <text x="150" y="120" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="Arial">📁 CONTEXT 1 (User A)</text>
+  
+  <!-- Context 1 - Page 1 -->
+  <rect x="70" y="145" width="140" height="100" rx="8" fill="url(#pageGrad)" filter="url(#shadow)"/>
+  <text x="140" y="175" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">📄 PAGE 1</text>
+  <text x="140" y="195" text-anchor="middle" fill="#fff" font-size="10" font-family="Arial">(Tab 1)</text>
+  <text x="140" y="220" text-anchor="middle" fill="#e0ffe0" font-size="9" font-family="Arial">• Locators</text>
+  <text x="140" y="235" text-anchor="middle" fill="#e0ffe0" font-size="9" font-family="Arial">• Actions</text>
+  
+  <!-- Context 1 - Page 2 -->
+  <rect x="230" y="145" width="140" height="100" rx="8" fill="url(#pageGrad)" filter="url(#shadow)"/>
+  <text x="300" y="175" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">📄 PAGE 2</text>
+  <text x="300" y="195" text-anchor="middle" fill="#fff" font-size="10" font-family="Arial">(Tab 2)</text>
+  <text x="300" y="220" text-anchor="middle" fill="#e0ffe0" font-size="9" font-family="Arial">• Locators</text>
+  <text x="300" y="235" text-anchor="middle" fill="#e0ffe0" font-size="9" font-family="Arial">• Actions</text>
+  
+  <!-- Context 1 - Storage info -->
+  <rect x="70" y="260" width="300" height="95" rx="8" fill="#fff0f5"/>
+  <text x="220" y="285" text-anchor="middle" fill="#f857a6" font-size="11" font-weight="bold" font-family="Arial">🔒 Isolated Storage</text>
+  <text x="220" y="305" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">🍪 Cookies (User A)</text>
+  <text x="220" y="322" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">📦 localStorage</text>
+  <text x="220" y="339" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">🔐 Auth State</text>
+  
+  <!-- Context 2 -->
+  <rect x="410" y="100" width="340" height="270" rx="12" fill="none" stroke="url(#contextGrad)" stroke-width="3"/>
+  <rect x="410" y="100" width="200" height="28" rx="8" fill="url(#contextGrad)"/>
+  <text x="510" y="120" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold" font-family="Arial">📁 CONTEXT 2 (User B)</text>
+  
+  <!-- Context 2 - Page 3 -->
+  <rect x="430" y="145" width="140" height="100" rx="8" fill="url(#pageGrad)" filter="url(#shadow)"/>
+  <text x="500" y="175" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">📄 PAGE 3</text>
+  <text x="500" y="195" text-anchor="middle" fill="#fff" font-size="10" font-family="Arial">(Tab 1)</text>
+  <text x="500" y="220" text-anchor="middle" fill="#e0ffe0" font-size="9" font-family="Arial">• Locators</text>
+  <text x="500" y="235" text-anchor="middle" fill="#e0ffe0" font-size="9" font-family="Arial">• Actions</text>
+  
+  <!-- Context 2 - Page 4 -->
+  <rect x="590" y="145" width="140" height="100" rx="8" fill="url(#pageGrad)" filter="url(#shadow)"/>
+  <text x="660" y="175" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">📄 PAGE 4</text>
+  <text x="660" y="195" text-anchor="middle" fill="#fff" font-size="10" font-family="Arial">(Tab 2)</text>
+  <text x="660" y="220" text-anchor="middle" fill="#e0ffe0" font-size="9" font-family="Arial">• Locators</text>
+  <text x="660" y="235" text-anchor="middle" fill="#e0ffe0" font-size="9" font-family="Arial">• Actions</text>
+  
+  <!-- Context 2 - Storage info -->
+  <rect x="430" y="260" width="300" height="95" rx="8" fill="#fff0f5"/>
+  <text x="580" y="285" text-anchor="middle" fill="#f857a6" font-size="11" font-weight="bold" font-family="Arial">🔒 Isolated Storage</text>
+  <text x="580" y="305" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">🍪 Cookies (User B)</text>
+  <text x="580" y="322" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">📦 localStorage</text>
+  <text x="580" y="339" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">🔐 Auth State</text>
+</svg>

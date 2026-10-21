@@ -1,9 +1,6 @@
 package javaPrograms;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Conversion {
@@ -30,7 +27,7 @@ public class Conversion {
         List<Integer> listq = new ArrayList<>(Arrays.asList(1,4,7,8,9,14,2));
         Optional<Integer> in = listq.stream().max(Integer::compareTo);
         int i = list.stream().max(Integer::compare).get();
-
+        Collections.sort(listq);
 
         //Max value from Array
         int [] st = {1,3,4,3,2,6,15};

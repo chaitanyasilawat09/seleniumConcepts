@@ -49,8 +49,8 @@ public class Screenshots extends BaseTest {
 //
 
         WebDriver augmented = new Augmenter().augment(driver);
-        File fullPage = ((HasFullPageScreenshot) augmented)
-                .getFullPageScreenshotAs(OutputType.FILE);
-        Files.copy(fullPage.toPath(), Path.of("fullpage.png"));
+        HasFullPageScreenshot fullPage = ((HasFullPageScreenshot) augmented);
+              File file1 =   fullPage.getFullPageScreenshotAs(OutputType.FILE);
+        Files.copy(file1.toPath(), Path.of("fullpage.png"));
     }
 }

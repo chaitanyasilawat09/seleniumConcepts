@@ -12,6 +12,40 @@ import java.util.stream.*;
 
 public class InterviewCode_WRT_Strings {
 
+    /*Methods with inputs
+permute(String str, String prefix) → void — private static, recursive
+plndrCheck(String str) → boolean — static
+Find_Common_String_In_String_Array(String[] args) → void
+Methods without parameters
+Test methods:
+
+reverseString()
+reverse_eachWord_at_Same_PLace()
+find_Dup_Char_In_String() — static
+count_Of_Word_In_String()
+permute() — static (overloaded, calls permute(str, prefix))
+palindram() — static
+verify_Two_String_Anagrams()
+count_vowel_In_String()
+unique_Charactor_In_Stirg()
+swap_string_without_3rd_String()
+a2b3c4()
+lower_And_upper_case()
+shift_0_to_End()
+find_longest_subString_and_Polendrom_SubString_from_Given_String() — static
+BracketsOpenClose()
+longest_substring_without_repeating_characters()
+sortHashMapByValue() — JUnit @org.junit.Test
+mergeTwoMaps() — JUnit @org.junit.Test
+convertListToUppercase() — JUnit @org.junit.Test
+Non-test methods:
+
+upperCase_First_Char() — static
+read_PDF_FIle() — throws Exception (uses PDFBox)
+print_Reverse_String_and_maintain_space() — static
+verifyMobileNo()
+valid_Mail_Id()*/
+
     @Test
     public void reverseString() {
         String Name = "ChaitanyaSilawat";
@@ -39,6 +73,21 @@ public class InterviewCode_WRT_Strings {
         System.out.println(revString);
     }
 
+
+    public static void upperCase_First_Char() {
+        String name = "my name is chaitanya";
+        String[] stArr = name.split("\\s");
+        String finalString = "";
+        for (String str : stArr) {
+
+            finalString = finalString + String.valueOf(str.charAt(0)).toUpperCase()
+                    + str.substring(1) + " ";
+        }
+
+        System.out.println(finalString);
+
+    }
+
     @Test
     public static void find_Dup_Char_In_String() {
         String name = "duplicateCharacterinString";
@@ -62,8 +111,10 @@ public class InterviewCode_WRT_Strings {
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
                 .collect(Collectors.toMap(
-                        Map.Entry::getKey, Map.Entry::getValue
-                        , (old, newValue) -> old, LinkedHashMap::new
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (old, newValue) -> old,
+                        LinkedHashMap::new
                 ));
 
         System.out.println(storeMap);
@@ -177,7 +228,7 @@ public class InterviewCode_WRT_Strings {
         char[] chArr = name.toCharArray();
         for (int i = 0; i < chArr.length; i++) {
             char newChar = chArr[i];
-            if (Character.isDigit(chArr[i + 1])) {
+            if (i < name.length() && Character.isDigit(chArr[i + 1])) {
                 int repeat = Character.getNumericValue(chArr[i + 1]);
                 for (int j = 0; j < repeat; j++) {
                     output = output + newChar;
@@ -285,9 +336,9 @@ public class InterviewCode_WRT_Strings {
 
     public void Find_Common_String_In_String_Array(String[] args) {
         String[] arr = {"automatic", "aautozone", "showauto", "moboleauto", "myautoriksha", "yourautoShoq", "automation"};
+        Arrays.sort(arr, Comparator.comparing(String::length));
         String firstString = arr[0];
         int firstStringLen = firstString.length();
-        Arrays.sort(arr, Comparator.comparing(String::length));
         String repStirng = "";
         for (int i = 0; i < firstStringLen; i++) {
             for (int j = i + 1; j <= firstStringLen; j++) {
@@ -303,7 +354,8 @@ public class InterviewCode_WRT_Strings {
         System.out.println(repStirng);
 
     }
-@Test
+
+    @Test
     public static void find_longest_subString_and_Polendrom_SubString_from_Given_String() {
         String s = "w12aaddaamadamaadaads232";
 //       String s = "abcab";
@@ -327,14 +379,14 @@ public class InterviewCode_WRT_Strings {
                 if (count > 1 && reps.length() < subString.length()) {
                     reps = subString;
                 }
-              //  System.out.println(reps);
+                //  System.out.println(reps);
                 // TODO to find Longest Palandram stirng from given string
 //               if(subString.length()>1){
                 plndrCheck = plndrCheck(subString);
                 if (plndrCheck && rep.length() < subString.length())
                     rep = subString;
 
-               // System.out.println(rep);
+                // System.out.println(rep);
 
             }
         }
@@ -438,7 +490,8 @@ public class InterviewCode_WRT_Strings {
 //                map.entrySet().stream().filter(a -> a.getValue() > 1).count();
                 if (map.entrySet().stream()
                         .filter(a -> a.getValue() > 1)
-                        .collect(Collectors.toList()).size() == 0 && subString.length() > longetsTring.length()) {
+                        .collect(Collectors.toList()).size() == 0
+                        && subString.length() > longetsTring.length()) {
                     longetsTring = subString;
 //                    System.out.println(longetsTring);
 
@@ -468,9 +521,9 @@ public class InterviewCode_WRT_Strings {
                 ));
 
         //or
-         List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
 
-                Collections.sort(list, Map.Entry.comparingByValue());
+        Collections.sort(list, Map.Entry.comparingByValue());
 
         //        Map<String, Integer> sortedMap = new LinkedHashMap<>();
         //        for (Map.Entry<String, Integer> entry : list) {
@@ -514,7 +567,7 @@ public class InterviewCode_WRT_Strings {
 //        List<String> upperCase = list.stream()
 //                .map(s -> String.valueOf(s.charAt(0)).toUpperCase()+s.substring(1))
 //                .collect(Collectors.toList());
-        
+
         System.out.println("Original: " + list);
         System.out.println("Uppercase: " + upperCase);
         // Output: [APPLE, BANANA, CHERRY]

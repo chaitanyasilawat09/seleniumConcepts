@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 450">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f7971e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd200;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="green" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#56ab2f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a8e063;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2193b0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6dd5ed;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="purple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8e2de2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4a00e0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="red" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff416c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff4b2b;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="700" height="450" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="350" y="35" text-anchor="middle" fill="#333" font-size="22" font-weight="bold" font-family="Arial">🏆 LOCATOR PRIORITY PYRAMID</text>
+  <text x="350" y="55" text-anchor="middle" fill="#666" font-size="12" font-family="Arial">Best → Worst (Top to Bottom)</text>
+  
+  <!-- Pyramid layers -->
+  <!-- Layer 1 - getByRole (Best) -->
+  <polygon points="350,75 290,130 410,130" fill="url(#gold)" filter="url(#shadow)"/>
+  <text x="350" y="115" text-anchor="middle" fill="#000" font-size="11" font-weight="bold" font-family="Arial">getByRole()</text>
+  <text x="520" y="110" fill="#f7971e" font-size="11" font-weight="bold" font-family="Arial">🥇 BEST - Accessibility first</text>
+  
+  <!-- Layer 2 - getByLabel -->
+  <polygon points="280,135 220,190 480,190 420,135" fill="url(#green)" filter="url(#shadow)"/>
+  <text x="350" y="170" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">getByLabel()</text>
+  <text x="540" y="165" fill="#56ab2f" font-size="11" font-weight="bold" font-family="Arial">Form inputs</text>
+  
+  <!-- Layer 3 - getByPlaceholder -->
+  <polygon points="210,195 150,250 550,250 490,195" fill="url(#blue)" filter="url(#shadow)"/>
+  <text x="350" y="230" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">getByPlaceholder()</text>
+  <text x="570" y="225" fill="#2193b0" font-size="11" font-weight="bold" font-family="Arial">Text inputs</text>
+  
+  <!-- Layer 4 - getByText -->
+  <polygon points="140,255 80,310 620,310 560,255" fill="url(#purple)" filter="url(#shadow)"/>
+  <text x="350" y="290" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">getByText()</text>
+  <text x="600" y="285" fill="#8e2de2" font-size="11" font-weight="bold" font-family="Arial">Visible text</text>
+  
+  <!-- Layer 5 - getByTestId -->
+  <polygon points="70,315 30,370 670,370 630,315" fill="#4a5568" filter="url(#shadow)"/>
+  <text x="350" y="350" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">getByTestId()</text>
+  <text x="620" y="345" fill="#666" font-size="11" font-weight="bold" font-family="Arial">Stable test IDs</text>
+  
+  <!-- Layer 6 - CSS/XPath (Worst) -->
+  <polygon points="20,375 20,420 680,420 680,375" fill="url(#red)" filter="url(#shadow)"/>
+  <text x="350" y="405" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Arial">CSS Selectors / XPath</text>
+  <text x="600" y="400" fill="#ff416c" font-size="11" font-weight="bold" font-family="Arial">🥉 AVOID</text>
+  
+  <!-- Legend -->
+  <rect x="20" y="430" width="15" height="15" fill="url(#gold)"/>
+  <text x="40" y="442" fill="#333" font-size="10" font-family="Arial">Recommended</text>
+  
+  <rect x="130" y="430" width="15" height="15" fill="url(#green)"/>
+  <text x="150" y="442" fill="#333" font-size="10" font-family="Arial">Good</text>
+  
+  <rect x="200" y="430" width="15" height="15" fill="url(#red)"/>
+  <text x="220" y="442" fill="#333" font-size="10" font-family="Arial">Last Resort</text>
+</svg>

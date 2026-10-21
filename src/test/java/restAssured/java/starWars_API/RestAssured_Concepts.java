@@ -1,8 +1,10 @@
 package restAssured.java.starWars_API;
 
 import io.restassured.RestAssured;
+import io.restassured.http.Method;
 import io.restassured.response.Response;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.given;
@@ -15,6 +17,10 @@ public class RestAssured_Concepts {
 
     public void restAssuredCOncetp(){
 
+        given().
+                get("https://reqres.in/api/users?page=2").
+                then().
+                statusCode(200).extract().path("sessionId");
 
         Response response = RestAssured.get("/users/eugenp");
         long timeInMS = response.time();
@@ -59,7 +65,22 @@ public class RestAssured_Concepts {
                 .when().get("/users/eugenp")
                 .then().statusCode(200);
 
-
+        Response getResponse =
+                given()
+                        .header("Connection", "keep-alive")
+                        .header("Pragma", "no-cache")
+                        .header("Cache-Control", "no-cache")
+                        .header("Accept", "application/json, text/plain, */*")
+                        .header("X-x15-sessionId", "sessionId")
+                        .pathParam("apiPath","upload")
+                        .queryParam("userId","123")
+                        .when()
+                        .multiPart("file", new File("filePath"))
+                        .multiPart("params", "load")
+                        .put( "/{apiPath}")
+                        .then()
+                        .extract()
+                        .response();
 
 
     }

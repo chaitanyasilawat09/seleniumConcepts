@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="playwrightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#45B8AC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2ECC71;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="seleniumGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#43A047;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#66BB6A;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="450" fill="#ffffff" stroke="#e0e0e0" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" fill="#333" font-size="24" font-weight="bold" font-family="Arial">⚔️ PLAYWRIGHT vs SELENIUM</text>
+  
+  <!-- Headers -->
+  <rect x="50" y="55" width="330" height="45" rx="10" fill="url(#playwrightGrad)" filter="url(#shadow)"/>
+  <text x="215" y="85" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold" font-family="Arial">🎭 PLAYWRIGHT</text>
+  
+  <rect x="420" y="55" width="330" height="45" rx="10" fill="url(#seleniumGrad)" filter="url(#shadow)"/>
+  <text x="585" y="85" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold" font-family="Arial">🔬 SELENIUM</text>
+  
+  <!-- Comparison rows -->
+  <!-- Row 1 -->
+  <rect x="50" y="110" width="330" height="35" rx="5" fill="#e8f5e9"/>
+  <text x="65" y="133" fill="#2ECC71" font-size="12" font-family="Arial">✅ Auto-waiting built-in</text>
+  
+  <rect x="420" y="110" width="330" height="35" rx="5" fill="#ffebee"/>
+  <text x="435" y="133" fill="#ff6b6b" font-size="12" font-family="Arial">❌ Manual WebDriverWait required</text>
+  
+  <!-- Row 2 -->
+  <rect x="50" y="150" width="330" height="35" rx="5" fill="#f1f8e9"/>
+  <text x="65" y="173" fill="#2ECC71" font-size="12" font-family="Arial">✅ Shadow DOM native support</text>
+  
+  <rect x="420" y="150" width="330" height="35" rx="5" fill="#fce4ec"/>
+  <text x="435" y="173" fill="#ff6b6b" font-size="12" font-family="Arial">❌ JavaScript execution needed</text>
+  
+  <!-- Row 3 -->
+  <rect x="50" y="190" width="330" height="35" rx="5" fill="#e8f5e9"/>
+  <text x="65" y="213" fill="#2ECC71" font-size="12" font-family="Arial">✅ Network mocking built-in</text>
+  
+  <rect x="420" y="190" width="330" height="35" rx="5" fill="#ffebee"/>
+  <text x="435" y="213" fill="#ff6b6b" font-size="12" font-family="Arial">❌ Requires proxy setup (BrowserMob)</text>
+  
+  <!-- Row 4 -->
+  <rect x="50" y="230" width="330" height="35" rx="5" fill="#f1f8e9"/>
+  <text x="65" y="253" fill="#2ECC71" font-size="12" font-family="Arial">✅ Multi-tab/window easy handling</text>
+  
+  <rect x="420" y="230" width="330" height="35" rx="5" fill="#fce4ec"/>
+  <text x="435" y="253" fill="#ff6b6b" font-size="12" font-family="Arial">❌ Complex window handles</text>
+  
+  <!-- Row 5 -->
+  <rect x="50" y="270" width="330" height="35" rx="5" fill="#e8f5e9"/>
+  <text x="65" y="293" fill="#2ECC71" font-size="12" font-family="Arial">✅ Browsers bundled (no driver setup)</text>
+  
+  <rect x="420" y="270" width="330" height="35" rx="5" fill="#ffebee"/>
+  <text x="435" y="293" fill="#ff6b6b" font-size="12" font-family="Arial">❌ Separate driver downloads</text>
+  
+  <!-- Row 6 -->
+  <rect x="50" y="310" width="330" height="35" rx="5" fill="#f1f8e9"/>
+  <text x="65" y="333" fill="#2ECC71" font-size="12" font-family="Arial">✅ Trace Viewer for debugging</text>
+  
+  <rect x="420" y="310" width="330" height="35" rx="5" fill="#fce4ec"/>
+  <text x="435" y="333" fill="#ff6b6b" font-size="12" font-family="Arial">❌ Third-party tools needed</text>
+  
+  <!-- Row 7 -->
+  <rect x="50" y="350" width="330" height="35" rx="5" fill="#e8f5e9"/>
+  <text x="65" y="373" fill="#2ECC71" font-size="12" font-family="Arial">✅ Video recording built-in</text>
+  
+  <rect x="420" y="350" width="330" height="35" rx="5" fill="#ffebee"/>
+  <text x="435" y="373" fill="#ff6b6b" font-size="12" font-family="Arial">❌ External tools required</text>
+  
+  <!-- Row 8 -->
+  <rect x="50" y="390" width="330" height="35" rx="5" fill="#f1f8e9"/>
+  <text x="65" y="413" fill="#45B8AC" font-size="12" font-family="Arial">⚡ Faster (CDP Protocol)</text>
+  
+  <rect x="420" y="390" width="330" height="35" rx="5" fill="#fce4ec"/>
+  <text x="435" y="413" fill="#ffd93d" font-size="12" font-family="Arial">🐢 Slower (HTTP/WebDriver Protocol)</text>
+  
+  <!-- VS -->
+  <circle cx="400" y="280" r="25" fill="#ff6b6b"/>
+  <text x="400" y="286" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold" font-family="Arial">VS</text>
+</svg>
